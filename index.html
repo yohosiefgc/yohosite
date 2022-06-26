@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Dawn "Yohosie" Hosie</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="https://use.typekit.net/cdz6dnd.css">
+  <!--
+  TODO: Trim fonts on Adobe Fonts
+-->
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/navigation.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body>
+
+  <!-- SVG STORAGE 
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div id="svg-storage" style="position: absolute; visibility:hidden; display:none;">
+    
+    <!-- arrow-->
+    <svg>
+      <defs>
+        <g id="arrow" data-name="arrow">
+          <path class="cls-1" d="M21.52,28.94H10.61L21.22,18.33H0V10.61H21.22L10.61,0H21.52L36,14.47Z"/>
+        </g>
+      </defs>
+    </svg>
+
+    <svg>
+      <defs>
+        <g id="underline" data-name="underline">
+          <rect height="6px" width="50px" fill="url(#pattern-line)"></rect>
+        </g>
+      </defs>
+    </svg>
+
+    <!-- diagonal line pattern-->
+    <!-- TODO: move diagonal line pattern to be referenced here-->
+  </div>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div id="sidebar">
+    <div class="sidebar-nav-border"></div>
+    <div id="sidebar-nav-icon">
+      <div class="rotation-wrapper-inner">
+        <!--Navigation icon svg data stored 1:1 in navigation.svg-->
+        <svg id="navtoggle" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 43.69 43.8" style="enable-background:new 0 0 43.69 43.8;" xml:space="preserve">
+          <g>
+            <path class="sidebar-nav-icon-border" d="M43.31,21.9c0,11.89-9.63,21.52-21.52,21.52c-28.55-1.13-28.54-41.91,0-43.04
+              C33.67,0.38,43.31,10.02,43.31,21.9L43.31,21.9z"/>
+          </g>
+          <line class="sidebar-nav-icon-plus sidebar-nav-icon-line-1" x1="22" y1="14" x2="22" y2="30"/>
+          <line class="sidebar-nav-icon-plus sidebar-nav-icon-line-2" x1="30" y1="22" x2="14" y2="22"/>
+        </svg>
+      </div>
+    </div>
+    <div id="name" class="nav-alt-toggle">
+      <div class="rotation-wrapper-inner">
+        <h2><a href="#">Yohosie</a></h2> <!--TODO: Kern font-->
+      </div>
+    </div>
+    <div id="page-title" class="nav-alt-toggle">
+      <div class="rotation-wrapper-inner">
+        <button>Homepage</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="navigation" class="navigation-hide">
+    <div id="navigation-container" class="container">
+      <div class="row">
+        <div class="one column">
+          &nbsp; <!-- nav fill -->
+        </div>
+        <div class="four columns">
+          <div class="navigation-main-container">
+            &nbsp; <!-- used to stop animation snapping -->
+            <ol class="navigation-main">
+              <li class="navigation-li navigation-li-first">
+                <a href="#"><span>Portfolio</span></a>
+                <svg class="navigation-arrow">
+                  <use xlink:href="#arrow"></use>
+                </svg>
+                <svg class="navigation-underline">
+                  <rect fill="url(#pattern-line)"></rect>
+                </svg>
+              </li>
+              <li class="navigation-li navigation-li-second">
+                <a href="#"><span>About</span></a>
+                <svg class="navigation-arrow">
+                  <use xlink:href="#arrow"></use>
+                </svg>
+                <svg class="navigation-underline">
+                  <rect fill="url(#pattern-line)"></rect>
+                </svg>
+              </li>
+              <li class="navigation-li navigation-li-third">
+                <a href="#"><span>Gaming</span></a>
+                <svg class="navigation-arrow">
+                  <use xlink:href="#arrow"></use>
+                </svg>
+                <svg class="navigation-underline">
+                  <rect fill="url(#pattern-line)"></rect>
+                </svg>
+              </li>
+              <li class="navigation-li navigation-li-fourth">
+                <a href="#"><span>Blog</span></a>
+                <svg class="navigation-arrow">
+                  <use xlink:href="#arrow"></use>
+                </svg>
+                <svg class="navigation-underline">
+                  <rect fill="url(#pattern-line)"></rect>
+                </svg>
+              </li>
+              <li class="navigation-li navigation-li-fifth">
+                <a href="#"><span>Contact</span></a>
+                <svg class="navigation-arrow">
+                  <use xlink:href="#arrow"></use>
+                </svg>
+                <svg class="navigation-underline">
+                  <rect fill="url(#pattern-line)"></rect>
+                </svg>
+              </li>
+            </ol>
+            <ol class="navigation-contact">
+              <li><a href="#">dawn@dawnhosie.com</a></li>
+              <li class="last"> <a href="#">twitter</a></li>
+            </ol>
+            <ol class="navigation-rectangles">
+              <li><svg><rect></svg></li>
+              <li><svg><rect></svg></li>
+              <li><svg><rect></svg></li>
+              <li><svg><rect></svg></li>
+              <li><svg><rect></svg></li>
+            </ol>
+          </div>
+        </div>
+        <div class="seven columns navigation-diagonal-lines">
+          <div class="navigation-svg-container">
+            <svg>
+              <!--todo: make less stupid-->
+              <pattern id="pattern-line" x="0" y="0" width="10" height="10" overflow="visible" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="20" y2="20" stroke="white" overflow="visibile" />
+              </pattern>
+              <polygon points="
+                5,-100
+                5,1200
+                1200,1800
+                1800, -100" fill="url(#pattern-line)">
+              </polygon>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="two columns">
+        &nbsp;
+      </div>
+      <div class="five columns">
+        <h4>Basic Page</h4>
+        <p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some content! If you need some help hit up the <a href="http://www.getskeleton.com">Skeleton documentation</a>.</p>
+      </div>
+      <div class="five columns">
+        <h4>right column test</h4>
+        <p>this is the right column</p>
+      </div>
+    </div>
+  </div>
+  
+
+
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="scripts/script.js" defer></script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

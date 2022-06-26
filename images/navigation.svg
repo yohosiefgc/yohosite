@@ -1,0 +1,9 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        viewBox="0 0 43.69 43.8" style="enable-background:new 0 0 43.69 43.8;" xml:space="preserve">
+        <g>
+          <path class="nav-icon-border" d="M43.31,21.9c0,11.89-9.63,21.52-21.52,21.52c-28.55-1.13-28.54-41.91,0-43.04
+            C33.67,0.38,43.31,10.02,43.31,21.9L43.31,21.9z"/>
+        </g>
+        <line class="nav-icon-plus nav-icon-line-1" x1="22" y1="14" x2="22" y2="30"/>
+        <line class="nav-icon-plus nav-icon-line-2" x1="30" y1="22" x2="14" y2="22"/>
+      </svg>
