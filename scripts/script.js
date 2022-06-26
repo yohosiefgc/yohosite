@@ -24,8 +24,13 @@ navAltToggle[1].addEventListener('mouseenter', function(){ hideNav(); }); //TODO
 
 const showNav = () => {
     navToggleTracker = true;
+    nav.classList.remove('navigation-hide');
     nav.classList.add('navigation-show');
-    nav.classList.remove('navigation-animation-bg-fade');
+
+    nav.classList.remove('navigation-animation-bg-fadein');
+    nav.classList.add('navigation-animation-bg-fadein');
+    nav.style.backgroundColor = ('rgba(0, 0, 0, .85)'); // ??? WHY?
+
     navIconLineOne.classList.add('svg1animation');
     navIconLineTwo.classList.add('svg1animation');
     navIconLineBorder.classList.add('svg2animation');
@@ -41,7 +46,11 @@ const showNav = () => {
 
 const hideNav = () => {
     navToggleTracker = false;
-    nav.classList.add('navigation-animation-bg-fade');
+
+    nav.classList.remove('navigation-animation-bg-fadein');
+    nav.classList.add('navigation-animation-bg-fadeout');
+    nav.style.backgroundColor = ('rgba(0, 0, 0, 0)');
+
     navIconLineTwo.classList.remove('svg1animation');
     navIconLineOne.classList.remove('svg1animation');
     navIconLineBorder.classList.remove('svg2animation');

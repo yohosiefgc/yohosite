@@ -85,18 +85,37 @@
 
 #navigation{
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.85);
   height: 100vh;
   width: 100vw;
   padding:0; /*doesn't do anything*/
   margin:0; /*doesn't do anything*/
   z-index:1;
-  transition: .8s ease-out;
+  background-color: rgba(0, 0, 0, 0)
 }
 
-.navigation-animation-bg-fade{
-  background-color: rgba(0, 0, 0, 0)!important;
+.navigation-animation-bg-fadein{
+  animation-name: bgFadeIn;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
 }
+
+@keyframes bgFadeIn{
+  from {background-color: rgba(0, 0, 0, 0)};
+  to {background-color: rgba(0, 0, 0, .85)};
+}
+
+.navigation-animation-bg-fadeout{
+  animation-name: bgFadeOut;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes bgFadeOut{
+  from {background-color: rgba(0, 0, 0, .85)};
+  to {background-color: rgba(0, 0, 0, 0)};
+}
+
+
 
 .navigation-main-container{
   transition: all .5s ease-in-out;
@@ -145,13 +164,13 @@
   opacity:1;
 }
 
-.navigation-li-first{ transition: 0.2s ease-out; }
-.navigation-li-second{ transition: 0.3s ease-out; }
-.navigation-li-third{ transition: 0.4s ease-out; }
-.navigation-li-fourth{ transition: 0.5s ease-out; }
-.navigation-li-fifth{ transition: 0.6s ease-out; }
+.navigation-li-first{ transition: 0.2s ease-out; transform: translateX(-5%);}
+.navigation-li-second{ transition: 0.3s ease-out; transform: translateX(-5%);}
+.navigation-li-third{ transition: 0.4s ease-out; transform: translateX(-5%);}
+.navigation-li-fourth{ transition: 0.5s ease-out; transform: translateX(-5%);}
+.navigation-li-fifth{ transition: 0.6s ease-out; transform: translateX(-5%);}
 
-.navigation-li-animation{ transform: translateX(5%);}
+.navigation-li-animation{ transform: translateX(0%);}
 
 #navigation .container .navigation-main li a{
   font-family: acier-bat-solid, Helvetica, Arial, sans-serif;
