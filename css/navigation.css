@@ -41,13 +41,37 @@
 }
 
 #sidebar h2{
-  font-family: acier-bat-solid, Helvetica, Arial, sans-serif;
-  font-weight: 800;
-  font-size: 1.5rem; /*TODO: Pull the h2 font sizes up to a new stylesheet*/
+  font-weight: 400;
+  font-size: 2.2rem; /*TODO: Pull the h2 font sizes up to a new stylesheet*/
   text-transform: uppercase;
-  line-height: 1;
+  line-height: .7;
   letter-spacing: 2px;
   margin-top: calc(40vh - 175px); 
+  position: absolute;
+}
+
+#sidebar .title-default{
+  font-family: acier-bat-strokes, Helvetica, Arial, sans-serif;
+}
+
+#sidebar .title-hover{
+  font-family: acier-bat-solid;
+  transition: all .3s ease-in-out;
+  opacity: 1;
+  overflow:hidden;
+  height:0;
+}
+
+#sidebar .rotation-wrapper-inner a{
+  display: inline-block;
+  background:none;
+  color: #FFF;
+}
+
+/*TODO: Fix this lol*/
+.fade-in-anim{
+  opacity:1!important;
+  height:20px!important;
 }
 
 #sidebar h2 a{
@@ -58,13 +82,32 @@
 #sidebar button{
   font-family: acumin-pro, Helvetica, Arial, sans-serif;
   font-weight: 400;
-  font-size: 1rem; /*TODO: Pull the h3 font sizes up to a new stylesheet*/
+  font-size: 1.2rem; /*TODO: Pull the h3 font sizes up to a new stylesheet*/
   border: 0px;
   background-color: transparent;
-  margin-top: calc(25vh - 160px);
+  margin-top: calc(24vh - 160px);
+}
+ 
+
+/*TODO: Pull this effect and turn it into a callable style*/
+#sidebar button span{
+  display: inline-block;
+  background-image: linear-gradient(rgb(255, 255, 255, .5), #000);
+  background-position: 0 100%; /*OR bottom left*/
+  background-size: 0% 4px;
+  background-repeat: no-repeat;
+  transition: background-size 0.4s ease-out; background-position: 0s 0.4s;
+  background-position-y: 110%;
+  color:rgb(255, 255, 255, .8)
 }
 
-/* Navigation Toggle SVG*/
+#sidebar button:hover > span{
+  background-size: 100% 4px;
+  color:rgb(255, 255, 255, 1)
+}
+
+/* Navigation Toggle SVG
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 .sidebar-nav-icon-border{ fill:none;stroke:#FFFFFF;stroke-width:1;stroke-miterlimit:10;stroke-dasharray:3.755,3.755; }
 .sidebar-nav-icon-plus{ fill:none;stroke:#FFFFFF;stroke-width:1;stroke-linecap:round;stroke-miterlimit:10; }
 
@@ -74,11 +117,27 @@
   transform-box: fill-box;
   transform-origin: center;
   display: inline-block;
-  transition: 1s ease-in-out
+  transition: 1s ease-in-out;
+}
+
+.sidebar-nav-icon-border{
+  transition: 5s linear;
+  animation-play-state:paused!important;
 }
 
 .svg1animation { transform: rotate(45deg); }
-.svg2animation{ transform: rotate(-90deg); }
+/* .svg2animation{ transform: rotate(-9000deg); } */
+
+.svg2animation{ transform: rotate(-360deg);
+animation-name: infiniteSpin; 
+animation-iteration-count:infinite;
+animation-direction: alternate;}
+
+@keyframes infiniteSpin{
+  0% { transform: rotate(0deg)}
+  100% {transform: rotate(-360deg);}
+}
+
 
 /* Navigation Overlay (main nav)
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -164,11 +223,11 @@
   opacity:1;
 }
 
-.navigation-li-first{ transition: 0.2s ease-out; transform: translateX(-5%);}
-.navigation-li-second{ transition: 0.3s ease-out; transform: translateX(-5%);}
-.navigation-li-third{ transition: 0.4s ease-out; transform: translateX(-5%);}
-.navigation-li-fourth{ transition: 0.5s ease-out; transform: translateX(-5%);}
-.navigation-li-fifth{ transition: 0.6s ease-out; transform: translateX(-5%);}
+.navigation-li-first{ transition: 0.25s ease-out; transform: translateX(-10%);}
+.navigation-li-second{ transition: 0.3s ease-out; transform: translateX(-10%); position: relative; left: -1px;}
+.navigation-li-third{ transition: 0.4s ease-out; transform: translateX(-10%);}
+.navigation-li-fourth{ transition: 0.5s ease-out; transform: translateX(-10%);}
+.navigation-li-fifth{ transition: 0.6s ease-out; transform: translateX(-10%); position: relative; left: -2px;}
 
 .navigation-li-animation{ transform: translateX(0%);}
 
@@ -246,6 +305,7 @@
   opacity: 0.5;
 }
 
+/*Navigation Small links*/
 #navigation .container .navigation-contact li{
   display:inline-block;
   font-size:1rem;
@@ -258,6 +318,23 @@
   font-size: 0.7rem;
   bottom:.3px;
   position: relative;
+}
+
+#navigation .container .navigation-contact a{
+  display: inline-block;
+  background-image: linear-gradient(rgb(255, 255, 255, .5), #000);
+  background-position: 0 100%; /*OR bottom left*/
+  background-size: 0% 4px;
+  background-repeat: no-repeat;
+  transition: background-size 0.4s ease-out; background-position 0s 0.4s;
+  background-position-y: 110%;
+  font-style:italic;
+  color:rgb(255, 255, 255, .8)
+}
+
+#navigation .container .navigation-contact a:hover{
+  background-size: 100% 4px;
+  color:rgb(255, 255, 255, 1)
 }
 
 #navigation .container .navigation-rectangles{
@@ -282,14 +359,17 @@
 
 /*Navigation diagonal lines*/
 .navigation-diagonal-lines{
-  opacity:.4;
 }
 /*TODO: Make less dumb*/
-.navigation-svg-container svg{
-  width:1200px;
+.navigation-svg-container{
+  transition: .5s ease-in-out;
+  width:500px;
   height:100vh;
+  position: relative;
+  opacity: 0;
 }
 
-/*Navigation onload animation*/
-.navigation-li-onload{
+.diagonal-rectangle-navigation{
+  opacity:.3;
+  width:1200px;
 }
