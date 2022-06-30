@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
   <link rel="stylesheet" href="css/navigation.css">
+  <link rel="stylesheet" href="css/portfolio.css">
+  <link rel="stylesheet" href="css/svg.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -53,7 +55,12 @@
       </defs>
     </svg>
 
-    <!-- diagonal line pattern-->
+    <svg>
+      <g id="triangle" data-name="triangle">
+        <polygon points="0,0 0,15 15,15" class="triangle" fill="#FFF" />
+      </g>
+  </svg>
+
     <!-- TODO: move diagonal line pattern to be referenced here-->
   </div>
 
@@ -177,20 +184,65 @@
     </div>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="two columns">
-        &nbsp;
+  <div class="portfolio">
+    <div class="portfolio-content-container portfolio-column">
+      <div class="portfolio-title">
+        Nintendo
       </div>
-      <div class="five columns">
-        <h4>Basic Page</h4>
-        <p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some content! If you need some help hit up the <a href="http://www.getskeleton.com">Skeleton documentation</a>.</p>
+      <div class="portfolio-content">
+        <svg class="triangle rotate-ninety">
+          <use xlink:href="#triangle"></use>
+        </svg>
+        <p class="portfolio-content-body">
+          Ads created for performance campaigns for various Nintendo games. All characters & properties are owned by Nintendo Co., Ltd.
+        </p>
+        <br>
+        <p class="portfolio-content-description">
+          Designer (Statics), Art Director (Motion). 2018 – 2020. 
+        </p>
+        <ul class="portfolio-content-labels">
+          <li>Digital Media</li>
+          <li>Animation</li>
+          <li>Layout</li>
+          <li>Static</li>
+          <li>Gaming</li>
+        </ul>
       </div>
-      <div class="five columns">
-        <h4>right column test</h4>
-        <p>this is the right column</p>
+      <div class="quick-nav">
+        <div class="quick-nav-title">
+          <h4>Quick Nav</h4>
+        </div>
+        <div class="quick-nav-rect">
+          blocks here
+        </div>
+        <div class="quick-nav-descriptor">
+          Fortnite
+        </div>
       </div>
     </div>
+
+      <div class="portfolio-img-container portfolio-column">
+        <div class="portfolio-img">
+          <img src="images/portfolio/nintendo/nintendo-1-small.png" class="horizontal">
+        </div>
+      </div>
+
+      <div class="portfolio-img-container portfolio-column p-alt">
+        <div class="portfolio-img">
+          <img src="images/portfolio/nintendo/nintendo-1-small.png" class="horizontal">
+        </div>
+      </div>
+
+      <div class="portfolio-img-container portfolio-column">
+        <div class="portfolio-img">
+          <img src="images/portfolio/nintendo/nintendo-1-small.png" class="horizontal">
+        </div>
+      </div>
+      <div class="portfolio-img-container portfolio-column p-alt">
+        <div class="portfolio-img">
+          <img src="images/portfolio/nintendo/nintendo-1-small.png" class="horizontal">
+        </div>
+      </div>
   </div>
   
 

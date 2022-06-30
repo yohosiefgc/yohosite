@@ -55,7 +55,7 @@
 }
 
 #sidebar .title-hover{
-  font-family: acier-bat-solid;
+  font-family: acier-bat-solid, Helvetica, Arial, sans-serif; /*TODO: normalize font family*/
   transition: all .3s ease-in-out;
   opacity: 1;
   overflow:hidden;

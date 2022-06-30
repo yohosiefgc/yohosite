@@ -1,0 +1,101 @@
+/*Portfolio Structure*/
+.portfolio-column{
+  float: left;
+  height: 100vh;
+  padding: 0 20px 0 20px;
+}
+
+.portfolio{
+  background-color: purple;
+  width: max-content;
+  overflow-x: visible;
+  margin-left: 100px;
+}
+
+/*Portfolio Content*/
+.portfolio-content-container{
+  width: 22vw;
+  height: 100vh;
+  float: left;
+  overflow-x:auto;
+  line-height: 1.5;
+}
+
+.portfolio-title{
+  margin-top:5vh;
+}
+.portfolio-content{
+  margin-top: 6vh;
+}
+
+.portfolio-content .triangle{
+  margin-bottom: 4vh;
+}
+
+.portfolio-content-body{
+  line-height: 1.4;
+  font-weight: 100;
+}
+
+.portfolio-content-description{
+  font-family: pt-mono, monospace;
+  font-weight: 800;
+  font-style: normal;
+  line-height: 1.4;
+  font-size: 1.3rem;
+}
+
+.portfolio-content-labels{
+  display: inline-block;
+  font-family: acier-bat-solid;
+}
+
+.portfolio-content-labels li{
+  float: left;
+  list-style: none;
+  padding: 1px 10px;
+  margin-right: 10px;
+  margin-bottom: 8px;
+  color:black;
+  background-color: #FFF;
+  font-size: 1.23rem;
+}
+
+
+
+
+/*Portfolio Img Container*/
+.portfolio-img-container{
+  background-color: rgb(60, 255, 0);
+}
+
+.p-alt{
+  background-color:aqua!important;
+}
+
+.portfolio-img{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.portfolio-img .vertical{
+  max-width: 30vw;
+}
+
+.portfolio-img .horizontal{
+  max-width: 50vw;
+  min-height: 25vh;
+  max-height: 50vh;
+}
+
+
+
+/*Quick Nav*/
+.quick-nav{
+  background-color: purple;
+}
+
+.quick-nav-title{
+  
+}

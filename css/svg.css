@@ -1,0 +1,16 @@
+.triangle{
+  width: 12px;
+  height: 12px;
+}
+
+.rotate-ninety{
+  transform: rotate(90deg);
+}
+
+.rotate-one-eighty{
+  transform: rotate(180deg);
+}
+
+.rotate-two-seventy{
+  transform: rotate(270deg);
+}
