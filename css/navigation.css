@@ -4,13 +4,14 @@
 #sidebar{
   height: 100vh;
   width: 100px; /*technically not needed*/
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   z-index: 2;
+  background-color:#000;
 }
 
 #sidebar .sidebar-nav-border{
-  border-right: 1px solid rgba(255,255,255,.8);
+  border-right: 1px solid rgba(255,255,255,.6);
   height: 80vh;
   position: absolute;
   margin-left: 100px;
@@ -241,11 +242,11 @@ animation-direction: alternate;}
 
 }
 
-#navigation .container .navigation-main li:nth-child(1)::before{ content:"Portfolio"; }
-#navigation .container .navigation-main li:nth-child(2)::before{ content:"About"; }
-#navigation .container .navigation-main li:nth-child(3)::before{ content:"Gaming"; }
-#navigation .container .navigation-main li:nth-child(4)::before{ content:"Blog"; }
-#navigation .container .navigation-main li:nth-child(5)::before{ content:"Contact"; }
+#navigation .container .navigation-main li:nth-child(1)::before{ content:"Portfolio"; } /*TODO: Turn this programmatic wtih js*/
+#navigation .container .navigation-main li:nth-child(2)::before{ content:"About"; } /*TODO: Turn this programmatic wtih js*/
+#navigation .container .navigation-main li:nth-child(3)::before{ content:"Gaming"; } /*TODO: Turn this programmatic wtih js*/
+#navigation .container .navigation-main li:nth-child(4)::before{ content:"Blog"; } /*TODO: Turn this programmatic wtih js*/
+#navigation .container .navigation-main li:nth-child(5)::before{ content:"Contact"; } /*TODO: Turn this programmatic wtih js*/
 
 .navigation-main a ~ .navigation-arrow{
   height: 40px;
