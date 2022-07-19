@@ -98,7 +98,7 @@ body {
   font-weight: 200;
   font-style: normal;
   color: #FFFFFF;
-  background-color: #111111; 
+  background-color: #231f20; 
   overflow-x: visible;
   overflow-y: hidden; /*TODO: Fix this?*/  
 }
@@ -136,7 +136,18 @@ p {
 
 /* Links
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-a {
+a{
+  color:rgb(222, 222, 222);
+  text-decoration:none;
+  transition: color 0.25s ease-in-out;
+}
+
+a:hover{
+  color:rgb(255, 255, 255, 1)
+}
+
+span a,
+p a{
   display: inline-block;
   background-image: linear-gradient(rgb(255, 255, 255, .5), #000);
   background-position: 0 100%; /*OR bottom left*/
@@ -144,11 +155,12 @@ a {
   background-repeat: no-repeat;
   transition: background-size 0.4s ease-out; background-position: 0s 0.4s;
   background-position-y: 110%;
-  color:rgb(255, 255, 255, .8)
+  font-style: italic;
+  font-weight: 700;
 }
-a:hover {
+span a:hover,
+p a:hover{
   background-size: 100% 4px;
-  color:rgb(255, 255, 255, 1)
 }
 
 /* Buttons
@@ -289,9 +301,9 @@ ol ol,
 ol ul {
   margin: 1.5rem 0 1.5rem 3rem;
   font-size: 90%; }
-/*li {
+li {
   margin-bottom: 1rem; }
-*/
+
 
 /* Code
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

@@ -4,6 +4,7 @@ const navToggle = document.getElementById('navtoggle');
 const navMain = document.querySelector('.navigation-main-container');
 const navAltToggle = document.querySelectorAll('.nav-alt-toggle'); 
 const navLi = document.querySelectorAll('.navigation-li');
+
 const navIconLineOne = document.querySelector('.sidebar-nav-icon-line-1');
 const navIconLineTwo = document.querySelector('.sidebar-nav-icon-line-2');
 const navIconLineBorder = document.querySelector('.sidebar-nav-icon-border');
@@ -12,6 +13,9 @@ const navDiagonals = document.querySelector('.navigation-svg-container');
 const titleDefault = document.querySelector('.title-default');
 const titleHover = document.querySelector('.title-hover');
 
+const h5Original = document.querySelector('.original');
+const h5Secondary = document.querySelector('.secondary');
+
 let navToggleTracker = false; //TODO: I think this isn't right
 let buttonDisable = false; //TODO: I think this isn't right
 let leftNav = false;
@@ -19,12 +23,9 @@ let leftNav = false;
 
 //title hover
 titleDefault.addEventListener('mouseenter', function () {
-    titleHover.classList.remove('fade-in-start');
     titleHover.classList.add('fade-in-anim');
 });
-
 titleDefault.addEventListener('mouseleave', function () {
-    titleHover.classList.add('fade-in-start');
     titleHover.classList.remove('fade-in-anim');
 });
 
@@ -72,9 +73,6 @@ let hideNavCheck = () => {
     if (navToggleTracker && !buttonDisable) {
         hideNav()
     }
-    else {
-        console.log("can't hide nav rn");
-    }
 }
 
 const showNav = () => {
@@ -85,9 +83,7 @@ const showNav = () => {
     //bg fadein animation
     nav.classList.remove('navigation-animation-bg-fadeout');
     nav.classList.add('navigation-animation-bg-fadein');
-    nav.style.backgroundColor = ('rgba(0, 0, 0, .85)'); // ??? WHY?
-
-
+    nav.style.backgroundColor = ('rgba(35,31,32,.95)'); // ??? WHY?
 
     navIconLineOne.classList.add('svg1animation');
     navIconLineTwo.classList.add('svg1animation');
@@ -123,4 +119,31 @@ const hideNav = () => {
         nav.classList.add('navigation-hide');
         nav.classList.remove('navigation-show');
     }, 800);
+}
+
+const scrollContainer = document.querySelector('.portfolio');
+const horizontalScroll = () => {
+    let h5 = document.getElementsByTagName("h5")[0];
+    if (window.pageXOffset >= 500) {
+        console.log("scroll successful");
+        h5Secondary.classList.add('fade-in-anim');
+    }
+    if (window.pageXOffset < 500) {
+        h5.textContent = "To Portfolio Home";
+    }
+}; 
+window.addEventListener("scroll", horizontalScroll);
+
+// scrollContainer.addEventListener("wheel", (evt) => {
+//     evt.preventDefault();
+//     scrollContainer.scrollLeft += evt.deltaY;
+// });
+
+const randomGenerationSquare = (min, max) => {
+    let poly = ['coord1', 'coord2', 'coord3', 'coord4']
+    for (let i = 0; i < poly.length; i++){
+        const calcRandom = Math.floor(Math.random() * (max - min) + min);
+        poly[i] = calcRandom;
+    }
+    return poly;
 }

@@ -1,13 +1,12 @@
 /* Navigation Sidebar
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-
 #sidebar{
   height: 100vh;
   width: 100px; /*technically not needed*/
   position: fixed;
   bottom: 0px;
-  z-index: 2;
-  background-color:#000;
+  z-index: 9999;
+  background-color:#231f20;
 }
 
 #sidebar .sidebar-nav-border{
@@ -23,7 +22,7 @@
 #sidebar #name{ height: 50vh; }
 #sidebar #page-title{ height: 40vh; }
 
-.rotation-wrapper-inner{ padding: 50% 0; height: 0 }
+#sidebar .rotation-wrapper-inner{ padding: 50% 0; height: 0 }
 
 #sidebar svg{
   width: 40px;
@@ -144,55 +143,13 @@ animation-direction: alternate;}
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 #navigation{
-  position: absolute;
+  position: fixed;
   height: 100vh;
   width: 100vw;
   padding:0; /*doesn't do anything*/
   margin:0; /*doesn't do anything*/
-  z-index:1;
-  background-color: rgba(0, 0, 0, 0)
-}
-
-.navigation-animation-bg-fadein{
-  animation-name: bgFadeIn;
-  animation-duration: .5s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes bgFadeIn{
-  from {background-color: rgba(0, 0, 0, 0)};
-  to {background-color: rgba(0, 0, 0, .85)};
-}
-
-.navigation-animation-bg-fadeout{
-  animation-name: bgFadeOut;
-  animation-duration: .5s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes bgFadeOut{
-  from {background-color: rgba(0, 0, 0, .85)};
-  to {background-color: rgba(0, 0, 0, 0)};
-}
-
-
-
-.navigation-main-container{
-  transition: all .5s ease-in-out;
-  opacity: 0;
-  transform: translateX(-20%); /*is this good*/
-}
-
-.navigation-animation{
-  transform: translateX(0%);
-  opacity: 100%;
-}
-
-.nav-overlay{
-  background-color: red;
-  z-index:7;
-  width: 100%;
-  height: 100%;
+  z-index:9998;
+  background-color: rgba(35,31,32,0)
 }
 
 #navigation .container ol{
@@ -203,17 +160,53 @@ animation-direction: alternate;}
 
 #navigation .container li a{
   text-decoration:none;
-  color: #FFFFFF;
   font-style: normal;
+  font-weight: 400;
 }
 
 #navigation .container .navigation-main{
   width:100%;
   margin-top: 10vh;
-  margin-bottom:calc(60vh - 300px);
+  margin-bottom:calc(50vh - 250px);
 }
 
-/* NAVIGATION ANIMATIONS */
+/*Navigation Animations, these may not be necessary
+-----------------------------------------------*/
+/*animations*/
+#navigation .navigation-animation-bg-fadein{
+  animation-name: bgFadeIn;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes bgFadeIn{
+  from {background-color: rgba(35,31,32,0)};
+  to {background-color: rgba(35,31,32,.9)};
+}
+
+#navigation .navigation-animation-bg-fadeout{
+  animation-name: bgFadeOut;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes bgFadeOut{
+  from {background-color: rgba(35,31,32,.9)};
+  to {background-color: rgba(35,31,32,0)};
+}
+
+#navigation .navigation-main-container{
+  transition: all .5s ease-in-out;
+  opacity: 0;
+  transform: translateX(-20%); /*is this good*/
+}
+
+/*used via js*/
+#navigation .navigation-animation{
+  transform: translateX(0%);
+  opacity: 100%;
+}
+
 .navigation-hide{
   display:none;
   opacity: 0;
@@ -232,14 +225,16 @@ animation-direction: alternate;}
 
 .navigation-li-animation{ transform: translateX(0%);}
 
+#navigation .container .navigation-main li{
+  margin-bottom:1.75rem;
+}
+
 #navigation .container .navigation-main li a{
   font-family: acier-bat-solid, Helvetica, Arial, sans-serif;
-  font-weight: 400;
-  font-size: 4rem;
+  font-size: 4.5rem;
   cursor: pointer;
   position:relative; /*required for it to overlay ::before*/
   z-index:2;
-
 }
 
 #navigation .container .navigation-main li:nth-child(1)::before{ content:"Portfolio"; } /*TODO: Turn this programmatic wtih js*/
@@ -251,7 +246,7 @@ animation-direction: alternate;}
 .navigation-main a ~ .navigation-arrow{
   height: 40px;
   width: 40px;
-  padding-top: 20px; /*TODO: Tweak*/
+  padding-top: 10px; /*TODO: Tweak*/
   margin-left: 0px;
   z-index:1;
   opacity:0;
@@ -274,28 +269,17 @@ animation-direction: alternate;}
   margin-left:5px;
 }
 
-.navigation-main a ~ .navigation-underline{
-  width:120px;
-  height:6px;
-  position: absolute;
-  margin: -10px 0 0 8px;
-  display: block;
-}
-
-.navigation-main a ~ .navigation-underline rect{
-  height: 100%;
-  width: 0%;
-  transition: width .5s ease;
-  transition-delay: 50ms;
-}
-
-.navigation-main a:hover ~ .navigation-underline rect{
+/*Navigation Underline Effect
+-----------------------------------------------*/
+.navigation-main a:hover ~ .bold-underline rect{
   width: 100%;
   margin-left:8px;
   transition: width .5s ease;
   transition-delay: 50ms;
 }
 
+/*Navigation floating top-left Effect
+-----------------------------------------------*/
 #navigation .container .navigation-main li::before{
   font-family: acier-bat-strokes;
   position: absolute;
@@ -306,10 +290,11 @@ animation-direction: alternate;}
   opacity: 0.5;
 }
 
-/*Navigation Small links*/
+/*Navigation Small Links
+-----------------------------------------------*/
 #navigation .container .navigation-contact li{
   display:inline-block;
-  font-size:1rem;
+  font-size:1.25rem;
   font-weight:400;
 }
 
@@ -360,6 +345,7 @@ animation-direction: alternate;}
 
 /*Navigation diagonal lines*/
 .navigation-diagonal-lines{
+  fill:url('#pattern-line');
 }
 /*TODO: Make less dumb*/
 .navigation-svg-container{

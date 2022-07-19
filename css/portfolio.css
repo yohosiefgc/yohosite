@@ -3,7 +3,7 @@
 .portfolio-column{
   float: left;
   height: 100vh;
-  padding: 0 20px 0 20px;
+  padding: 0 50px 0 20px;
   overflow-y: hidden;
 }
 
@@ -20,9 +20,9 @@
 /*Portfolio Content Column
 -------------------------------------------------*/
 .portfolio-content-container{
-  width: 22vw;
-  min-width:280px;
-  max-width: 380px;
+  width: 19vw;
+  min-width:250px;
+  max-width: 320px;
   height: 100vh;
   float: left;
   overflow-x:auto;
@@ -89,7 +89,7 @@
   font-weight: 800;
   font-style: normal;
   line-height: 1.4;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   margin-bottom: 4rem;
 }
 
@@ -107,7 +107,9 @@
   margin-bottom: 8px;
   color:black;
   background-color: #FFF;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+  text-rendering: optimizeLegibility;
+  letter-spacing:2;
 }
 
 
@@ -116,8 +118,8 @@
 .quick-nav-title{
   font-family: acier-bat-solid, Helvetica, Arial, sans-serif; /*TODO: normalize font family*/
   letter-spacing: .5px;
-  font-size: 2rem;
-  margin-bottom:10px;
+  font-size: 1.5rem;
+  margin-bottom:15px;
   padding-bottom:0;
   line-height:0;
 }
@@ -137,10 +139,15 @@
 
 .quick-nav-rect svg{
   margin-bottom: 0;
-  height: 15px;
-  width: 15px;
+  height: 12px;
+  width: 12px;
   float: left;
   fill:rgb(255, 255,255,0.6);
+  transition: 0.25s;
+}
+`
+.quick-nav-rect svg:hover{
+  fill: rgb(255,255,255,1);
 }
 
 .quick-nav-descriptor{
@@ -158,7 +165,7 @@
   width: 400px;
 }
 
-.portfolio-goback svg{
+.portfolio-goback .portfolio-goback-arrow{
   width: 33px;
   height:33px;
   fill: #FFF;
@@ -168,20 +175,60 @@
   margin-right: 8px;
 }
 
+.portfolio-goback-h5text{
+  float: left;
+}
+
+.portfolio-goback h5{
+  margin-bottom: 0rem;
+  line-height: 1;
+}
+
+.portfolio-goback .original{
+  position: absolute;
+}
+.portfolio-goback .secondary{
+  position: absolute;
+  top: 25px;
+  transition: 0.5s;
+}
+
+.portfolio-goback a:hover ~ .bold-underline rect{
+  width: 100%;
+  margin-left:8px;
+  transition: width .5s ease;
+  transition-delay: 50ms;
+}
+
 
 
 /*Portfolio Img Structure
 -------------------------------------------------*/
-.portfolio-img-container{
+.portfolio-section{
+  float: left;
+  height:100vh; /*TODO: dangerous?*/
 }
 
-.p-alt{
+.portfolio-section::after{
+  border-right: 1px solid white;
+  position: absolute;
+  height:1500px;
+  top: -200px;
+  width: 20px;
+  content:""; /*TODO: lol*/
+  transform:rotate(-35deg);
+  z-index:0;
 }
 
+.portfolio-image-container{
+  position: relative;
+  height: 100%;
+}
 .portfolio-img{
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+  z-index:1;
 }
 
 .portfolio-img .vertical{
@@ -189,9 +236,39 @@
 }
 
 .portfolio-img .horizontal{
-  max-width: 50vw;
+  max-width: 38vw;
   min-height: 25vh;
   max-height: 50vh;
+}
+
+.subtitle{
+  position: absolute;
+  top: -25px;
+  display: flex;
+  width:100%;
+}
+
+.subtitle span{
+  font-family: pt-mono, monospace;
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.subtitle svg{
+  height: 10px;
+  display: block;
+  float: left;
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+.subtitle svg rect{
+  height: 100%;
+  width: 100%;
+  fill: url('#pattern-line-three');
+  opacity: 1;
 }
 
 body::-webkit-scrollbar {
