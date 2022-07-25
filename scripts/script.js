@@ -20,6 +20,9 @@ let navToggleTracker = false; //TODO: I think this isn't right
 let buttonDisable = false; //TODO: I think this isn't right
 let leftNav = false;
 
+window.onload = function () {
+    generatePortfolioImgSquare(-100, 40); //TODO: why negative?
+}
 
 //title hover
 titleDefault.addEventListener('mouseenter', function () {
@@ -134,16 +137,71 @@ const horizontalScroll = () => {
 }; 
 window.addEventListener("scroll", horizontalScroll);
 
-// scrollContainer.addEventListener("wheel", (evt) => {
-//     evt.preventDefault();
-//     scrollContainer.scrollLeft += evt.deltaY;
-// });
+const portfolioImgSquare = document.querySelectorAll('.portfolio-img-square');
+const portfolioImg = document.querySelectorAll('.portfolio-img');
 
-const randomGenerationSquare = (min, max) => {
-    let poly = ['coord1', 'coord2', 'coord3', 'coord4']
-    for (let i = 0; i < poly.length; i++){
-        const calcRandom = Math.floor(Math.random() * (max - min) + min);
-        poly[i] = calcRandom;
+const calcImgRightEdge = () => {
+    portfolioImg[1].offsetWidth
+}
+
+
+const generatePortfolioImgSquare = (topRand, leftRand) => {
+    
+    
+    let runCount = 0
+    for (let i = 0; i < portfolioImgSquare.length; i++) {   
+        const result = randomGenerationSquare(topRand, leftRand, runCount);
+        console.log(result);
+        runCount++
+        let plusOrMinus = Math.round(Math.random()) * 2 - 1; //TODO: repeat var
+
+        portfolioImgSquare[i].style.top = `${result.top}px`;
+
+        plusOrMinus === 1 ? portfolioImgSquare[i].style.left = `${result.leftOrRight}px` : portfolioImgSquare[i].style.right = `${result.leftOrRight}px`;
+        portfolioImgSquare[i].style.width = `${result.width}px`;
+        portfolioImgSquare[i].style.height = `${result.height}px`;
+        portfolioImgSquare[i].style.backgroundColor = ('rgba(255, 255, 255, 0.05)');
+
+        // if (portfolioImgSquare[i].getBoundingClientRect().right < portfolioImg[i].getBoundingClientRect().right + 50) {
+        //     console.log(`portfolioImgSquare is too far to the right!`);
+        // }
     }
-    return poly;
+}
+
+const randomGenerationSquare = (topRand, leftRand, runCount) => {
+    let coords = {
+        top: '',
+        leftOrRight: '',
+        width: '',
+        height: ''
+    }
+
+    const min = 20;
+    let plusOrMinus = Math.round(Math.random()) * 2 - 1;
+
+    const top = Math.floor(Math.min(Math.random() * topRand), min) * plusOrMinus;
+    let leftOrRight = Math.floor(Math.random() * leftRand) * plusOrMinus;
+    
+    //normalize LeftOrRight
+    //TODO: Can probably do this with a clamp
+    if (leftOrRight < 0 && leftOrRight > -20) {
+        console.log(`Adjusting leftOrRight... from min value`);
+        leftOrRight === -20;
+        console.log(`${leftOrRight} is the value of leftOrRight`)
+    }
+    else if (leftOrRight > 0 && leftOrRight < 20) {
+        console.log(`Adjusting leftOrRight...`);
+        leftOrRight === 20;
+        console.log(`${leftOrRight} is the value of leftOrRight`)
+    }
+
+    const height = portfolioImg[runCount].getBoundingClientRect().height + 100 - (Math.floor(Math.min(Math.random() * 200), min));
+    const width = portfolioImg[runCount].getBoundingClientRect().width - (Math.floor(Math.min(Math.random() * 200), min));
+    coords.top = top;
+    coords.leftOrRight = leftOrRight;
+    coords.height = height;
+    coords.width = width;
+    console.log(`this ran ${runCount} times`);
+    // console.log(`${leftOrRight} is the value of leftOrRight`)
+    return coords;
 }

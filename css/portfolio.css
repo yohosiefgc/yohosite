@@ -4,7 +4,6 @@
   float: left;
   height: 100vh;
   padding: 0 50px 0 20px;
-  overflow-y: hidden;
 }
 
 .portfolio-column:first-child{
@@ -72,7 +71,7 @@
 -------------------------------------------------*/
 
 .portfolio-content{
-  margin-top: 22vh;
+  margin-top: 30vh;
 }
 
 .portfolio-content .triangle{
@@ -220,25 +219,37 @@
   z-index:0;
 }
 
-.portfolio-image-container{
-  position: relative;
-  height: 100%;
-}
-.portfolio-img{
+.portfolio-img-container{
+  /* position: relative;
+  height: 100%; */
   position: relative;
   top: 50%;
   transform: translateY(-50%);
   z-index:1;
 }
 
-.portfolio-img .vertical{
+.portfolio-img-container .vertical{
   max-width: 30vw;
+  max-height: 70vh;
 }
 
-.portfolio-img .horizontal{
+.portfolio-img-container .horizontal{
   max-width: 38vw;
   min-height: 25vh;
   max-height: 50vh;
+}
+
+.portfolio-img{
+  z-index:3;
+  position: relative;
+}
+
+.portfolio-img-square{
+  background-color: rgba(255, 255, 255, 0);
+  z-index:1;
+  position: absolute;
+  top: 0px;
+  transition: 2s;
 }
 
 .subtitle{
