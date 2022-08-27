@@ -318,7 +318,7 @@
 }
 
 .portfolio-parallax{
-  transform: translateY(var(--translateY));
+  transform: translateX(var(--translateX));
   will-change: transform; /*TODO: Add will-change to all animated elements*/
 }
 
