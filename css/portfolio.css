@@ -3,7 +3,7 @@
 .portfolio-column{
   float: left;
   height: 100vh;
-  padding: 0 50px 0 20px;
+  padding: 0 60px 0 60px;
 }
 
 .portfolio-column:first-child{
@@ -33,7 +33,7 @@
 
 .portfolio-title{
   margin-top:12vh;
-  position: fixed;
+  position: absolute;
   width: 800px;
 }
 
@@ -41,29 +41,30 @@
   float: left;
   font-family: acier-bat-outline, Helvetica, Arial, sans-serif; /*TODO: normalize font family*/
   font-size: 4rem;
-  margin-top: -18px; /*TODO: no negative margin*/
+  margin-top: -12px; /*TODO: no negative margin*/
 }
 
 .portfolio-number svg{
   fill: white;
   position: relative;
-  height: 65px;
+  height: 55px;
   width: 30px;
   padding-right: 15px;
 }
 
 .portfolio-title h1{
   font-family: acier-bat-solid, Helvetica, Arial, sans-serif; /*TODO: normalize font family*/
+  font-size:4.5rem;
 }
 
 .portfolio-title h1::before{
   content: "Nintendo";
   font-family: acier-bat-strokes;
   position: absolute;
-  margin-top:-7vh;
+  margin-top:-5vh;
   margin-left:-10px;
   font-weight:100;
-  font-size: 9rem;
+  font-size: 7rem;
   opacity: 0.5;
 }
 
@@ -71,7 +72,7 @@
 -------------------------------------------------*/
 
 .portfolio-content{
-  margin-top: 22vh;
+  margin-top: 28vh;
 }
 
 .portfolio-content .triangle{
@@ -88,7 +89,7 @@
   font-weight: 800;
   font-style: normal;
   line-height: 1.4;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   margin-bottom: 4rem;
 }
 
@@ -159,7 +160,7 @@
 /*Portfolio Go Back Module
 -------------------------------------------------*/
 .portfolio-goback{
-  margin-top: 40px; /*TODO: change ot margin bottom*/
+  bottom: 5vh;
   position: fixed;
   width: 400px;
 }
@@ -180,7 +181,7 @@
 
 .portfolio-goback h5{
   margin-bottom: 0rem;
-  line-height: 1;
+  line-height: 1.55;
 }
 
 .portfolio-goback .original{
@@ -192,6 +193,7 @@
   transition: 0.5s;
 }
 
+/*TODO: Add rectangle underline effect*/
 .portfolio-goback a:hover ~ .bold-underline rect{
   width: 100%;
   margin-left:8px;
@@ -228,14 +230,22 @@
   z-index:1;
 }
 
+/*TODO: Prevent squashing/squishing while keeping min max height width*/
 .portfolio-img-container .vertical{
   max-width: 30vw;
   max-height: 70vh;
+  min-width: 200px;
 }
 
+/*TODO: Make this programatically or randomly apply?*/
+.horizontal-adjust-1{ margin-top:5vh;}
+.horizontal-adjust-2{ margin-top:2vh;}
+.horizontal-adjust-3{ margin-top:-2vh;}
+.horizontal-adjust-4{margin-top:-4vh;}
+
 .portfolio-img-container .horizontal{
-  max-width: 38vw;
-  min-height: 25vh;
+  max-width: 40vw;
+  min-width: 300px;
   max-height: 50vh;
 }
 
@@ -257,6 +267,7 @@
   top: -25px;
   display: flex;
   width:100%;
+  z-index:3;
 }
 
 .subtitle span{
@@ -282,6 +293,75 @@
   opacity: 1;
 }
 
+.portfolio-miscelement-container{
+  position: relative;
+  padding: 0; /*TODO: Padding on portfolio-column should be split into a separate class, or ::first diagonal line restructure*/
+}
+
+.portfolio-miscelement-container span{
+  font-family: acier-bat-strokes;
+  font-size:30vh;
+  line-height:30vh;
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  opacity: 0.3;
+  position: absolute;
+  font-size:9vh;
+  line-height:10vh;
+  opacity: 0.5;
+}
+
+.portfolio-miscelement-obj{
+  z-index:0;
+}
+
+.portfolio-parallax{
+  transform: translateY(var(--translateY));
+  will-change: transform; /*TODO: Add will-change to all animated elements*/
+}
+
+.portfolio-misctext-topanchor{
+  position: absolute;
+  top:0px;
+}
+
+.portfolio-misctext-bottomanchor{
+  position: absolute;
+  bottom:25vh;
+}
+
+
+/*End Next Project
+-------------------------------------------------*/
+.portfolio-next-project{
+  background-color: purple;
+  position: relative;
+  height: 100vh;
+  width: 600px;
+  right: 0px;
+}
+
+.portfolio-next-project svg{
+  height: 10vh;
+  fill: #FFF;
+  float: right;
+}
+
+.portfolio-next-project-text h5{
+  font-size: 8vh;
+  float: left;
+  background-color: black;
+  padding:0;
+  position: relative;
+  top: 4vh;
+  line-height:0;
+}
+
+/*Scrollbar
+-------------------------------------------------*/
+/*TODO: Move to standard*/
 body::-webkit-scrollbar {
   height: 1em;
   width: 20px;
@@ -296,3 +376,9 @@ body::-webkit-scrollbar-thumb {
   outline: 0px;
   width: 15%;
 }
+
+/*TODO: Change to detect if any piece is off-screen, it deletes itself*/
+  .quick-nav{
+    display:none;
+    visibility:hidden;
+  }
