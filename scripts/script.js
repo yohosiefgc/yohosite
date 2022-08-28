@@ -1,32 +1,4 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const basicScroll = require('basicscroll')
 
 //Get Elements
 const nav = document.getElementById('navigation');
