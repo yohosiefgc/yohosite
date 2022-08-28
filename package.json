@@ -1,9 +1,12 @@
 {
   "dependencies": {
     "basicscroll": "^3.0.4",
-    "eases": "^1.0.8"
+    "browserify": "latest",
+    "eases": "^1.0.8",
+    "watch-js": "^0.0.7",
+    "watchify": "latest"
   },
-  "name": "new-website-2",
+  "name": "yohosite",
   "version": "1.0.0",
   "description": "Portfolio website package with all modules",
   "main": "index.js",
@@ -12,12 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yohosiefgc/New-Website-2.git"
+    "url": "git+https://github.com/yohosiefgc/yohosite.git"
   },
   "author": "Dawn Yohosie Hosie",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/yohosiefgc/New-Website-2/issues"
+    "url": "https://github.com/yohosiefgc/yohosite/issues"
   },
-  "homepage": "https://github.com/yohosiefgc/New-Website-2#readme"
+  "homepage": "https://github.com/yohosiefgc/yohosite#readme"
 }
