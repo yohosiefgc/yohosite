@@ -4,3 +4,5 @@ modules used:
 - ease
 - parse
 - basicScroll
+- [D] watch.js
+- [D] browserfy.js

@@ -1,4 +1,5 @@
 const basicScroll = require('basicscroll')
+const videojs = require('video-js')
 
 //Get Elements
 const nav = document.getElementById('navigation');

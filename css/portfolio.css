@@ -270,7 +270,7 @@
   z-index:3;
 }
 
-.subtitle span{
+.descriptive-text span{
   font-family: pt-mono, monospace;
   font-size: 1rem;
   font-weight: 400;
@@ -291,6 +291,10 @@
   width: 100%;
   fill: url('#pattern-line-three');
   opacity: 1;
+}
+
+.video-subtitle{
+  float: right;
 }
 
 .portfolio-miscelement-container{

@@ -11,7 +11,6 @@ const isBrowser = typeof window !== 'undefined'
  * @returns {Function}
  */
 const debounce = function(fn, duration) {
-
 	let timeout = null
 
 	return (...args) => {
