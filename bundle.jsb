@@ -148,15 +148,14 @@ const hideNav = () => {
 const portfolioImgSquare = document.querySelectorAll('.portfolio-img-square');
 const portfolioImg = document.querySelectorAll('.portfolio-img');
 
-portfolioImg[i].addEventListener('mouseenter', function() {
-    console.log('done');
-}, false);
-
 const calcImgRightEdge = () => {
     portfolioImg[1].offsetWidth
 }
 
-const generatePortfolioImgSquare = (topRand, leftRand) => {    
+
+const generatePortfolioImgSquare = (topRand, leftRand) => {
+    
+    
     let runCount = 0
     for (let i = 0; i < portfolioImgSquare.length; i++) {   
         const result = randomGenerationSquare(topRand, leftRand, runCount);
@@ -215,26 +214,64 @@ const randomGenerationSquare = (topRand, leftRand, runCount) => {
     return coords;
 }
 
+
+// Parallax Scroll Code
+
+// document.querySelectorAll('.portfolio-parallax').forEach((elem) => {
+//     const modifier = elem.getAttribute('data-modifier')
+//     const parallaxScroll = basicScroll.create({
+//       elem: elem,
+//       from: 0.1,
+//       to: .99,
+//       props: {
+//         '--translateX': {
+//           from: '0',
+//           to: `${ 10 * modifier }px`,
+//           direct: true
+//         }
+//       }
+//     });
+//     parallaxScroll.start();
+// })
+
+const parallaxScroll = basicScroll.create({
+    elem: document.querySelector('.parallax'),
+    from: 'bottom-bottom',
+    to: 'top-middle',
+    props: {
+        '--o': {
+            from: 0,
+            to: 2000
+        }
+    }
+})
+console.log(parallaxScroll);
+parallaxScroll.start();
+
+let windowWidth = 10000;
 window.addEventListener('wheel', (evt) => {
+    //set leftValue to the window scroll + mouse wheel
+    let leftValue = window.scrollX += evt.deltaY;
 
-    curVisView = window.visualViewport.pageLeft;
-    let leftValue = Math.floor(window.scrollX += evt.deltaY); // calc where we need to go
+    //clamp to 0
+    window.scrollX = Math.min(Math.max(leftValue, 0));
 
-    //clamp
-    if (leftValue < 0) { leftValue = 0 };
-    if (leftValue > document.body.scrollWidth) { leftValue = document.body.scrollWidth }; //TODO: this isn't great
-    
-    window.scrollX = leftValue; // set scrollX to calculated area
-
-    // console.log(evt.deltaY);
-    // console.log(`${leftValue} is the leftValue`)
-    // console.log(`${scrollX} is the scrollX`)
-    // console.log(`${curVisView} is the current visual view`)
-    
     window.scrollTo({
         left: leftValue,
         behavior: 'smooth'
     });
-    //todo: how the fuck do i detect the end of the page
+
+    let windowScrollNum = window.visualViewport.pageLeft;
+    console.log(`${windowScrollNum} is the windowScrollNum var`)
+
+    setTimeout(function () {
+        if (window.scrollX > 100 + window.visualViewport.pageLeft) {
+            console.log(`you're at the far right.`)
+            let windowWidth = window.visualViewport.pageLeft
+            window.scrollX = windowWidth;
+        }
+    }, 1000);
+
 });
+
 },{"basicscroll":1}]},{},[2]);

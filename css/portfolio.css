@@ -14,6 +14,7 @@
   width: max-content;
   overflow-x: visible;
   margin-left: 100px;
+  scroll-behavior: smooth;
 }
 
 /*Portfolio Content Column
@@ -26,6 +27,7 @@
   float: left;
   overflow-x:auto;
   line-height: 1.5;
+  scroll-behavior: smooth;
 }
 
 /*Portfolio Title
@@ -145,7 +147,7 @@
   fill:rgb(255, 255,255,0.6);
   transition: 0.25s;
 }
-`
+
 .quick-nav-rect svg:hover{
   fill: rgb(255,255,255,1);
 }

@@ -1,5 +1,4 @@
-const basicScroll = require('basicscroll')
-const videojs = require('video-js')
+const basicScroll = require('basicscroll');
 
 //Get Elements
 const nav = document.getElementById('navigation');
@@ -148,10 +147,7 @@ const calcImgRightEdge = () => {
     portfolioImg[1].offsetWidth
 }
 
-
-const generatePortfolioImgSquare = (topRand, leftRand) => {
-    
-    
+const generatePortfolioImgSquare = (topRand, leftRand) => {    
     let runCount = 0
     for (let i = 0; i < portfolioImgSquare.length; i++) {   
         const result = randomGenerationSquare(topRand, leftRand, runCount);
@@ -210,37 +206,25 @@ const randomGenerationSquare = (topRand, leftRand, runCount) => {
     return coords;
 }
 
+window.addEventListener('wheel', (evt) => {
 
-// Parallax Scroll Code
+    curVisView = window.visualViewport.pageLeft;
+    let leftValue = Math.floor(window.scrollX += evt.deltaY); // calc where we need to go
 
-// document.querySelectorAll('.portfolio-parallax').forEach((elem) => {
-//     const modifier = elem.getAttribute('data-modifier')
-//     const parallaxScroll = basicScroll.create({
-//       elem: elem,
-//       from: 0.1,
-//       to: .99,
-//       props: {
-//         '--translateX': {
-//           from: '0',
-//           to: `${ 10 * modifier }px`,
-//           direct: true
-//         }
-//       }
-//     });
-//     parallaxScroll.start();
-// })
+    //clamp
+    if (leftValue < 0) { leftValue = 0 };
+    if (leftValue > document.body.scrollWidth) { leftValue = document.body.scrollWidth }; //TODO: this isn't great
+    
+    window.scrollX = leftValue; // set scrollX to calculated area
 
-const parallaxScroll = basicScroll.create({
-    elem: document.querySelector('.parallax'),
-    from: 'bottom-bottom',
-    to: 'top-middle',
-    props: {
-        '--o': {
-            from: 0,
-            to: 2000
-        }
-    }
-})
-console.log(parallaxScroll);
-parallaxScroll.start();
-
+    // console.log(evt.deltaY);
+    // console.log(`${leftValue} is the leftValue`)
+    // console.log(`${scrollX} is the scrollX`)
+    // console.log(`${curVisView} is the current visual view`)
+    
+    window.scrollTo({
+        left: leftValue,
+        behavior: 'smooth'
+    });
+    //todo: how the fuck do i detect the end of the page
+});
