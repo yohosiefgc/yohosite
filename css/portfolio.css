@@ -254,6 +254,7 @@
 .portfolio-img{
   z-index:3;
   position: relative;
+  scroll-behavior: smooth;
 }
 
 .portfolio-img-square{
