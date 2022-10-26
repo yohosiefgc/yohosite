@@ -49,7 +49,6 @@ navToggle.addEventListener('mouseenter', function () {
         }, 1000);
     }
     else {
-        console.log("standard nav close");
         hideNavCheck();
     }
 });
@@ -211,31 +210,92 @@ const randomGenerationSquare = (topRand, leftRand, runCount) => {
     return coords;
 }
 
+//SCROLL
+var wait = false;
+let totalScroll = 0;
+let count = 0;
+let isScrolling;
+let arrow;
+let scroll;
+
+window.addEventListener('keydown', function(event) {
+    const key = event.key;
+    switch (event.key) {
+        case "ArrowUp":
+            input.onkeydown("ArrowLeft");
+            
+            break;
+        case "ArrowDown":
+            break;
+    }
+});
+
 window.addEventListener('wheel', (evt) => {
-    //detect if the page is still scrolling
-    
+    scroll = true;
+    startScrollWheelEvent(evt);
+});
+
+function startScrollWheelEvent(evt){
+    //get the total scroll from the mousescroll event
+    totalScroll += evt.deltaY;
+    totalScroll += evt.deltaX; //TODO: Fix snap on x axis mouse
+    console.log(`scrolling`);
+    count++;
+
+    //if wait is set to true, then don't proceed (see clockTick)
+    if (wait) {
+        clockTick(totalScroll);
+        return;
+    }
+
+    //if wait is set to false, then proceed and take the total value accumulated while scrolling
+    if (!wait) startScrollProcess(totalScroll);
+
+    startClock();
+    // startScrollProcess();
+}
+
+function startClock() {
+    wait = true;
+    setTimeout(function () {
+        wait = false;
+    }, 100);
+}
+
+function clockTick(val) {
+    const clockTick = setInterval(function () {
+        if (wait === false) {
+            count = 0;
+            startScrollProcess(val);
+            clearInterval(clockTick);
+        }
+    }, 20)
+}
+
+function startScrollProcess(num) {
+    isScrolling = true
+    console.log(window.scrollX);
     detectEquality();
     
-    let leftValue = Math.floor(window.scrollX += evt.deltaY); // calc where we need to go
+    //todo: leftValue seems bigger than it should be
+    let leftValue = Math.floor(window.scrollX += num); // calc where we need to go
 
     if (leftValue < 0) { leftValue = 0 };
-    if (leftValue > document.body.scrollWidth) { leftValue = document.body.scrollWidth }; //TODO: why is this always like 300 pixels bigger. fuck off
+    if (leftValue > document.body.scrollWidth) { leftValue = document.body.scrollWidth }; //TODO: why is this always like 300 pixels bigger
 
     window.scrollTo({
         left: leftValue,
         behavior: 'smooth'
     });
-
-    //ensure that the scrollX is clamped and aligned with leftValue
     window.scrollX = leftValue;
-});
+    leftValue = 0;
+    totalScroll = 0;
+}
 
 const detectEquality = () => {
-    console.log('detectin');
     let rangeMax = window.scrollX + 10; //todo: function this
     let rangeMin = window.scrollX - 10;
     let curPageLeft = Math.round(window.visualViewport.pageLeft);
-
     if (curPageLeft < rangeMax && curPageLeft > rangeMin){
         //if they're not equal, they should be equal, but only if the scrolling is finished
         let tempPos = Math.ceil(window.visualViewport.pageLeft);
@@ -244,9 +304,10 @@ const detectEquality = () => {
             if (posTick === tempPos) {
                 //window.scrollX != window.visualViewport.pageLeft check. Sometimes they get misaligned if you spam the mousewheel.
                 detectScrollEqualsView();
-                
                 window.scrollX = posTick;
                 clearInterval(checkPos);
+            }
+            else {
             }
             tempPos = Math.ceil(window.visualViewport.pageLeft);
         },50)
@@ -254,12 +315,15 @@ const detectEquality = () => {
 }
 
 const detectScrollEqualsView = () => {
-    console.log('checking in');
+    //TODO: Pull in curPageLeft
     let checkEqual = setInterval(function () {
         rangeMax = window.scrollX + 10;
         rangeMin = window.scrollX - 10;
         //if it is INSIDE the bounds, stop the process
         if ((window.visualViewport.pageLeft < rangeMax) && (window.visualViewport.pageLeft > rangeMin)) {
+            isScrolling = false;
+            console.log(isScrolling);
+            console.log(window.visualViewport.pageLeft);
             clearInterval(checkEqual);
         }
         //if it is OUTSIDE the bounds, set the visualViewport to the actual value of window.scrollX and try again
@@ -270,10 +334,13 @@ const detectScrollEqualsView = () => {
 }
 
 window.addEventListener("scroll", function () {
-    detectScrollEqualsView();
+    
+    if (!isScrolling){
+        window.scrollX = window.visualViewport.pageLeft;
+    }
     const distance = window.scrollX;
 
     //bucket everything with a specific class as a portfolio-bg scroll
     portfolioImgSquare[1].style.transform = `translateX(${distance * 0.3}px)`
-  })
+})
 },{"basicscroll":1}]},{},[2]);
