@@ -1,5 +1,7 @@
-const basicScroll = require('basicscroll');
+var videojs = require('video.js');
 
+
+//BROWSERIFY: browserify scripts/script.js scripts/scroll.js -o bundle.js
 //Get Elements
 const nav = document.getElementById('navigation');
 const navToggle = document.getElementById('navtoggle');
@@ -87,7 +89,7 @@ const showNav = () => {
     //bg fadein animation
     nav.classList.remove('navigation-animation-bg-fadeout');
     nav.classList.add('navigation-animation-bg-fadein');
-    nav.style.backgroundColor = ('rgba(35,31,32,.95)'); // ??? WHY?
+    nav.style.backgroundColor = ('rgba(0,0,0,.95)'); // ??? WHY?
 
     navIconLineOne.classList.add('svg1animation');
     navIconLineTwo.classList.add('svg1animation');
@@ -150,7 +152,6 @@ const generatePortfolioImgSquare = (topRand, leftRand) => {
     let runCount = 0
     for (let i = 0; i < portfolioImgSquare.length; i++) {   
         const result = randomGenerationSquare(topRand, leftRand, runCount);
-        console.log(result);
         runCount++
         let plusOrMinus = Math.round(Math.random()) * 2 - 1; //TODO: repeat var
 
@@ -184,14 +185,10 @@ const randomGenerationSquare = (topRand, leftRand, runCount) => {
     //normalize LeftOrRight
     //TODO: Can probably do this with a clamp
     if (leftOrRight < 0 && leftOrRight > -20) {
-        console.log(`Adjusting leftOrRight... from min value`);
         leftOrRight === -20;
-        console.log(`${leftOrRight} is the value of leftOrRight`)
     }
     else if (leftOrRight > 0 && leftOrRight < 20) {
-        console.log(`Adjusting leftOrRight...`);
         leftOrRight === 20;
-        console.log(`${leftOrRight} is the value of leftOrRight`)
     }
 
     const height = portfolioImg[runCount].getBoundingClientRect().height + 50 - (Math.floor(Math.min(Math.random() * 200), min));
@@ -200,7 +197,6 @@ const randomGenerationSquare = (topRand, leftRand, runCount) => {
     coords.leftOrRight = leftOrRight;
     coords.height = height;
     coords.width = width;
-    console.log(`this ran ${runCount} times`);
     // console.log(`${leftOrRight} is the value of leftOrRight`)
     return coords;
 }
@@ -234,7 +230,6 @@ function startScrollWheelEvent(evt){
     //get the total scroll from the mousescroll event
     totalScroll += evt.deltaY;
     totalScroll += evt.deltaX; //TODO: Fix snap on x axis mouse
-    console.log(`scrolling`);
     count++;
 
     //if wait is set to true, then don't proceed (see clockTick)
@@ -269,7 +264,6 @@ function clockTick(val) {
 
 function startScrollProcess(num) {
     isScrolling = true
-    console.log(window.scrollX);
     detectEquality();
     
     //todo: leftValue seems bigger than it should be
@@ -317,8 +311,6 @@ const detectScrollEqualsView = () => {
         //if it is INSIDE the bounds, stop the process
         if ((window.visualViewport.pageLeft < rangeMax) && (window.visualViewport.pageLeft > rangeMin)) {
             isScrolling = false;
-            console.log(isScrolling);
-            console.log(window.visualViewport.pageLeft);
             clearInterval(checkEqual);
         }
         //if it is OUTSIDE the bounds, set the visualViewport to the actual value of window.scrollX and try again
@@ -327,14 +319,43 @@ const detectScrollEqualsView = () => {
         }
     }, 50)
 }
-
 window.addEventListener("scroll", function () {
-    
-    if (!isScrolling){
+    //This checks to confirm if the scrollbar is the actual visualViewport Position
+    if (!isScrolling) {
         window.scrollX = window.visualViewport.pageLeft;
     }
-    const distance = window.scrollX;
 
-    //bucket everything with a specific class as a portfolio-bg scroll
-    portfolioImgSquare[1].style.transform = `translateX(${distance * 0.3}px)`
+    //parallax scroll code
+    // TODO gather all objects I'd like to parallax scroll
+    // TODO determine the value I'd like to scroll them at, then we're good to go.
+
+    for (let i = 0; i < portfolioImgSquare.length; i++) {
+        let parallaxObject = portfolioImgSquare[i]
+        let initialPosition = parallaxObject.getBoundingClientRect().x - window.innerWidth //get the initial position
+        parllaxSpeed = .2 * Math.random(); //variable that controls the amount of the scroll
+        //TODO: Clamp Math.random to where if 0, then it's 0.1
+
+        let leftScroll = initialPosition //for Reference
+        let rightScroll = -initialPosition //for Reference
+
+        let distanceFromRight = parllaxSpeed * -initialPosition + 'px'; //distance from the left-hand side of the screen     
+        parallaxObject.style.transform = `translateX(${distanceFromRight})`
+        
+        if (initialPosition > window.scrollX) {
+            // console.log('it is before the object is on-screen') //close enough, but dat boy ain't rite
+        }
+    }
 })
+
+//BUILDIN ME A GOSH DARN VIDYA
+// videojs(document.querySelector('.video-js'));
+
+// videojs.options.autoplay = true;
+
+// // var options = {
+// //     controls: true,
+// //     autoplay: true,
+// //     preload: 'auto'
+// // };
+
+// // var video = videojs('pikachu-eevee-video-1', options);

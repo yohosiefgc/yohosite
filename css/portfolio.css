@@ -3,7 +3,7 @@
 .portfolio-column{
   float: left;
   height: 100vh;
-  padding: 0 60px 0 60px;
+  padding: 0 6vh 0 6vh;
 }
 
 .portfolio-column:first-child{
@@ -212,7 +212,7 @@
   height:100vh; /*TODO: dangerous?*/
 }
 
-.portfolio-section::after{
+.portfolio-section:not(:last-child)::after{
   border-right: 1px solid white;
   position: absolute;
   height:1500px;
@@ -223,31 +223,30 @@
   z-index:0;
 }
 
+.portfolio-section:nth-child(n + 3){ /*TODO: Why is this plus 3? This ads the padding-left after the first portfolio section*/
+  padding-left: 10vw; /*TODO: Add a parallax scroll to this*/
+}
 .portfolio-img-container{
-  /* position: relative;
-  height: 100%; */
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
   z-index:1;
 }
 
 /*TODO: Prevent squashing/squishing while keeping min max height width*/
 .portfolio-img-container .vertical{
   max-width: 30vw;
-  max-height: 70vh;
-  min-width: 200px;
+  max-height: 80vh;
 }
 
 /*TODO: Make this programatically or randomly apply?*/
-.horizontal-adjust-1{ margin-top:5vh;}
-.horizontal-adjust-2{ margin-top:2vh;}
-.horizontal-adjust-3{ margin-top:-2vh;}
-.horizontal-adjust-4{margin-top:-4vh;}
+.adjust-vert-0{ margin-top:6vh;}
+.adjust-vert-1{ margin-top:4vh;}
+.adjust-vert-2{ margin-top:2vh;}
+.adjust-vert-3{ margin-top:-2vh;}
+.adjust-vert-4{ margin-top:-4vh;}
+.adjust-vert-5{ margin-top:-6vh;}
 
 .portfolio-img-container .horizontal{
-  max-width: 40vw;
-  min-width: 300px;
+  max-width: 45vw;
   max-height: 50vh;
 }
 
@@ -255,6 +254,7 @@
   z-index:3;
   position: relative;
   scroll-behavior: smooth;
+  
 }
 
 .portfolio-img-square{
@@ -300,45 +300,51 @@
   float: right;
 }
 
-.portfolio-miscelement-container{
+.portfolio-misc-container{
   position: relative;
   padding: 0; /*TODO: Padding on portfolio-column should be split into a separate class, or ::first diagonal line restructure*/
 }
 
-.portfolio-miscelement-container span{
+.portfolio-misctext{
+  position: absolute;
+}
+
+.portfolio-misctext span{
   font-family: acier-bat-strokes;
-  font-size:30vh;
-  line-height:30vh;
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
-  opacity: 0.3;
-  position: absolute;
-  font-size:9vh;
-  line-height:10vh;
-  opacity: 0.5;
+  letter-spacing:10px;
 }
 
-.portfolio-miscelement-obj{
-  z-index:0;
+.portfolio-misctext{ left: 5vh; } /*TODO: Make this align more on smaller window heights*/
+
+.find-your-way-to-play span{
+  font-size:11vh;
+  line-height:9.5vh;
+  opacity: .8;
 }
 
-.portfolio-parallax{
-  transform: translateX(var(--translateX));
-  will-change: transform; /*TODO: Add will-change to all animated elements*/
+.labo span{
+  font-size:30vh;
+  line-height:9.5vh;
 }
 
-.portfolio-misctext-topanchor{
-  position: absolute;
-  top:0px;
+.pikachu span{
+  position: relative;
+  left: -13vw;
+  font-size: 26vh;
+  line-height:13vh;
+  opacity: 0.9;
 }
 
-.portfolio-misctext-bottomanchor{
-  position: absolute;
-  bottom:25vh;
+.eevee span{
+  position: relative;
+  font-size: 26vh;
+  line-height:13vh;
+  opacity: 0.9;
 }
-
 
 /*End Next Project
 -------------------------------------------------*/
@@ -385,7 +391,65 @@ body::-webkit-scrollbar-thumb {
 }
 
 /*TODO: Change to detect if any piece is off-screen, it deletes itself*/
-  .quick-nav{
-    display:none;
-    visibility:hidden;
-  }
+.quick-nav{
+  display:none;
+  visibility:hidden;
+}
+
+/*TODO: Move this to where it's appropriate*/
+
+/*Fullscreen Decorative Elements
+-------------------------------------------------*/
+.fullscreen{ padding: 0px; }
+.fullscreen-column{ position: relative; float: left; }
+
+.fullscreen-column img{
+  height: auto;
+  width: 18vw; /*TODO: Make this work on vertical windows*/
+  max-width: 320px;
+  min-width:150px;
+  padding: 2.5vh 2.5vh 0px 0px; /*Todo: ??????*/
+}
+
+/*Arrow Wall, Next Page
+-------------------------------------------------*/
+.arrow-wall li{
+  list-style:none;
+  height:9.4vh;
+  line-height:0;
+}
+
+.arrow-wall li span{ font-family: acier-bat-solid, Helvetica, Arial, sans-serif; }
+.arrow-wall-decoration{ font-size: 10vh; }
+.arrow-wall-content{ font-size: 4vh; }
+
+.arrow-wall-container{ position: relative;}
+.gradient-fade{
+  background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 96%, rgba(0,0,0,1) 100%);
+  height:100vh;
+  width: 300px;
+  position: absolute;
+  z-index:9999;
+  right: 0px;
+}
+
+/*Video
+-------------------------------------------------*/
+.vjs-volume-panel,
+.vjs-play-control,
+.vjs-remaining-time,
+.vjs-picture-in-picture-control{
+  display:none!important; /*TODO: Remove from installed videojs*/
+}
+
+.vjs-control-bar{
+  background-color:rgba(43,51,63,0)!important; /*TODO: Remove from installed videojs*/
+}
+
+
+/*Universal Elements
+-------------------------------------------------*/
+.vert-center{ top: 50%; transform: translateY(-50%); }
+.top-anchor{ top: 0px; }
+.bottom-anchor{ bottom: 0px; }
