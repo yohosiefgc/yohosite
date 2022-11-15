@@ -1,7 +1,7 @@
 var videojs = require('video.js');
 
 
-//BROWSERIFY: browserify scripts/script.js scripts/scroll.js -o bundle.js
+//BROWSERIFY: browserify scripts/script.js -o bundle.js
 //Get Elements
 const nav = document.getElementById('navigation');
 const navToggle = document.getElementById('navtoggle');
@@ -216,8 +216,6 @@ window.addEventListener('keydown', function(event) {
     const key = event.key;
     switch (key) {
         case "ArrowUp":
-            input.onkeydown("ArrowLeft");
-            
             break;
         case "ArrowDown":
             break;
@@ -322,72 +320,76 @@ const detectScrollEqualsView = () => {
         }
     }, 50)
 }
+
+let lastScroll = 0;
+let scrollDirection = ``;
 window.addEventListener("scroll", function () {
     //This checks to confirm if the scrollbar is the actual visualViewport Position
     if (!isScrolling) {
         window.scrollX = window.visualViewport.pageLeft;
     }
+
     if (document.readyState === "complete") {
-        parallaxScroll();
-    }
+        //Detect scroll Direction
+        //TODO: Move to function
+        let currentScroll = window.scrollX;
+        if (currentScroll > lastScroll) {
+            lastScroll = currentScroll
+            scrollDirection = `right`;
+        }
+        if (currentScroll < lastScroll) {
+            lastScroll = currentScroll
+            scrollDirection = `left`;
+        }
+        parallaxScroll(scrollDirection);
+    };
 })
-let totalSpeed = 0
-// const parallaxScroll = () => {
-//     let parallaxObj = document.querySelectorAll('.parallax-obj');
-//     for (let i = 0; i < parallaxObj.length; i++) {
-//         let parallaxObject = parallaxObj[i]; //get all objects 
-//         speed = parallaxObj[i].dataset.speed * 100; //get object speed
+
+//TODO: Detect each paralax object, add as 0
+let totalMove = [0, 0, 0, 0, 0, 0, 0];
+
+const parallaxScroll = (dir) => {
+    // let parallaxObj = document.querySelectorAll('.parallax-obj');
+    // for (let i = 0; i < parallaxObj.length; i++) {
+    //     let initialPosition = Math.round(parallaxObject.getBoundingClientRect().x);
+    //     console.log(currentPosition);
         
-//         // totalSpeed = totalSpeed + speed;
-//         // console.log(totalSpeed);
-//         direction = parallaxObj[i].dataset.direction; //get object direction
-
-
+    //     let parallaxObject = parallaxObj[i]; //get all objects
+    //     speed = parallaxObj[i].dataset.speed * 100; //get object speed
         
-//         let currentPosition = Math.round(parallaxObject.getBoundingClientRect().x);
+    //     // totalSpeed = totalSpeed + speed;
+    //     // console.log(totalSpeed);
+    //     direction = parallaxObj[i].dataset.direction; //get object direction
 
-//         //OPTIONS
-//         if (direction === 'right') { speed = -speed } //controls direction. bad way to do this but works
+    //     const currentPosition = Math.round(parallaxObject.getBoundingClientRect().x);
 
-//         // let distanceToMove = Math.floor((currentPosition * speed));
+    //     //OPTIONS
+    //     if (direction === 'right') { speed = -speed } //controls direction. bad way to do this but works
 
-//         // let pixelsToMove = currentPosition - speed + 'px'; //distance from the left-hand side of the screen
-//         let pixelsToMove = currentPosition - speed + 'px'; //distance from the left-hand side of the screen
+    //     // let distanceToMove = Math.floor((currentPosition * speed));
+
+    //     // let pixelsToMove = currentPosition - speed + 'px'; //distance from the left-hand side of the screen
+    //     let pixelsToMove = currentPosition - speed + 'px'; //distance from the left-hand side of the screen
         
-//         if (i === 1) {
-//             console.log(pixelsToMove);
-//         }
-//         parallaxObject.style.transform = `translateX(${pixelsToMove})`
-//     }
-// }
-
-const parallaxScroll = () => {
+    //     if (i === 1) {
+    //         console.log(pixelsToMove);
+    //     }
+    //     parallaxObject.style.transform = `translateX(${pixelsToMove})`
+    // }
+    
+    console.log(scrollDirection);
     let parallaxObj = document.querySelectorAll('.parallax-obj');
     for (let i = 0; i < parallaxObj.length; i++) {
-        let initialPosition = Math.round(parallaxObject.getBoundingClientRect().x);
-        console.log(currentPosition);
-        
-        let parallaxObject = parallaxObj[i]; //get all objects 
-        speed = parallaxObj[i].dataset.speed * 100; //get object speed
-        
-        // totalSpeed = totalSpeed + speed;
-        // console.log(totalSpeed);
-        direction = parallaxObj[i].dataset.direction; //get object direction
+        let parallaxObject = parallaxObj[i]; //get all objects
+        let speed = parallaxObject.dataset.speed * 10;
+        let objDirection = parallaxObject.dataset.direction;
 
-        const currentPosition = Math.round(parallaxObject.getBoundingClientRect().x);
+        if (scrollDirection === `left`){ speed = -speed }
+        if (objDirection === `right`) { speed = -speed }
 
-        //OPTIONS
-        if (direction === 'right') { speed = -speed } //controls direction. bad way to do this but works
-
-        // let distanceToMove = Math.floor((currentPosition * speed));
-
-        // let pixelsToMove = currentPosition - speed + 'px'; //distance from the left-hand side of the screen
-        let pixelsToMove = currentPosition - speed + 'px'; //distance from the left-hand side of the screen
-        
-        if (i === 1) {
-            console.log(pixelsToMove);
-        }
-        parallaxObject.style.transform = `translateX(${pixelsToMove})`
+        totalMove[i] = totalMove[i] + speed;
+        let pixelsToMove = totalMove[i] + 'px';
+        parallaxObject.style.transform = `translateX(${pixelsToMove})`;
     }
 }
 
