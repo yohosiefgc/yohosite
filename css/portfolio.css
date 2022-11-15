@@ -1,3 +1,15 @@
+body::after {
+  content:"";
+  position: absolute;
+  width:200vw;
+  height: 200vh;
+  left: -50%;
+  top: -50%;
+  z-index:-1;
+  opacity:0.02;
+  background-image: url("../images/bg-film-grain.png");
+}
+
 /*Portfolio Structure
 -------------------------------------------------*/
 .portfolio-column{
@@ -6,14 +18,10 @@
   padding: 0 6vh 0 6vh;
 }
 
-.portfolio-column:first-child{
-  padding-left:30px;
-}
-
 .portfolio{
   width: max-content;
   overflow-x: visible;
-  margin-left: 100px;
+  margin-left: 120px;
   scroll-behavior: smooth;
 }
 
@@ -24,10 +32,9 @@
   min-width:250px;
   max-width: 320px;
   height: 100vh;
+  padding: 0 3vh 0 2vh;
   float: left;
   overflow-x:auto;
-  line-height: 1.5;
-  scroll-behavior: smooth;
 }
 
 /*Portfolio Title
@@ -212,17 +219,6 @@
   height:100vh; /*TODO: dangerous?*/
 }
 
-.portfolio-section:not(:last-child)::after{
-  border-right: 1px solid white;
-  position: absolute;
-  height:1500px;
-  top: -200px;
-  width: 20px;
-  content:""; /*TODO: lol*/
-  transform:rotate(-35deg);
-  z-index:0;
-}
-
 .portfolio-section:nth-child(n + 3){ /*TODO: Why is this plus 3? This ads the padding-left after the first portfolio section*/
   padding-left: 10vw; /*TODO: Add a parallax scroll to this*/
 }
@@ -231,10 +227,10 @@
   z-index:1;
 }
 
-/*TODO: Prevent squashing/squishing while keeping min max height width*/
+/*TODO: Add max-height, so that the website works properly on wide monitors.*/
+/*TODO: Videos do not respect max-height*/
 .portfolio-img-container .vertical{
-  max-width: 30vw;
-  max-height: 80vh;
+  max-width: 21vw;
 }
 
 /*TODO: Make this programatically or randomly apply?*/
@@ -281,7 +277,7 @@
   white-space: nowrap;
 }
 
-.subtitle svg{
+.descriptive-text svg{
   height: 10px;
   display: block;
   float: left;
@@ -289,10 +285,10 @@
   margin-left: 20px;
 }
 
-.subtitle svg rect{
+.descriptive-text svg rect{
   height: 100%;
   width: 100%;
-  fill: url('#pattern-line-three');
+  fill: url('#pattern-line-diagonal');
   opacity: 1;
 }
 
@@ -303,10 +299,6 @@
 .portfolio-misc-container{
   position: relative;
   padding: 0; /*TODO: Padding on portfolio-column should be split into a separate class, or ::first diagonal line restructure*/
-}
-
-.portfolio-misctext{
-  position: absolute;
 }
 
 .portfolio-misctext span{
@@ -400,8 +392,17 @@ body::-webkit-scrollbar-thumb {
 
 /*Fullscreen Decorative Elements
 -------------------------------------------------*/
-.fullscreen{ padding: 0px; }
-.fullscreen-column{ position: relative; float: left; }
+.fullscreen{
+  position: relative;
+  padding: 0px;
+  float: left;
+  height:100vh;
+}
+
+.fullscreen-column{
+  float: left;
+  position: relative;
+}
 
 .fullscreen-column img{
   height: auto;
@@ -434,7 +435,7 @@ body::-webkit-scrollbar-thumb {
   right: 0px;
 }
 
-/*Video
+/*Video custom overrides
 -------------------------------------------------*/
 .vjs-volume-panel,
 .vjs-play-control,
@@ -443,13 +444,31 @@ body::-webkit-scrollbar-thumb {
   display:none!important; /*TODO: Remove from installed videojs*/
 }
 
-.vjs-control-bar{
-  background-color:rgba(43,51,63,0)!important; /*TODO: Remove from installed videojs*/
-}
-
+/*TODO: ew, fix this please*/
+.vjs-control-bar{ opacity:1!important; }
+.vjs-progress-control{ opacity:0; }
 
 /*Universal Elements
 -------------------------------------------------*/
 .vert-center{ top: 50%; transform: translateY(-50%); }
-.top-anchor{ top: 0px; }
-.bottom-anchor{ bottom: 0px; }
+.top-anchor{ position: absolute; top: 0px; }
+.bottom-anchor{ position: absolute; bottom: 0px; }
+
+
+/*Parlalax Objects
+-------------------------------------------------*/
+.parallax-obj{
+  opacity:0;
+  transition:1s;
+}
+
+.end-diagonal{
+  position:absolute;
+  left: -29vw;
+}
+
+.end-diagonal svg{
+  height: 100vh;
+  width: 1000px;
+
+}

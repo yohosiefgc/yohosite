@@ -278,6 +278,10 @@ animation-direction: alternate;}
   transition-delay: 50ms;
 }
 
+.bold-underline rect{
+  fill:url('#pattern-line-diagonal');
+}
+
 /*Navigation floating top-left Effect
 -----------------------------------------------*/
 #navigation .container .navigation-main li::before{
@@ -345,7 +349,7 @@ animation-direction: alternate;}
 
 /*Navigation diagonal lines*/
 .navigation-diagonal-lines{
-  fill:url('#pattern-line');
+  fill:url('#pattern-line-diagonal-wide');
 }
 /*TODO: Make less dumb*/
 .navigation-svg-container{
@@ -357,6 +361,6 @@ animation-direction: alternate;}
 }
 
 .diagonal-rectangle-navigation{
-  opacity:.3;
+  opacity:.4;
   width:1200px;
 }

@@ -849,7 +849,7 @@ body.vjs-full-window {
   right: 0;
   height: 3em;
   background-color: #2b333f;
-  background-color: rgba(43, 51, 63, .7)
+  background-color: rgba(43, 51, 63, 0)
 }
 
 .vjs-audio-only-mode .vjs-control-bar,

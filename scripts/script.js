@@ -26,6 +26,8 @@ let leftNav = false;
 
 window.onload = function () {
     generatePortfolioImgSquare(-100, 40); //TODO: why negative?
+    // parallaxScroll();
+    setTimeout(() => {fadeIn();},350)
 }
 
 //title hover
@@ -58,6 +60,7 @@ navToggle.addEventListener('mouseenter', function () {
 // });
 
 //makes it so that if you hover over the button while reading the main text, you must hover out to hoverNavFallback
+
 navToggle.addEventListener('mouseleave', function () {
     leftNav = true;
 });
@@ -160,7 +163,7 @@ const generatePortfolioImgSquare = (topRand, leftRand) => {
         plusOrMinus === 1 ? portfolioImgSquare[i].style.left = `${result.leftOrRight}px` : portfolioImgSquare[i].style.right = `${result.leftOrRight}px`;
         portfolioImgSquare[i].style.width = `${result.width}px`;
         portfolioImgSquare[i].style.height = `${result.height}px`;
-        portfolioImgSquare[i].style.backgroundColor = ('rgba(255, 255, 255, 0.04)');
+        portfolioImgSquare[i].style.background = ('linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.03) 22%, rgba(255,255,255,0.03) 100%');
 
         // if (portfolioImgSquare[i].getBoundingClientRect().right < portfolioImg[i].getBoundingClientRect().right + 50) {
         //     console.log(`portfolioImgSquare is too far to the right!`);
@@ -324,38 +327,76 @@ window.addEventListener("scroll", function () {
     if (!isScrolling) {
         window.scrollX = window.visualViewport.pageLeft;
     }
-
-    //parallax scroll code
-    // TODO gather all objects I'd like to parallax scroll
-    // TODO determine the value I'd like to scroll them at, then we're good to go.
-
-    for (let i = 0; i < portfolioImgSquare.length; i++) {
-        let parallaxObject = portfolioImgSquare[i]
-        let initialPosition = parallaxObject.getBoundingClientRect().x - window.innerWidth //get the initial position
-        parllaxSpeed = .2 * Math.random(); //variable that controls the amount of the scroll
-        //TODO: Clamp Math.random to where if 0, then it's 0.1
-
-        let leftScroll = initialPosition //for Reference
-        let rightScroll = -initialPosition //for Reference
-
-        let distanceFromRight = parllaxSpeed * -initialPosition + 'px'; //distance from the left-hand side of the screen     
-        parallaxObject.style.transform = `translateX(${distanceFromRight})`
-        
-        if (initialPosition > window.scrollX) {
-            // console.log('it is before the object is on-screen') //close enough, but dat boy ain't rite
-        }
+    if (document.readyState === "complete") {
+        parallaxScroll();
     }
 })
+let totalSpeed = 0
+// const parallaxScroll = () => {
+//     let parallaxObj = document.querySelectorAll('.parallax-obj');
+//     for (let i = 0; i < parallaxObj.length; i++) {
+//         let parallaxObject = parallaxObj[i]; //get all objects 
+//         speed = parallaxObj[i].dataset.speed * 100; //get object speed
+        
+//         // totalSpeed = totalSpeed + speed;
+//         // console.log(totalSpeed);
+//         direction = parallaxObj[i].dataset.direction; //get object direction
 
-//BUILDIN ME A GOSH DARN VIDYA
-// videojs(document.querySelector('.video-js'));
 
-// videojs.options.autoplay = true;
+        
+//         let currentPosition = Math.round(parallaxObject.getBoundingClientRect().x);
 
-// // var options = {
-// //     controls: true,
-// //     autoplay: true,
-// //     preload: 'auto'
-// // };
+//         //OPTIONS
+//         if (direction === 'right') { speed = -speed } //controls direction. bad way to do this but works
 
-// // var video = videojs('pikachu-eevee-video-1', options);
+//         // let distanceToMove = Math.floor((currentPosition * speed));
+
+//         // let pixelsToMove = currentPosition - speed + 'px'; //distance from the left-hand side of the screen
+//         let pixelsToMove = currentPosition - speed + 'px'; //distance from the left-hand side of the screen
+        
+//         if (i === 1) {
+//             console.log(pixelsToMove);
+//         }
+//         parallaxObject.style.transform = `translateX(${pixelsToMove})`
+//     }
+// }
+
+const parallaxScroll = () => {
+    let parallaxObj = document.querySelectorAll('.parallax-obj');
+    for (let i = 0; i < parallaxObj.length; i++) {
+        let initialPosition = Math.round(parallaxObject.getBoundingClientRect().x);
+        console.log(currentPosition);
+        
+        let parallaxObject = parallaxObj[i]; //get all objects 
+        speed = parallaxObj[i].dataset.speed * 100; //get object speed
+        
+        // totalSpeed = totalSpeed + speed;
+        // console.log(totalSpeed);
+        direction = parallaxObj[i].dataset.direction; //get object direction
+
+        const currentPosition = Math.round(parallaxObject.getBoundingClientRect().x);
+
+        //OPTIONS
+        if (direction === 'right') { speed = -speed } //controls direction. bad way to do this but works
+
+        // let distanceToMove = Math.floor((currentPosition * speed));
+
+        // let pixelsToMove = currentPosition - speed + 'px'; //distance from the left-hand side of the screen
+        let pixelsToMove = currentPosition - speed + 'px'; //distance from the left-hand side of the screen
+        
+        if (i === 1) {
+            console.log(pixelsToMove);
+        }
+        parallaxObject.style.transform = `translateX(${pixelsToMove})`
+    }
+}
+
+const fadeIn = () => {
+    console.log('fading in sir yes sir');
+    //TODO: Refactor so parallaxObj is only query selector all'd once
+    let parallaxObj = document.querySelectorAll('.parallax-obj');
+    for (let i = 0; i < parallaxObj.length; i++) {
+        let parallaxObject = parallaxObj[i]; //get all objects 
+        parallaxObject.style.opacity = ('1');
+    }
+}

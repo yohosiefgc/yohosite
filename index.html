@@ -43,37 +43,88 @@
 
 <!-- SVG STORAGE 
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<div id="svg-storage">
-  <!-- arrow-->
-  <svg viewbox="0 0 100 100">
+<svg id="svg-storage">
+  <defs>
+    <polygon id="triangle" data-name="triangle" points="0,0 0,500 500,500" fill="#FFF" />
+  </defs>
+  <defs>
+    <rect id="rectangle" data-name="rectangle" style="width:100%; height:100%;">
+  </defs>
+  <defs>
+    <path id="arrow" data-name="arrow" d="
+      M 21.52, 28.94
+      H 10.61
+      L 21.22, 18.33
+      H 0
+      V 10.61
+      H 21.22
+      L 10.61, 0
+      H 21.52
+      L 36, 14.47
+      Z"/>
+  </defs>
+  <defs>
+    <pattern id="pattern-line-diagonal-thin" width="6" height="6" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
+      <g>
+        <line x1="0" y1="0" x2="6" y2="6" stroke="white" stroke-width="1px"></line>
+        <line x1="-1" y1="5" x2="6" y2="12" stroke="white" stroke-width="1px"></line>
+        <line x1="5" y1="-1" x2="12" y2="6" stroke="white" stroke-width="1px"></line>
+      </g>
+    </pattern>
+    <pattern id="pattern-line-diagonal" width="10" height="10" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
+      <g>
+        <line x1="0" y1="0" x2="10" y2="10" stroke="white" stroke-width="1px"></line>
+        <line x1="-1" y1="9" x2="10" y2="20" stroke="white" stroke-width="1px"></line>
+        <line x1="9" y1="-1" x2="20" y2="10" stroke="white" stroke-width="1px"></line>
+      </g>
+    </pattern>
+    <pattern id="pattern-line-diagonal-thick" width="10" height="10" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
+      <g>
+        <line x1="0" y1="0" x2="10" y2="10" stroke="white" stroke-width="3px"></line>
+        <line x1="-1" y1="9" x2="10" y2="20" stroke="white" stroke-width="3px"></line>
+        <line x1="9" y1="-1" x2="20" y2="10" stroke="white" stroke-width="3px"></line>
+      </g>
+    </pattern>
+    <pattern id="pattern-line-diagonal-wide" width="20" height="20" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
+      <g>
+        <line x1="0" y1="0" x2="20" y2="20" stroke="white" stroke-width="2px"></line>
+        <line x1="-1" y1="19" x2="20" y2="40" stroke="white" stroke-width="2px"></line>
+        <line x1="19" y1="-1" x2="40" y2="20" stroke="white" stroke-width="2px"></line>
+      </g>
+    </pattern>
+  </defs>
+  <defs>
+    <pattern id="pattern-line-horizontal" width="10" height="5" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="10" y2="0" stroke="white" stroke-width="2px"></line>
+    </pattern>
+    <pattern id="pattern-line-horizontal-thick" width="10" height="5" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="10" y2="0" stroke="white" stroke-width="4px"></line>
+    </pattern>
+  </defs>
+  <defs>
+    <line id="line-dashed-horizontal" x1="0" y1="0" x2="10000" y2="0" stroke="white" stroke-width="5px" stroke-dasharray="15,7"></line>
+  </defs>
+  <defs>
+    <line id="portfolio-end-diagonal" x1="0" y1="0" x2="6600" y2="10000" stroke="white" stroke-width="1px"></line>
+  </defs>
+</svg>
+
+      <!--TODO: Confirm what is needed on svg, like version 1.1-->
+  <!-- <svg version="1.1" x="0px" y="0px" viewBox="0 0 28.93 65" style="enable-background:new 0 0 28.93 65;" xml:space="preserve">
     <defs>
-      <g id="arrow" data-name="arrow">
-        <path class="cls-1" d="M21.52,28.94H10.61L21.22,18.33H0V10.61H21.22L10.61,0H21.52L36,14.47Z"/>
+      <g id="zero-one" data-name="zero-one">
+          <path class="st0" d="M0,8.88C0,3.94,3.87,0,9.08,0c5.28,0,9.22,3.94,9.22,8.88v47.32c0,4.9-3.94,8.81-9.22,8.81
+            C3.87,65,0,61.09,0,56.19V8.88z M9.08,64.04c4.56,0,7.95-3.5,7.95-7.85V8.88c0-4.39-3.39-7.92-7.95-7.92
+            c-4.49,0-7.81,3.53-7.81,7.92v47.32C1.27,60.54,4.59,64.04,9.08,64.04z M3.67,8.98c0-2.95,2.19-5.24,5.41-5.24
+            c3.29,0,5.48,2.3,5.48,5.24v47.11c0,2.95-2.19,5.17-5.48,5.17c-3.22,0-5.41-2.23-5.41-5.17V8.98z M9.08,60.3
+            c2.54,0,4.22-1.82,4.22-4.22V8.98c0-2.4-1.68-4.28-4.22-4.28c-2.47,0-4.15,1.88-4.15,4.28v47.11C4.94,58.49,6.61,60.3,9.08,60.3z"
+            />
+          <path class="st0" d="M23.85,7.47l-1.34,1.3l-2.61-2.98l4.8-5.11h4.22v63.63h-5.07V7.47z M27.66,63.36V1.64h-2.3l-3.94,4.15
+            l1.17,1.34l2.54-2.5v58.73H27.66z"/>
       </g>
-      <g id="underline" data-name="underline">
-        <rect height="6px" width="50px" fill="url(#pattern-line)"></rect>
-      </g>
-      <g id="triangle" data-name="triangle">
-        <polygon points="0,0 0,15 15,15" class="triangle" fill="#FFF" />
-      </g>
-      <g id="square" data-name="square">
-        <rect width="15" height="15"/>
-      </g>
-  </svg>
-  <!--TODO: Confirm what is needed on svg, like version 1.1-->
-  <svg version="1.1" x="0px" y="0px" viewBox="0 0 28.93 65" style="enable-background:new 0 0 28.93 65;" xml:space="preserve">
-    <g id="zero-one" data-name="zero-one">
-        <path class="st0" d="M0,8.88C0,3.94,3.87,0,9.08,0c5.28,0,9.22,3.94,9.22,8.88v47.32c0,4.9-3.94,8.81-9.22,8.81
-          C3.87,65,0,61.09,0,56.19V8.88z M9.08,64.04c4.56,0,7.95-3.5,7.95-7.85V8.88c0-4.39-3.39-7.92-7.95-7.92
-          c-4.49,0-7.81,3.53-7.81,7.92v47.32C1.27,60.54,4.59,64.04,9.08,64.04z M3.67,8.98c0-2.95,2.19-5.24,5.41-5.24
-          c3.29,0,5.48,2.3,5.48,5.24v47.11c0,2.95-2.19,5.17-5.48,5.17c-3.22,0-5.41-2.23-5.41-5.17V8.98z M9.08,60.3
-          c2.54,0,4.22-1.82,4.22-4.22V8.98c0-2.4-1.68-4.28-4.22-4.28c-2.47,0-4.15,1.88-4.15,4.28v47.11C4.94,58.49,6.61,60.3,9.08,60.3z"
-          />
-        <path class="st0" d="M23.85,7.47l-1.34,1.3l-2.61-2.98l4.8-5.11h4.22v63.63h-5.07V7.47z M27.66,63.36V1.64h-2.3l-3.94,4.15
-          l1.17,1.34l2.54-2.5v58.73H27.66z"/>
-    </g>
-  </svg>
-</div>
+    </defs>
+  </svg> -->
+
 
 <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -122,45 +173,35 @@
               <svg class="navigation-arrow">
                 <use xlink:href="#arrow"></use>
               </svg>
-              <svg class="bold-underline">
-                <rect fill="url(#pattern-line)"></rect>
-              </svg>
+              <svg class="bold-underline"><rect></svg>
             </li>
             <li class="navigation-li navigation-li-second">
               <a href="#"><span>About</span></a>
               <svg class="navigation-arrow">
                 <use xlink:href="#arrow"></use>
               </svg>
-              <svg class="bold-underline">
-                <rect fill="url(#pattern-line)"></rect>
-              </svg>
+              <svg class="bold-underline"><rect></svg>
             </li>
             <li class="navigation-li navigation-li-third">
               <a href="#"><span>Gaming</span></a>
               <svg class="navigation-arrow">
                 <use xlink:href="#arrow"></use>
               </svg>
-              <svg class="bold-underline">
-                <rect fill="url(#pattern-line)"></rect>
-              </svg>
+              <svg class="bold-underline"><rect></svg>
             </li>
             <li class="navigation-li navigation-li-fourth">
               <a href="#"><span>Blog</span></a>
               <svg class="navigation-arrow">
                 <use xlink:href="#arrow"></use>
               </svg>
-              <svg class="bold-underline">
-                <rect fill="url(#pattern-line)"></rect>
-              </svg>
+              <svg class="bold-underline"><rect></svg>
             </li>
             <li class="navigation-li navigation-li-fifth">
               <a href="#"><span>Contact</span></a>
               <svg class="navigation-arrow">
                 <use xlink:href="#arrow"></use>
               </svg>
-              <svg class="bold-underline">
-                <rect fill="url(#pattern-line)"></rect>
-              </svg>
+              <svg class="bold-underline"><rect></svg>
             </li>
           </ol>
           <ol class="navigation-contact">
@@ -178,20 +219,15 @@
       </div>
       <div class="seven columns navigation-diagonal-lines">
           <svg class="navigation-svg-container">
-            <defs>
-              <pattern id="pattern-line" x="0" y="0" width="10" height="10" overflow="visible" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
-                <line x1="0" y1="0" x2="20" y2="20" stroke="white" overflow="visibile"/>
-              </pattern>
-            </defs>
-            <polygon points="5,-100 5,1200 1200,1800 1800, -100"">
-            </polygon>
+            <polygon points="5,-100 5,1200 1200,1800 1800, -100">
+            </polygon> <!-- TODO: Change to a rect -->
           </svg>
       </div>
     </div>
   </div>
 </div>
 <div class="portfolio">
-  <div class="portfolio-content-container portfolio-column">
+  <div class="portfolio-content-container">
     <div class="portfolio-title">
       <div class="portfolio-number">
         <svg class="zero-one">
@@ -201,14 +237,14 @@
       <h1>Nintendo</h1>
     </div>
     <div class="portfolio-content">
-      <svg class="triangle rotate-ninety">
+      <svg class="triangle rotate-ninety" style="width: 15px; height:15px;">
         <use xlink:href="#triangle"></use>
       </svg>
       <p class="portfolio-content-body">
         Ads <a href="http://www.google.com">created</a> for performance campaigns for various Nintendo games. All characters & properties are owned by Nintendo Co., Ltd.
       </p>
       <p class="portfolio-content-description">
-        Designer (Statics), Art Director (Motion). 2018 – 2020. 
+        Designer (Statics), Art Director (Motion). 2018 &mdash; 2020. 
       </p>
       <ul class="portfolio-content-labels">
         <li>Digital Media</li>
@@ -256,36 +292,61 @@
             <!-- <h5 class="secondary">Return</h5> -->
           </div>
         </a>
-        <!-- <svg class="rect">
-          <rect fill="url(#pattern-line)"></rect>
-        </svg> -->
       </div>
     </div>
 
     <!--
     FIND YOUR WAY TO PLAY CAMPAIGN SECTION-->
     <div class="portfolio-section">
+      <!-- misc obj -->
+      <div class="fullscreen">
+        <div class="top-anchor" style="left: 40vw; top:-2vh;">
+          <svg style="width:60px; height:60px;">
+            <rect fill="url(#pattern-line-diagonal-thin)"></rect>
+          </svg>
+        </div>
+        <div class="bottom-anchor parallax-obj" data-speed=".3" data-direction="left" style="left:15vw; bottom:20vh;">
+          <svg class="findme" style="width:20px; height:5px;">
+            <line x1="0" y1="0" x2="100" y2="0" stroke="white" stroke-width="4px"></line>
+          </svg>
+        </div>
+        <div class="bottom-anchor parallax-obj" data-speed=".7" data-direction="left" style="left:30vw; bottom:12vh;">
+          <svg style="width:25px; height:25px;">
+            <rect fill="none" stroke="white" stroke-width="4px">
+          </svg>
+        </div>
+      </div>
       <div class="portfolio-column">
         <div class="portfolio-img-container vert-center adjust-vert-3">
           <div class="subtitle descriptive-text">
-            <span>"Find Your Way to Play" campaign test 123 123</span>
+            <span>"Find Your Way to Play" campaign</span>
             <svg>
-              <pattern id="pattern-line-three" x="0" y="0" width="10" height="10" overflow="visible" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse"> <!--TODO: Fix this weird pattern nonsense-->
-                <line x1="20" y1="20" x2="0" y2="0" stroke="white" overflow="visibile" />
-              </pattern>
               <rect></rect>
             </svg>
           </div>
           <div class="portfolio-img lh-fix">
-            <img src="images/portfolio/nintendo/nintendo-1-small.png" class="horizontal">
+            <img src="images/portfolio/nintendo/nintendo-1-small.jpg" class="horizontal">
           </div>
           <div class="portfolio-img-square"></div>
         </div>
       </div>
       <!--
       FIND YOUR WAY TO PLAY CAMPAIGN 2-->
+      <div class="fullscreen">
+        <div class="top-anchor parallax-obj" data-speed=".05" data-direction="right" style="left: 10vw; top:3vh;">
+          <svg style="width:20px; height:10px;">
+            <rect fill="url(#pattern-line-horizontal)"></rect>
+          </svg>
+        </div>
+      </div>
       <div class="portfolio-column">
         <div class="portfolio-img-container vert-center">
+          <div class="subtitle descriptive-text">
+            <span>Endcards</span>
+            <svg>
+              <rect></rect>
+            </svg>
+          </div>
           <div class="portfolio-img lh-fix">
             <img src="images/portfolio/nintendo/nintendo-4-small.png" class="vertical">
           </div>
@@ -293,7 +354,7 @@
         </div>
       </div>
       <!--FIND YOUR WAY TO PLAY MISCTEXT-->
-      <div class="portfolio-column fullscreen fullscreen-column">
+      <div class="portfolio-column fullscreen ">
         <div class="find-your-way-to-play">
           <div class="portfolio-misctext top-anchor">
               <span>Find<br>
@@ -314,9 +375,16 @@
       <div class="portfolio-column">
         <div class="portfolio-img-container vert-center adjust-vert-1">
           <div class="portfolio-img lh-fix">
-            <img src="images/portfolio/nintendo/nintendo-3-small.png" class="horizontal">
+            <img src="images/portfolio/nintendo/nintendo-3-small.jpg" class="horizontal">
           </div>
           <div class="portfolio-img-square"></div>
+        </div>
+      </div>
+      <div class="fullscreen">
+        <div class="end-diagonal parallax-obj" data-speed="0.1" data-direction="left">
+          <svg>
+            <use xlink:href="#portfolio-end-diagonal"></use>
+          </svg>
         </div>
       </div>
     </div>
@@ -329,9 +397,6 @@
           <div class="subtitle descriptive-text">
             <span>Nintendo Labo End Cards</span>
             <svg>
-              <pattern id="pattern-line-three" x="0" y="0" width="10" height="10" overflow="visible" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse"> <!--TODO: Fix this weird pattern nonsense-->
-                <line x1="20" y1="20" x2="0" y2="0" stroke="white" overflow="visibile" />
-              </pattern>
               <rect></rect>
             </svg>
           </div>
@@ -359,9 +424,9 @@
           </div>
         </div>
       </div>
-      <!--Labo Fullscreen Counts-->
-      <div class="portfolio-column">
-        <div class="fullscreen fullscreen-column vert-center adjust-vert-1 lh-fix">
+      <!--Labo Fullscreen Columns with Controllers-->
+      <div class="fullscreen">
+        <div class="fullscreen-column vert-center adjust-vert-1 lh-fix">
           <div>
             <img src="images/portfolio/nintendo/wheel-raw.jpg" alt="Nintendo Labo Wheel">
           </div>
@@ -369,18 +434,21 @@
             <img src="images/portfolio/nintendo/plane-raw.jpg " alt="Nintendo Labo Plane">
           </div>
         </div>
-        <div class="fullscreen fullscreen-column vert-center adjust-vert-5 lh-fix">
-          <img src="images/portfolio/nintendo/sub-raw.jpg" alt="Nintendo Labo submarine">
+      </div>
+      <div class="fullscreen">
+        <div class="fullscreen-column vert-center adjust-vert-5 lh-fix">
+          <img src="images/portfolio/nintendo/sub-raw.jpg" alt="Nintendo Labo Submarine">
         </div>
       </div>
       <!--Labo Misc Element-->
-      <div class="portfolio-column fullscreen fullscreen-column">
-        <div class="labo">
-          <div class="portfolio-misctext bottom-anchor">
-            <span>
-              LABO
-            </span>
-          </div>
+      <div class="fullscreen">
+        <div class="portfolio-misctext bottom-anchor parallax-obj labo" data-speed=".15" data-direction="left">
+          <span>
+            LABO
+          </span>
+        </div>
+        <div class="top-anchor parallax-obj" data-speed=".3" data-direction="left" style="top:5vh; left:20vw">
+          <svg style="width: 15px; height:15px;"> <use xlink:href="#triangle"></use></svg>
         </div>
       </div>
       <!--2 LABO-->
@@ -389,9 +457,6 @@
           <div class="subtitle descriptive-text">
             <span>Endcards</span>
             <svg>
-              <pattern id="pattern-line-three" x="0" y="0" width="10" height="10" overflow="visible" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse"> <!--TODO: Fix this weird pattern nonsense-->
-                <line x1="20" y1="20" x2="0" y2="0" stroke="white" overflow="visibile" />
-              </pattern>
               <rect></rect>
             </svg>
           </div>
@@ -407,29 +472,28 @@
           <div class="subtitle descriptive-text">
             <span>Endcards</span>
             <svg>
-              <pattern id="pattern-line-three" x="0" y="0" width="10" height="10" overflow="visible" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse"> <!--TODO: Fix this weird pattern nonsense-->
-                <line x1="20" y1="20" x2="0" y2="0" stroke="white" overflow="visibile" />
-              </pattern>
               <rect></rect>
             </svg>
           </div>
           <div class="portfolio-img lh-fix">
-            <video
-              id="labo-video-3"
-              class="video-js vjs-sublime-skin vertical vjs-9-16"
-              controls
-              muted
-              loop
-              inactivityTimeout = "0"
-              poster="images/portfolio/nintendo/labo-3.jpg"
-              data-setup='{"controls": true, "autoplay": true, "preload": "auto"}'
-              >
-              <source src="images/portfolio/nintendo/labo-video-3.mp4" type="video/mp4"></source>
-              <p class="vjs-no-js">
-                To view this video please enable JavaScript, and consider upgrading to a
-                web browser that <a href="https://videojs.com/html5-video-support/" target="_blank"> supports HTML5 video</a>
-              </p>
-            </video>
+            <div class="vertical-vid-wrapper">
+              <video
+                id="labo-video-3"
+                class="video-js vjs-sublime-skin vertical vjs-fluid"
+                controls
+                muted
+                loop
+                inactivityTimeout = "0"
+                poster="images/portfolio/nintendo/labo-3.jpg"
+                data-setup='{"controls": true, "autoplay": true, "preload": "auto"}'
+                >
+                <source src="images/portfolio/nintendo/labo-video-3.mp4" type="video/mp4"></source>
+                <p class="vjs-no-js">
+                  To view this video please enable JavaScript, and consider upgrading to a
+                  web browser that <a href="https://videojs.com/html5-video-support/" target="_blank"> supports HTML5 video</a>
+                </p>
+              </video>
+            </div>
           </div>
           <div class="portfolio-img-square"></div>
         </div>
@@ -440,9 +504,9 @@
     Pikachu Eevee portfolio section-->
     <div class="portfolio-section">
       <!--Pikachu Eevee Misc Element-->
-      <div class="portfolio-column fullscreen fullscreen-column">
+      <div class="portfolio-column fullscreen ">
         <div class="pikachu">
-          <div class="portfolio-misctext top-anchor">
+          <div class="portfolio-misctext top-anchor parallax-obj" data-speed=".2" data-direction="left">
             <span>
               PIKACHU
             </span>
@@ -454,9 +518,6 @@
           <div class="subtitle descriptive-text">
             <span>Pokemon Let's Go Pikachu // Let's Go Eevee End Cards</span>
             <svg>
-              <pattern id="pattern-line-three" x="0" y="0" width="10" height="10" overflow="visible" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse"> <!--TODO: Fix this weird pattern nonsense-->
-                <line x1="20" y1="20" x2="0" y2="0" stroke="white" overflow="visibile" />
-              </pattern>
               <rect></rect>
             </svg>
           </div>
@@ -491,9 +552,6 @@
           <div class="subtitle descriptive-text">
             <span>Endcards</span>
             <svg>
-              <pattern id="pattern-line-three" x="0" y="0" width="10" height="10" overflow="visible" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse"> <!--TODO: Fix this weird pattern nonsense-->
-                <line x1="20" y1="20" x2="0" y2="0" stroke="white" overflow="visibile" />
-              </pattern>
               <rect></rect>
             </svg>
           </div>
@@ -504,9 +562,9 @@
         </div>
       </div>
       <!--Pikachu Eevee Misc Element-->
-      <div class="portfolio-column fullscreen fullscreen-column">
+      <div class="portfolio-column fullscreen ">
         <div class="eevee">
-          <div class="portfolio-misctext bottom-anchor">
+          <div class="portfolio-misctext bottom-anchor parallax-obj" data-speed=".2" data-direction="left">
             <span>
               EEVEE
             </span>
@@ -519,9 +577,6 @@
           <div class="subtitle descriptive-text">
             <span>Endcards</span>
             <svg>
-              <pattern id="pattern-line-three" x="0" y="0" width="10" height="10" overflow="visible" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse"> <!--TODO: Fix this weird pattern nonsense-->
-                <line x1="20" y1="20" x2="0" y2="0" stroke="white" overflow="visibile" />
-              </pattern>
               <rect></rect>
             </svg>
           </div>
