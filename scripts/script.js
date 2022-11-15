@@ -30,6 +30,19 @@ window.onload = function () {
     setTimeout(() => {fadeIn();},350)
 }
 
+
+//Throttle Code
+let throttlePause;
+
+const throttle = (callback, time) => {
+  if (throttlePause) return;
+  throttlePause = true;
+  setTimeout(() => {
+    callback();
+    throttlePause = false;
+  }, time);
+};
+
 //title hover
 titleDefault.addEventListener('mouseenter', function () {
     titleHover.classList.add('fade-in-anim');
@@ -147,10 +160,6 @@ const hideNav = () => {
 const portfolioImgSquare = document.querySelectorAll('.portfolio-img-square');
 const portfolioImg = document.querySelectorAll('.portfolio-img');
 
-const calcImgRightEdge = () => {
-    portfolioImg[1].offsetWidth
-}
-
 const generatePortfolioImgSquare = (topRand, leftRand) => {    
     let runCount = 0
     for (let i = 0; i < portfolioImgSquare.length; i++) {   
@@ -164,10 +173,6 @@ const generatePortfolioImgSquare = (topRand, leftRand) => {
         portfolioImgSquare[i].style.width = `${result.width}px`;
         portfolioImgSquare[i].style.height = `${result.height}px`;
         portfolioImgSquare[i].style.background = ('linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.03) 22%, rgba(255,255,255,0.03) 100%');
-
-        // if (portfolioImgSquare[i].getBoundingClientRect().right < portfolioImg[i].getBoundingClientRect().right + 50) {
-        //     console.log(`portfolioImgSquare is too far to the right!`);
-        // }
     }
 }
 
@@ -224,10 +229,11 @@ window.addEventListener('keydown', function(event) {
 
 window.addEventListener('wheel', (evt) => {
     scroll = true;
-    startScrollWheelEvent(evt);
+    throttle(startScrollWheelEvent(evt),250);
 });
 
-function startScrollWheelEvent(evt){
+function startScrollWheelEvent(evt) {
+    console.log(`scroll event`);
     //get the total scroll from the mousescroll event
     totalScroll += evt.deltaY;
     totalScroll += evt.deltaX; //TODO: Fix snap on x axis mouse
@@ -321,8 +327,15 @@ const detectScrollEqualsView = () => {
     }, 50)
 }
 
+//start parallax scroll
 let lastScroll = 0;
 let scrollDirection = ``;
+let parallaxObj = document.querySelectorAll('.parallax-obj');
+let totalMove = [];
+parallaxObj.forEach((parallaxObj) => {
+    totalMove.push(0);
+})
+
 window.addEventListener("scroll", function () {
     //This checks to confirm if the scrollbar is the actual visualViewport Position
     if (!isScrolling) {
@@ -345,40 +358,7 @@ window.addEventListener("scroll", function () {
     };
 })
 
-//TODO: Detect each paralax object, add as 0
-let totalMove = [0, 0, 0, 0, 0, 0, 0];
-
-const parallaxScroll = (dir) => {
-    // let parallaxObj = document.querySelectorAll('.parallax-obj');
-    // for (let i = 0; i < parallaxObj.length; i++) {
-    //     let initialPosition = Math.round(parallaxObject.getBoundingClientRect().x);
-    //     console.log(currentPosition);
-        
-    //     let parallaxObject = parallaxObj[i]; //get all objects
-    //     speed = parallaxObj[i].dataset.speed * 100; //get object speed
-        
-    //     // totalSpeed = totalSpeed + speed;
-    //     // console.log(totalSpeed);
-    //     direction = parallaxObj[i].dataset.direction; //get object direction
-
-    //     const currentPosition = Math.round(parallaxObject.getBoundingClientRect().x);
-
-    //     //OPTIONS
-    //     if (direction === 'right') { speed = -speed } //controls direction. bad way to do this but works
-
-    //     // let distanceToMove = Math.floor((currentPosition * speed));
-
-    //     // let pixelsToMove = currentPosition - speed + 'px'; //distance from the left-hand side of the screen
-    //     let pixelsToMove = currentPosition - speed + 'px'; //distance from the left-hand side of the screen
-        
-    //     if (i === 1) {
-    //         console.log(pixelsToMove);
-    //     }
-    //     parallaxObject.style.transform = `translateX(${pixelsToMove})`
-    // }
-    
-    console.log(scrollDirection);
-    let parallaxObj = document.querySelectorAll('.parallax-obj');
+const parallaxScroll = () => {
     for (let i = 0; i < parallaxObj.length; i++) {
         let parallaxObject = parallaxObj[i]; //get all objects
         let speed = parallaxObject.dataset.speed * 10;
