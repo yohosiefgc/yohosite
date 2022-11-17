@@ -298,8 +298,11 @@
     <div class="portfolio-section">
       <!-- misc obj -->
       <div class="fullscreen">
-        <div class="top-anchor" style="left: 40vw; top:-2vh;">
+        <div class="top-anchor" style="left: 40vw; top:-2vh; opacity:0.8;">
           <svg style="width:60px; height:60px;">
+            <rect fill="url(#pattern-line-diagonal-thin)"></rect>
+          </svg>
+          <svg class="diagonal-bloom" style="width:60px; height:60px;">
             <rect fill="url(#pattern-line-diagonal-thin)"></rect>
           </svg>
         </div>
@@ -307,9 +310,15 @@
           <svg style="width:20px; height:5px;">
             <line x1="0" y1="0" x2="100" y2="0" stroke="white" stroke-width="4px"></line>
           </svg>
+          <svg class="bloom" style="width:20px; height:5px;">
+            <line x1="0" y1="0" x2="100" y2="0" stroke="white" stroke-width="4px"></line>
+          </svg>
         </div>
         <div class="bottom-anchor parallax-obj" data-speed=".7" data-direction="right" style="left:30vw; bottom:12vh;">
           <svg style="width:25px; height:25px;">
+            <rect fill="none" stroke="white" stroke-width="4px">
+          </svg>
+          <svg class="bloom" style="width:25px; height:25px;">
             <rect fill="none" stroke="white" stroke-width="4px">
           </svg>
         </div>
@@ -318,11 +327,10 @@
         <div class="portfolio-img-container vert-center adjust-vert-3">
           <div class="subtitle descriptive-text">
             <span>"Find Your Way to Play" campaign</span>
-            <svg>
-              <rect></rect>
-            </svg>
+            <svg><rect></rect></svg>
           </div>
           <div class="portfolio-img lh-fix">
+            <div class="portfolio-img-dropshadow"></div>
             <img src="images/portfolio/nintendo/nintendo-1-small.jpg" class="horizontal">
           </div>
           <div class="portfolio-img-square"></div>
@@ -333,6 +341,9 @@
       <div class="fullscreen">
         <div class="top-anchor parallax-obj" data-speed=".05" data-direction="left" style="left: 10vw; top:3vh;">
           <svg style="width:20px; height:10px;">
+            <rect fill="url(#pattern-line-horizontal)"></rect>
+          </svg>
+          <svg class="bloom" style="width:20px; height:10px;">
             <rect fill="url(#pattern-line-horizontal)"></rect>
           </svg>
         </div>
@@ -346,6 +357,7 @@
             </svg>
           </div>
           <div class="portfolio-img lh-fix">
+            <div class="portfolio-img-dropshadow"></div>
             <img src="images/portfolio/nintendo/nintendo-4-small.png" class="vertical">
           </div>
           <div class="portfolio-img-square"></div>
@@ -355,12 +367,24 @@
       <div class="portfolio-column fullscreen">
         <div class="find-your-way-to-play">
           <div class="portfolio-misctext top-anchor">
-              <span>Find<br>
-                Your<br>
-                <span style="padding-left:2px;"></span>Way
-              </span>
+            <span>Find<br>
+              Your<br>
+              <span style="padding-left:2px;"></span>Way
+            </span>
+          </div>
+          <div class="portfolio-misctext top-anchor diagonal-bloom">
+            <span>Find<br>
+              Your<br>
+              <span style="padding-left:2px;"></span>Way
+            </span>
           </div>
           <div class="portfolio-misctext bottom-anchor">
+            <span>
+              to<br>
+              Play
+            </span>
+          </div>
+          <div class="portfolio-misctext bottom-anchor bloom">
             <span>
               to<br>
               Play
@@ -373,6 +397,7 @@
       <div class="portfolio-column">
         <div class="portfolio-img-container vert-center adjust-vert-1">
           <div class="portfolio-img lh-fix">
+            <div class="portfolio-img-dropshadow"></div>
             <img src="images/portfolio/nintendo/nintendo-3-small.jpg" class="horizontal">
           </div>
           <div class="portfolio-img-square"></div>
@@ -381,6 +406,9 @@
       <div class="fullscreen">
         <div class="end-diagonal-horizontal parallax-obj" data-speed="0.05" data-direction="left">
           <svg>
+            <use xlink:href="#portfolio-end-diagonal"></use>
+          </svg>
+          <svg class="bloom">
             <use xlink:href="#portfolio-end-diagonal"></use>
           </svg>
         </div>
@@ -395,11 +423,16 @@
           <svg style="width:120px; height:5px;">
             <use xlink:href="#line-dashed-horizontal"></use>
           </svg>
+          <svg class="bloom" style="width:120px; height:5px;">
+            <use xlink:href="#line-dashed-horizontal"></use>
+          </svg>
         </div>
-      </div>
-      <div class="fullscreen">
-        <div class="bottom-anchor" style="left: 12vw; bottom: -20px;"">
+        <div class="bottom-anchor" style="left: 12vw; bottom: 40px;"">
           <svg style="width:600px; height:60px;">
+            <polygon points="0 57.11 0 0 465 0 523 57.11 0 57.11" fill="url(#pattern-line-diagonal-thin)"/>
+            <!-- <rect fill="url(#pattern-line-diagonal-thin)"></rect> -->
+          </svg>
+          <svg class="diagonal-bloom" style="width:600px; height:60px;">
             <polygon points="0 57.11 0 0 465 0 523 57.11 0 57.11" fill="url(#pattern-line-diagonal-thin)"/>
             <!-- <rect fill="url(#pattern-line-diagonal-thin)"></rect> -->
           </svg>
@@ -414,6 +447,7 @@
             </svg>
           </div>
           <div class="portfolio-img lh-fix">
+            <div class="portfolio-img-dropshadow"></div>
             <video
               id="labo-video-1"
               class="video-js vjs-sublime-skin horizontal vjs-16-9"
@@ -460,6 +494,11 @@
             LABO
           </span>
         </div>
+        <div class="portfolio-misctext bottom-anchor parallax-obj labo" data-speed=".1" data-direction="right">
+          <span class="bigtext-bloom">
+            LABO
+          </span>
+        </div>
       </div>
       <!--2 LABO-->
       <div class="portfolio-column">
@@ -471,6 +510,7 @@
             </svg>
           </div>
           <div class="portfolio-img lh-fix">
+            <div class="portfolio-img-dropshadow"></div>
             <img src="images/portfolio/nintendo/labo-2.jpg" class="horizontal">
           </div>
           <div class="portfolio-img-square"></div>
@@ -487,6 +527,7 @@
           </div>
           <div class="portfolio-img lh-fix">
             <div class="vertical-vid-wrapper">
+              <div class="portfolio-img-dropshadow"></div>
               <video
                 id="labo-video-3"
                 class="video-js vjs-sublime-skin vertical vjs-fluid"
@@ -513,6 +554,9 @@
           <svg>
             <use xlink:href="#portfolio-end-diagonal"></use>
           </svg>
+          <svg class="bloom">
+            <use xlink:href="#portfolio-end-diagonal"></use>
+          </svg> 
         </div>
       </div>
     </div>
@@ -531,7 +575,10 @@
       </div>
       <div class="fullscreen">
         <div class="portfolio-misctext top-anchor parallax-obj pikachu" data-speed="0.1" data-direction="left">
-          <span>
+          <span style="position:absolute;">
+            PIKACHU
+          </span>
+          <span class="bigtext-bloom">
             PIKACHU
           </span>
         </div>
@@ -546,6 +593,7 @@
           </div>
           <div class="portfolio-img lh-fix">
             <!-- <img src="images/portfolio/nintendo/pikachu-eevee-1.jpg" class="horizontal"> -->
+            <div class="portfolio-img-dropshadow"></div>
             <video
               id="pikachu-eevee-video-1"
               class="video-js vjs-sublime-skin horizontal vjs-16-9"
@@ -579,6 +627,7 @@
             </svg>
           </div>
           <div class="portfolio-img lh-fix">
+            <div class="portfolio-img-dropshadow"></div>
             <img src="images/portfolio/nintendo/pikachu-eevee-2.jpg" class="vertical">
           </div>
           <div class="portfolio-img-square"></div>
@@ -588,7 +637,10 @@
       <div class="fullscreen">
         <div class="eevee">
           <div class="portfolio-misctext bottom-anchor parallax-obj" data-speed=".15" data-direction="right">
-            <span>
+            <span style="position: absolute">
+              EEVEE
+            </span>
+            <span class="bigtext-bloom">
               EEVEE
             </span>
           </div>
@@ -597,6 +649,9 @@
       <div class="fullscreen">
         <div class="top-anchor" style="left: 10vw; top:-20px;">
           <svg style="width:420px; height:45px;">
+            <rect fill="url(#pattern-line-diagonal-thin)"></rect>
+          </svg>
+          <svg class="diagonal-bloom" style="width:420px; height:45px;">
             <rect fill="url(#pattern-line-diagonal-thin)"></rect>
           </svg>
         </div>
@@ -611,6 +666,7 @@
             </svg>
           </div>
           <div class="portfolio-img lh-fix">
+            <div class="portfolio-img-dropshadow"></div>
             <video
               id="pikachu-eevee-video-3"
               class="video-js vjs-sublime-skin horizontal vjs-16-9"
@@ -654,6 +710,9 @@
   </div> <!--portfolio content container-->
 </div> <!--portfolio div end-->
 
+<div class="outer-grunge"></div>
+<div class="scanline"></div>
+<div class="vignette"></div>
 <!-- Scripts
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <script src="bundle.js" defer></script>

@@ -402,7 +402,7 @@ const fadeIn = () => {
     setTimeout(function timer() {
         for (let i = 0; i < parallaxObj.length; i++) {
             let parallaxObject = parallaxObj[i]; //get all objects 
-            parallaxObject.style.opacity = ('1');
+            parallaxObject.style.opacity = ('.8');
         }
     }, 500);
     

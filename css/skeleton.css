@@ -420,17 +420,3 @@ there.
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {}
 
-/* Custom Code
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-
-body::after {
-  content:"";
-  position: fixed;
-  width:200vw;
-  height: 200vh;
-  left: -50%;
-  top: -50%;
-  z-index:-1;
-  opacity:0.03;
-  background-image: url("../images/bg-film-grain.png");
-}
