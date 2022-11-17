@@ -7,7 +7,9 @@
   bottom: 0px;
   z-index: 9999;
   background-color:#000000;
+  background-image: url("../images/bg-film-grain-3opacity.png");
 }
+
 
 #sidebar .sidebar-nav-border{
   border-right: 1px solid rgba(255,255,255,.6);

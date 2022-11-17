@@ -26,8 +26,11 @@ let leftNav = false;
 
 window.onload = function () {
     generatePortfolioImgSquare(-100, 40); //TODO: why negative?
-    // parallaxScroll();
-    setTimeout(() => {fadeIn();},350)
+    fadeIn();
+}
+
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0); //scroll to the beginning of the page on load
 }
 
 
@@ -35,12 +38,12 @@ window.onload = function () {
 let throttlePause;
 
 const throttle = (callback, time) => {
-  if (throttlePause) return;
-  throttlePause = true;
-  setTimeout(() => {
-    callback();
-    throttlePause = false;
-  }, time);
+    if (throttlePause) return;
+    throttlePause = true;
+    setTimeout(() => {
+        callback && callback();
+        throttlePause = false;
+    }, time);
 };
 
 //title hover
@@ -229,11 +232,13 @@ window.addEventListener('keydown', function(event) {
 
 window.addEventListener('wheel', (evt) => {
     scroll = true;
-    throttle(startScrollWheelEvent(evt),250);
+    // throttle(() => {
+    //     startScrollWheelEvent(evt)
+    // }, 50);
+    startScrollWheelEvent(evt)
 });
 
 function startScrollWheelEvent(evt) {
-    console.log(`scroll event`);
     //get the total scroll from the mousescroll event
     totalScroll += evt.deltaY;
     totalScroll += evt.deltaX; //TODO: Fix snap on x axis mouse
@@ -337,15 +342,22 @@ parallaxObj.forEach((parallaxObj) => {
 })
 
 window.addEventListener("scroll", function () {
+    throttle(() => {
+        handleScrolling()
+    }, 200);
+})
+
+const handleScrolling = () => {
     //This checks to confirm if the scrollbar is the actual visualViewport Position
     if (!isScrolling) {
         window.scrollX = window.visualViewport.pageLeft;
     }
 
+    //start parallaxScroll sequence
     if (document.readyState === "complete") {
         //Detect scroll Direction
         //TODO: Move to function
-        let currentScroll = window.scrollX;
+        let currentScroll = window.scrollX; //get current position... i
         if (currentScroll > lastScroll) {
             lastScroll = currentScroll
             scrollDirection = `right`;
@@ -355,30 +367,71 @@ window.addEventListener("scroll", function () {
             scrollDirection = `left`;
         }
         parallaxScroll(scrollDirection);
+        slideIn();
     };
-})
+}
 
 const parallaxScroll = () => {
     for (let i = 0; i < parallaxObj.length; i++) {
-        let parallaxObject = parallaxObj[i]; //get all objects
-        let speed = parallaxObject.dataset.speed * 10;
-        let objDirection = parallaxObject.dataset.direction;
+        let parallaxObject = parallaxObj[i]; //label each parallaxObj as parallaxObject
+        let speed = parallaxObject.dataset.speed * 100; //get speed, multiply by 100. 100 because of scroll gating.
+        let objDirection = parallaxObject.dataset.direction; //get object direction
 
-        if (scrollDirection === `left`){ speed = -speed }
-        if (objDirection === `right`) { speed = -speed }
+        let objPos = parallaxObject.getBoundingClientRect().x + window.pageXOffset; //get Object Position
+        let viewRightBound = Math.floor(window.visualViewport.pageLeft + window.visualViewport.width); //get Right-side of Screen
+        let viewLeftBound = Math.floor(window.visualViewport.pageLeft); //get Left-side of Screen
 
-        totalMove[i] = totalMove[i] + speed;
-        let pixelsToMove = totalMove[i] + 'px';
-        parallaxObject.style.transform = `translateX(${pixelsToMove})`;
+        if (scrollDirection === `left`){ speed = -speed } //flip if direction the user is scrolling scroll direction is left
+        if (objDirection === `right`) { speed = -speed } // flip if obj direction is right
+
+        if (!(objPos > viewRightBound) && !(objPos < viewLeftBound)) {
+            totalMove[i] = totalMove[i] + speed; //tally totalMove[i]
+            let pixelsToMove = totalMove[i] + 'px';
+            parallaxObject.style.transform = `translateX(${pixelsToMove})`; //update translateX
+        }
     }
 }
 
+//fades in parallax objects on page load
+//TODO: Could be used for all fadeIns?
 const fadeIn = () => {
-    console.log('fading in sir yes sir');
-    //TODO: Refactor so parallaxObj is only query selector all'd once
     let parallaxObj = document.querySelectorAll('.parallax-obj');
-    for (let i = 0; i < parallaxObj.length; i++) {
-        let parallaxObject = parallaxObj[i]; //get all objects 
-        parallaxObject.style.opacity = ('1');
+    let portfolioImgContainer = document.querySelectorAll('.portfolio-img-container');
+    console.log(portfolioImgContainer);
+
+    setTimeout(function timer() {
+        for (let i = 0; i < parallaxObj.length; i++) {
+            let parallaxObject = parallaxObj[i]; //get all objects 
+            parallaxObject.style.opacity = ('1');
+        }
+    }, 500);
+    
+    let incrementalCount = 800
+    for (let i = 0; i < portfolioImgContainer.length; i++) {
+        portfolioImgContainer[0].style.opacity = (`1`);
+        setTimeout(function timer() {
+            incrementalCount = incrementalCount - 100
+            if (incrementalCount < 0) {
+                incrementalCount = 0;
+            }
+            portfolioImgContainer[i].style.opacity = (`1`);
+          }, incrementalCount);
+    }
+}
+
+//slideIn
+const slideIn = () => {
+    let slideIn = document.querySelectorAll('.slideIn');
+    for (let i = 0; i < slideIn.length; i++) {
+        let slideInObj = slideIn[i]; //label each slideIn to be the current slideIn
+        let objPos = slideInObj.getBoundingClientRect().x + window.pageXOffset; //get Object Position
+        let viewRightBound = Math.floor(window.visualViewport.pageLeft + window.visualViewport.width); //get Right-side of Screen
+        let viewLeftBound = Math.floor(window.visualViewport.pageLeft); //get Left-side of Screen
+
+        let adjustedPos = objPos - 100
+
+        if ((!(adjustedPos > viewRightBound) && !(adjustedPos < viewLeftBound)) || adjustedPos < viewRightBound ) {
+                slideInObj.style.transform = `translateX(${0})`;
+        }
     }
 }

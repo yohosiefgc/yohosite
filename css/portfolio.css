@@ -1,21 +1,13 @@
-body::after {
-  content:"";
-  position: absolute;
-  width:200vw;
-  height: 200vh;
-  left: -50%;
-  top: -50%;
-  z-index:-1;
-  opacity:0.02;
-  background-image: url("../images/bg-film-grain.png");
-}
-
 /*Portfolio Structure
 -------------------------------------------------*/
 .portfolio-column{
   float: left;
   height: 100vh;
   padding: 0 6vh 0 6vh;
+}
+
+.portfolio-column:nth-last-child(1){
+  padding: 0 0 0 6vh;
 }
 
 .portfolio{
@@ -111,7 +103,7 @@ body::after {
 .portfolio-content-labels li{
   float: left;
   list-style: none;
-  padding: 0px 10px;
+  padding: 4px 10px;
   margin-right: 10px;
   margin-bottom: 8px;
   color:black;
@@ -216,15 +208,17 @@ body::after {
 -------------------------------------------------*/
 .portfolio-section{
   float: left;
-  height:100vh; /*TODO: dangerous?*/
+  height:100vh;
 }
 
 .portfolio-section:nth-child(n + 3){ /*TODO: Why is this plus 3? This ads the padding-left after the first portfolio section*/
-  padding-left: 10vw; /*TODO: Add a parallax scroll to this*/
+  padding-left: 5vw; /*TODO: Add a parallax scroll to this*/
 }
 .portfolio-img-container{
   position: relative;
   z-index:1;
+  opacity: 0;
+  transition:1.5s;
 }
 
 /*TODO: Add max-height, so that the website works properly on wide monitors.*/
@@ -453,6 +447,7 @@ body::-webkit-scrollbar-thumb {
 .vert-center{ top: 50%; transform: translateY(-50%); }
 .top-anchor{ position: absolute; top: 0px; }
 .bottom-anchor{ position: absolute; bottom: 0px; }
+.bottom-anchor svg{opacity: 0.8;}
 
 
 /*Parlalax Objects
@@ -460,15 +455,25 @@ body::-webkit-scrollbar-thumb {
 .parallax-obj{
   opacity:0;
   transition:1s;
+  z-index: -2;
 }
 
-.end-diagonal{
+.end-diagonal-horizontal,
+.end-diagonal-vertical{
   position:absolute;
-  left: -29vw;
 }
 
-.end-diagonal svg{
+.end-diagonal-horizontal{ left: -29vw; }
+.end-diagonal-vertical{ left: -35vw; }
+/*TODO: unite these*/
+
+.end-diagonal-horizontal svg,
+.end-diagonal-vertical svg{
   height: 100vh;
   width: 1000px;
+}
 
+.slideIn{
+  transform:translateX(150px);
+  transition: 2s;
 }
