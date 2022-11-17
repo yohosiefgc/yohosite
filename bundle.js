@@ -70246,6 +70246,44 @@ navToggle.addEventListener('mouseenter', function () {
 
 navToggle.addEventListener('mouseleave', function () { leftNav = true; });
 
+const showNav = () => {
+    navToggleTracker = true;
+    nav.style.opacity = `1`;
+    nav.style.visibility = `visible`; //disable click
+
+    navIconLineOne.classList.add('svg1animation'); //animate SVG Icon //TODO: Change to CSS animations, silly Dawn :)
+    navIconLineTwo.classList.add('svg1animation'); //animate SVG Icon //TODO: Change to CSS animations, silly Dawn :)
+    navIconLineBorder.classList.add('svg2animation'); //animate SVG Icon //TODO: Change to CSS animations, silly Dawn :)
+ 
+    //slideIn. Behind timer so that code runs properly, if no timer, it doesn't animate.
+    setTimeout(function () {
+        navMain.classList.add('navigation-animation'); //slideIn all navigation elements
+        navDiagonals.classList.add('diagonal-rectangle-navigation');
+        for (let i = 0; i < navLi.length; i++){
+            navLi[i].classList.add('navigation-li-animation'); //animate all li's seperately
+        }
+    }, 10);
+}
+
+const hideNav = () => {
+    navToggleTracker = false;
+    leftNav = false; //sets fallback to false
+
+    nav.style.opacity = `0`;
+    nav.style.visibility = `hidden`;
+
+    navIconLineTwo.classList.remove('svg1animation'); //animate SVG Icon //TODO: Change to CSS animations, silly Dawn :)
+    navIconLineOne.classList.remove('svg1animation'); //animate SVG Icon //TODO: Change to CSS animations, silly Dawn :)
+    navIconLineBorder.classList.remove('svg2animation'); //animate SVG Icon //TODO: Change to CSS animations, silly Dawn :)
+
+    navDiagonals.classList.remove('diagonal-rectangle-navigation');
+
+    navMain.classList.remove('navigation-animation') //slideOut;
+    for (let i = 0; i < navLi.length; i++){
+        navLi[i].classList.remove('navigation-li-animation');
+    }
+}
+
 // sidebar navigation listener
 for (let i = 0; i < navAltToggle.length; i++){
     navAltToggle[i].addEventListener('mouseenter', function () { hideNavCheck(); });
@@ -70263,51 +70301,6 @@ let hideNavCheck = () => {
     if (navToggleTracker && !buttonDisable) {
         hideNav()
     }
-}
-
-const showNav = () => {
-    navToggleTracker = true;
-    nav.style.display = (`block`);
-
-    //bg fadein animation
-    nav.classList.remove('navigation-animation-bg-fadeout');
-    nav.classList.add('navigation-animation-bg-fadein');
-    nav.style.backgroundColor = ('rgba(0,0,0,.95)'); // ??? WHY?
-
-    navIconLineOne.classList.add('svg1animation');
-    navIconLineTwo.classList.add('svg1animation');
-    navIconLineBorder.classList.add('svg2animation');
-    setTimeout(function () {
-        navMain.classList.add('navigation-animation');
-        navDiagonals.classList.add('diagonal-rectangle-navigation');
-        for (let i = 0; i < navLi.length; i++){
-            navLi[i].classList.add('navigation-li-animation');
-        }
-    }, 10);
-}
-
-const hideNav = () => {
-    navToggleTracker = false;
-    leftNav = false; //sets fallback to false
-
-    //bg fadeout animation
-    nav.classList.remove('navigation-animation-bg-fadein');
-    nav.classList.add('navigation-animation-bg-fadeout');
-    nav.style.backgroundColor = ('rgba(0, 0, 0, 0)'); // ??? WHY?
-
-    navIconLineTwo.classList.remove('svg1animation');
-    navIconLineOne.classList.remove('svg1animation');
-    navIconLineBorder.classList.remove('svg2animation');
-    navMain.classList.remove('navigation-animation');
-    navDiagonals.classList.remove('diagonal-rectangle-navigation');
-
-    for (let i = 0; i < navLi.length; i++){
-        navLi[i].classList.remove('navigation-li-animation');
-    }
-    setTimeout(function () {
-        nav.classList.add('navigation-hide');
-        nav.classList.remove('navigation-show');
-    }, 800);
 }
 
 //TODO: Restore this functionality for To Portfolio Home to transition

@@ -233,15 +233,33 @@
 -------------------------------------------------*/
 .arrow-wall li{
   list-style:none;
-  height:9.4vh;
+  height:9.62vh;
   line-height:0;
+  display: flex;
 }
 
 .arrow-wall li span{ font-family: acier-bat-solid, Helvetica, Arial, sans-serif; }
-.arrow-wall-decoration{ font-size: 10vh; }
-.arrow-wall-content{ font-size: 4vh; }
+.arrow-wall .decoration{ font-size: 10vh; }
 
-.arrow-wall-container{ position: relative;}
+.arrow-wall .decoration .end-page{
+  height:6.2vh;
+  position: relative;
+  top:-3vh;
+  fill:white;
+  left:20px;
+}
+
+.arrow-wall .content .arrow{
+  height:5.3vh;
+  position: relative;
+  top:-1.4vh;
+  fill:white;
+  left:20px;
+}
+
+.arrow-wall .content{ font-size: 4vh; }
+.arrow-wall-container{ position: relative; }
+
 .gradient-fade{
   background: rgb(0,0,0);
   background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 96%, rgba(0,0,0,1) 100%);

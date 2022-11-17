@@ -151,8 +151,10 @@ animation-direction: alternate;}
   padding:0; /*doesn't do anything*/
   margin:0; /*doesn't do anything*/
   z-index:9998;
-  background-color: rgba(35,31,32,0);
-  display:none;
+  background-color: rgba(0,0,0,0.95);
+  transition:1s;
+  visibility:hidden;
+  opacity:0;
 }
 
 #navigation .container ol{
@@ -173,31 +175,6 @@ animation-direction: alternate;}
   margin-bottom:calc(50vh - 250px);
 }
 
-/*Navigation Animations, these may not be necessary
------------------------------------------------*/
-/*animations*/
-#navigation .navigation-animation-bg-fadein{
-  animation-name: bgFadeIn;
-  animation-duration: .5s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes bgFadeIn{
-  from {background-color: rgba(35,31,32,0)};
-  to {background-color: rgba(35,31,32,.9)};
-}
-
-#navigation .navigation-animation-bg-fadeout{
-  animation-name: bgFadeOut;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes bgFadeOut{
-  from {background-color: rgba(35,31,32,.9)};
-  to {background-color: rgba(35,31,32,0)};
-}
-
 #navigation .navigation-main-container{
   transition: all .5s ease-in-out;
   opacity: 0;
@@ -205,28 +182,15 @@ animation-direction: alternate;}
 }
 
 /*used via js*/
-#navigation .navigation-animation{
-  transform: translateX(0%);
-  opacity: 100%;
-}
-
-.navigation-hide{
-  display:none;
-  opacity: 0;
-}
-
-.navigation-show{
-  display:initial;
-  opacity:1;
-}
-
+#navigation .navigation-animation{ transform: translateX(0%); opacity: 100%; }
+.navigation-li{ visibility: hidden; pointer-events: none;}
 .navigation-li-first{ transition: 0.25s ease-out; transform: translateX(-10%);}
 .navigation-li-second{ transition: 0.3s ease-out; transform: translateX(-10%); position: relative; left: -1px;}
 .navigation-li-third{ transition: 0.4s ease-out; transform: translateX(-10%);}
 .navigation-li-fourth{ transition: 0.5s ease-out; transform: translateX(-10%);}
 .navigation-li-fifth{ transition: 0.6s ease-out; transform: translateX(-10%); position: relative; left: -2px;}
 
-.navigation-li-animation{ transform: translateX(0%);}
+.navigation-li-animation{ transform: translateX(0%); visibility:visible; pointer-events:all;}
 
 #navigation .container .navigation-main li{
   margin-bottom:1.75rem;
