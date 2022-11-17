@@ -1,20 +1,21 @@
 /*Portfolio Structure
 -------------------------------------------------*/
-.portfolio-column{
+
+#portfolio{
+  width: max-content;
+  overflow-x: visible;
+  margin-left: 120px;
+  scroll-behavior: smooth;
+}
+
+#portfolio .portfolio-column{
   float: left;
   height: 100vh;
   padding: 0 6vh 0 6vh;
 }
 
-.portfolio-column:nth-last-child(1){
+#portfolio .portfolio-column:nth-last-child(1){
   padding: 0 0 0 6vh;
-}
-
-.portfolio{
-  width: max-content;
-  overflow-x: visible;
-  margin-left: 120px;
-  scroll-behavior: smooth;
 }
 
 /*Portfolio Content Column
@@ -32,33 +33,32 @@
 /*Portfolio Title
 -------------------------------------------------*/
 
-.portfolio-title{
+#portfolio .title{
   margin-top:12vh;
   position: absolute;
   width: 800px;
 }
 
-.portfolio-number{
+.title .title-num{
   float: left;
-  font-family: acier-bat-outline, Helvetica, Arial, sans-serif; /*TODO: normalize font family*/
-  font-size: 4rem;
-  margin-top: -12px; /*TODO: no negative margin*/
-}
-
-.portfolio-number svg{
-  fill: white;
   position: relative;
-  height: 55px;
-  width: 30px;
-  padding-right: 15px;
+  top:-16px;
+
 }
 
-.portfolio-title h1{
+#portfolio .title svg{
+  fill: white;
+  height: 65px;
+  width: 40px;
+  transform:scale(0.9);
+}
+
+#portfolio .title h1{
   font-family: acier-bat-solid, Helvetica, Arial, sans-serif; /*TODO: normalize font family*/
   font-size:4.5rem;
 }
 
-.portfolio-title h1::before{
+#portfolio .title h1::before{
   content: "Nintendo";
   font-family: acier-bat-strokes;
   position: absolute;
@@ -115,7 +115,7 @@
   filter:drop-shadow(0px 5px 4px rgba(255, 255, 255, .3))
 }
 
-/*Quick Nav
+/* Quick Nav
 -------------------------------------------------*/
 .quick-nav-title{
   font-family: acier-bat-solid, Helvetica, Arial, sans-serif; /*TODO: normalize font family*/
@@ -488,7 +488,6 @@ body::-webkit-scrollbar-thumb {
 
 .end-diagonal-horizontal{ left: -29vw; }
 .end-diagonal-vertical{ left: -35vw; }
-/*TODO: unite these*/
 
 .end-diagonal-horizontal svg,
 .end-diagonal-vertical svg{
