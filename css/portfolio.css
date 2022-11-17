@@ -1,6 +1,5 @@
 /*Portfolio Structure
 -------------------------------------------------*/
-
 #portfolio{
   width: max-content;
   overflow-x: visible;
@@ -8,27 +7,16 @@
   scroll-behavior: smooth;
 }
 
+#portfolio section{ float: left; height:100vh; }
+#portfolio section:nth-child(n + 3){ padding-left: 5vw; }
+
 #portfolio .portfolio-column{
   float: left;
   height: 100vh;
   padding: 0 6vh 0 6vh;
 }
 
-#portfolio .portfolio-column:nth-last-child(1){
-  padding: 0 0 0 6vh;
-}
-
-/*Portfolio Content Column
--------------------------------------------------*/
-.portfolio-content-container{
-  width: 19vw;
-  min-width:250px;
-  max-width: 320px;
-  height: 100vh;
-  padding: 0 3vh 0 2vh;
-  float: left;
-  overflow-x:auto;
-}
+#portfolio .portfolio-column:nth-last-child(1){ padding: 0 0 0 6vh; }
 
 /*Portfolio Title
 -------------------------------------------------*/
@@ -51,6 +39,7 @@
   height: 65px;
   width: 40px;
   transform:scale(0.9);
+  transform-origin: top left;
 }
 
 #portfolio .title h1{
@@ -72,36 +61,34 @@
 
 /*Portfolio Content
 -------------------------------------------------*/
-
-.portfolio-content{
-  margin-top: 28vh;
+#portfolio .content-container{
+  width: 19vw;
+  min-width:250px;
+  max-width: 320px;
+  height: 100vh;
+  padding: 0 3vh 0 2vh;
+  float: left;
+  overflow-x:auto;
 }
 
-.portfolio-content .triangle{
-  margin-bottom: 5vh;
-}
+.content-container .content{ margin-top: 28vh; }
+.content-container .content .triangle{ margin-bottom: 5vh; }
+.content-container .content .body-copy{ line-height: 1.4; margin-bottom: 4rem;}
 
-.portfolio-content-body{
-  line-height: 1.4;
-  margin-bottom: 4rem;
-}
-
-.portfolio-content-description{
-  font-family: pt-mono, monospace;
+.content-container .content .description{
   font-weight: 800;
-  font-style: normal;
   line-height: 1.4;
   font-size: 1.3rem;
   margin-bottom: 4rem;
 }
 
-.portfolio-content-labels{
+.content-container .content .labels{
   display: inline-block;
-  font-family: acier-bat-solid, Helvetica, Arial, sans-serif; /*TODO: normalize font family*/
+  font-family: acier-bat-solid, Helvetica, Arial, sans-serif;
   margin-bottom: 6rem;
 }
 
-.portfolio-content-labels li{
+.content-container .content .labels li{
   float: left;
   list-style: none;
   padding: 4px 10px;
@@ -115,107 +102,48 @@
   filter:drop-shadow(0px 5px 4px rgba(255, 255, 255, .3))
 }
 
-/* Quick Nav
--------------------------------------------------*/
-.quick-nav-title{
-  font-family: acier-bat-solid, Helvetica, Arial, sans-serif; /*TODO: normalize font family*/
-  letter-spacing: .5px;
-  font-size: 1.5rem;
-  margin-bottom:15px;
-  padding-bottom:0;
-  line-height:0;
-}
-
-.quick-nav-rect{
-  margin-bottom: 2px;
-}
-
-.quick-nav-rect li{
-  display: inline-block;
-  list-style-type: none;
-}
-
-.quick-nav-rect li:not(:last-child){
-  padding-right:12px;
-}
-
-.quick-nav-rect svg{
-  margin-bottom: 0;
-  height: 12px;
-  width: 12px;
-  float: left;
-  fill:rgb(255, 255,255,0.6);
-  transition: 0.25s;
-}
-
-.quick-nav-rect svg:hover{
-  fill: rgb(255,255,255,1);
-}
-
-.quick-nav-descriptor{
-  font-family: pt-mono, monospace;
-  font-size: 1.1rem;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-}
-
 /*Portfolio Go Back Module
 -------------------------------------------------*/
-.portfolio-goback{
+#go-back{
   bottom: 5vh;
   position: fixed;
   width: 400px;
+  z-index:4;
 }
 
-.portfolio-goback .portfolio-goback-arrow{
+#go-back svg{
   width: 33px;
   height:33px;
   fill: #FFF;
   float: left;
-  margin-top: -7px;
-  margin-left: -15px;
-  margin-right: 8px;
+  transform: scale(0.6) rotate(180deg);
 }
 
-.portfolio-goback-h5text{
+#go-back h5{
   float: left;
-}
-
-.portfolio-goback h5{
   margin-bottom: 0rem;
   line-height: 1.55;
 }
 
-.portfolio-goback .original{
-  position: absolute;
-}
-.portfolio-goback .secondary{
+#go-back .original{ position: absolute; }
+
+/* #go-back .secondary{
   position: absolute;
   top: 25px;
   transition: 0.5s;
-}
+} */
 
 /*TODO: Add rectangle underline effect*/
-.portfolio-goback a:hover ~ .bold-underline rect{
+/* #go-back a:hover ~ .bold-underline rect{
   width: 100%;
   margin-left:8px;
   transition: width .5s ease;
   transition-delay: 50ms;
-}
-
-
+} */
 
 /*Portfolio Img Structure
 -------------------------------------------------*/
-.portfolio-section{
-  float: left;
-  height:100vh;
-}
-
-.portfolio-section:nth-child(n + 3){ /*TODO: Why is this plus 3? This ads the padding-left after the first portfolio section*/
-  padding-left: 5vw; /*TODO: Add a parallax scroll to this*/
-}
-.portfolio-img-container{
+.portfolio-column .img-container{
   position: relative;
   z-index:1;
   opacity: 0;
@@ -224,36 +152,12 @@
 
 /*TODO: Add max-height, so that the website works properly on wide monitors.*/
 /*TODO: Videos do not respect max-height*/
-.portfolio-img-container .vertical{
-  max-width: 21vw;
-}
-
-/*TODO: Make this programatically or randomly apply?*/
-.adjust-vert-0{ margin-top:6vh;}
-.adjust-vert-1{ margin-top:4vh;}
-.adjust-vert-2{ margin-top:2vh;}
-.adjust-vert-3{ margin-top:-2vh;}
-.adjust-vert-4{ margin-top:-4vh;}
-.adjust-vert-5{ margin-top:-6vh;}
-
-.portfolio-img-container .horizontal{
-  max-width: 45vw;
-  max-height: 50vh;
-}
+.portfolio-column .vertical{ max-width: 21vw; }
+.portfolio-column .horizontal{ max-width: 45vw; max-height: 50vh; }
 
 .portfolio-img{
   z-index:3;
   position: relative;
-  filter:(drop-shadow())
-}
-
-.portfolio-img-square{
-  background-color: rgba(255, 255, 255, 0);
-  z-index:1;
-  position: absolute;
-  top: 0px;
-  transition: 2s;
-  opacity:0; /*TODO: REMOVE*/
 }
 
 .portfolio-img-dropshadow{
@@ -261,148 +165,52 @@
     0deg,
   rgba(255,255,255,0) 0%,
   rgba(255,255,255,0.03) 22%,
-  rgba(255,255,255,0.03) 100%);
+  rgba(255,255,255,0.04) 100%);
   position: absolute;
-  z-index: 1;
   width:100%;
   height:calc(100% + 50px);
+  z-index: 0;
 }
+
+/*Subtitle Structure
+-------------------------------------------------*/
 
 .subtitle{
   position: absolute;
-  top: -25px;
   display: flex;
   width:100%;
-  z-index:3;
+  top: -25px;
+  z-index:2;
 }
 
-.descriptive-text span{
-  font-family: pt-mono, monospace;
+.subtitle span{
   font-size: 1rem;
   font-weight: 400;
-  font-style: normal;
   white-space: nowrap;
 }
 
-.descriptive-text svg{
-  height: 10px;
+.subtitle svg{
   display: block;
   float: left;
+  height: 10px;
   flex-grow: 1;
   margin-left: 20px;
 }
 
-.descriptive-text svg rect{
+.subtitle svg rect{
   height: 100%;
   width: 100%;
   fill: url('#pattern-line-diagonal');
   opacity: .8;
 }
 
-.rect-bloom-container{
-  height: 100%;
-  width: 100%;
-}
-
 .video-subtitle{
   float: right;
+  font-size:1rem;
+  padding-top:10px;
 }
 
-.portfolio-misc-container{
-  position: relative;
-  padding: 0; /*TODO: Padding on portfolio-column should be split into a separate class, or ::first diagonal line restructure*/
-}
-
-.portfolio-misctext span{
-  font-family: acier-bat-strokes;
-  -webkit-user-select: none; /* Safari */        
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */
-  letter-spacing:10px;
-}
-
-.portfolio-misctext{ left: 5vh; } /*TODO: Make this align more on smaller window heights*/
-
-.find-your-way-to-play span{
-  font-size:11vh;
-  line-height:9.5vh;
-  opacity: .8;
-}
-
-.labo span{
-  font-size:30vh;
-  line-height:9.5vh;
-}
-
-.pikachu span{
-  position: relative;
-  left: -13vw;
-  font-size: 26vh;
-  line-height:13vh;
-  opacity: 0.9;
-}
-
-.eevee span{
-  position: relative;
-  font-size: 26vh;
-  line-height:13vh;
-  opacity: 0.9;
-}
-
-/*End Next Project
--------------------------------------------------*/
-.portfolio-next-project{
-  background-color: purple;
-  position: relative;
-  height: 100vh;
-  width: 600px;
-  right: 0px;
-}
-
-.portfolio-next-project svg{
-  height: 10vh;
-  fill: #FFF;
-  float: right;
-}
-
-.portfolio-next-project-text h5{
-  font-size: 8vh;
-  float: left;
-  background-color: black;
-  padding:0;
-  position: relative;
-  top: 4vh;
-  line-height:0;
-}
-
-/*Scrollbar
--------------------------------------------------*/
-/*TODO: Move to standard*/
-body::-webkit-scrollbar {
-  height: 1em;
-  width: 20px;
-}
- 
-body::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
- 
-body::-webkit-scrollbar-thumb {
-  background-color: rgb(255, 255, 255);
-  outline: 0px;
-  width: 15%;
-}
-
-/*TODO: Change to detect if any piece is off-screen, it deletes itself*/
-.quick-nav{
-  display:none;
-  visibility:hidden;
-}
-
-/*TODO: Move this to where it's appropriate*/
-
-/*Fullscreen Decorative Elements
+/*Fullscreen Structure
 -------------------------------------------------*/
 .fullscreen{
   position: relative;
@@ -411,17 +219,14 @@ body::-webkit-scrollbar-thumb {
   height:100vh;
 }
 
-.fullscreen-column{
-  float: left;
-  position: relative;
-}
+.fullscreen-column{ float: left; position: relative; }
 
 .fullscreen-column img{
   height: auto;
   width: 18vw; /*TODO: Make this work on vertical windows*/
   max-width: 320px;
   min-width:150px;
-  padding: 2.5vh 2.5vh 0px 0px; /*Todo: ??????*/
+  padding: 2.5vh 2.5vh 0px 0px;
 }
 
 /*Arrow Wall, Next Page
@@ -460,19 +265,7 @@ body::-webkit-scrollbar-thumb {
 .vjs-control-bar{ opacity:1!important; }
 .vjs-progress-control{ opacity:0; }
 
-/*Universal Elements
--------------------------------------------------*/
-.vert-center{ top: 50%; transform: translateY(-50%); }
-.top-anchor{ position: absolute; top: 0px; }
-.bottom-anchor{ position: absolute; bottom: 0px; }
-.bottom-anchor svg,
-.top-anchor svg{
-  opacity: 0.8;
-  position: absolute;
-}
-
-
-/*Parlalax Objects
+/*Parallax Structures
 -------------------------------------------------*/
 .parallax-obj{
   opacity:0;
@@ -480,15 +273,23 @@ body::-webkit-scrollbar-thumb {
   z-index: -2;
 }
 
+.portfolio-misctext{ left: 5vh; } /*TODO: Make this align more on smaller window heights*/
+
+.portfolio-misctext span{
+  font-family: acier-bat-strokes;
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  letter-spacing:10px;
+}
+
 .end-diagonal-horizontal,
 .end-diagonal-vertical{
   position:absolute;
 }
-
-
 .end-diagonal-horizontal{ left: -29vw; }
 .end-diagonal-vertical{ left: -35vw; }
-
 .end-diagonal-horizontal svg,
 .end-diagonal-vertical svg{
   height: 100vh;
@@ -497,93 +298,30 @@ body::-webkit-scrollbar-thumb {
   opacity:.8;
 }
 
-.slideIn{
-  transform:translateX(150px);
-  transition: 2s;
+/*One-off Text Adjustments
+-------------------------------------------------*/
+.find-your-way-to-play span{
+  font-size:11vh;
+  line-height:9.5vh;
+  opacity: .8;
 }
 
-/* Custom Code
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-
-html::after {
-  content:"";
-  position: fixed;
-  width:200vw;
-  height: 200vh;
-  left: -50%;
-  top: -50%;
-  z-index:-2;
-  opacity:0.03;
-  background-image: url("../images/bg-film-grain.png");
+.labo span{
+  font-size:30vh;
+  line-height:9.5vh;
 }
 
-/*scanline*/
-body::after {
-  content:"";
-  position: fixed;
-  width:200vw;
-  height: 200vh;
-  left: -50%;
-  top: -50%;
-  z-index:-1;
-  opacity:.5;
-  background-blend-mode:darken;
-  background-image: url("../images/scanline.png");
+.pikachu span{
+  position: relative;
+  left: -13vw;
+  font-size: 26vh;
+  line-height:13vh;
+  opacity: 0.9;
 }
 
-.outer-grunge{
-  content:"";
-  background-image: url("../images/outer-crt-effect.png");
-  position: fixed;
-  width:100vw;
-  height: 100vw;
-  background-size:contain;
-  z-index: 9999;
-  opacity:.1;
-  line-height:0;
-}
-
-.bigtext-bloom{ filter:blur(10px); opacity:0.4!important;}
-.bloom{ filter:blur(3px); opacity: .5;}
-.diagonal-bloom{ filter:blur(5px); opacity:.5; }
-
-
-
-.scanline {
-  width: 100%;
-  height: 60px;
-  z-index: 8;
-  background: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(255, 255, 255, 0.2) 10%,
-      rgba(0, 0, 0, 0.1) 100%
-  );
-  opacity: 0.05;
-  position: fixed;
-  bottom: 100%;
-  animation: scanline 10s linear infinite;
-  pointer-events: none;	
-}
-
-@keyframes scanline {
-  0% {
-      bottom: 100%;
-  }
-  80% {
-      bottom: 100%;
-  }
-  100% {
-      bottom: 0%;
-  }
-}
-
-.vignette{
-  background: rgb(0,0,0);
-  background: linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 85%, rgba(0,0,0,0.3) 100%);
-  position: fixed;
-  width: calc(100vw - 100px);
-  margin-left:100px;
-  height: 100vh;
-  z-index: 8;
+.eevee span{
+  position: relative;
+  font-size: 26vh;
+  line-height:13vh;
+  opacity: 0.9;
 }

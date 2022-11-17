@@ -151,7 +151,8 @@ animation-direction: alternate;}
   padding:0; /*doesn't do anything*/
   margin:0; /*doesn't do anything*/
   z-index:9998;
-  background-color: rgba(35,31,32,0)
+  background-color: rgba(35,31,32,0);
+  display:none;
 }
 
 #navigation .container ol{

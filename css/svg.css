@@ -4,6 +4,11 @@
   height:0px;
 }
 
+.rotate-ninety{ transform: rotate(90deg); }
+.rotate-one-eighty{ transform: rotate(180deg); }
+.rotate-two-seventy{ transform: rotate(270deg); }
+rect { width:100%; height:100%; }
+
 .bold-underline{
   width:120px;
   height:6px;
@@ -18,17 +23,3 @@
   transition: width .5s ease;
   transition-delay: 50ms;
 }
-
-.rotate-ninety{
-  transform: rotate(90deg);
-}
-
-.rotate-one-eighty{
-  transform: rotate(180deg);
-}
-
-.rotate-two-seventy{
-  transform: rotate(270deg);
-}
-
-rect { width:100%; height:100%; }

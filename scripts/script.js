@@ -1,6 +1,5 @@
 var videojs = require('video.js');
 
-
 //BROWSERIFY: browserify scripts/script.js -o bundle.js
 //Get Elements
 const nav = document.getElementById('navigation');
@@ -25,14 +24,11 @@ let buttonDisable = false; //TODO: I think this isn't right
 let leftNav = false;
 
 window.onload = function () {
-    generatePortfolioImgSquare(-100, 40); //TODO: why negative?
     fadeIn();
+    setTimeout(() => {
+        window.scrollTo(0, 0); //scroll to the beginning of the page on load
+    }, 1);
 }
-
-window.onbeforeunload = function () {
-    window.scrollTo(0, 0); //scroll to the beginning of the page on load
-}
-
 
 //Throttle Code
 let throttlePause;
@@ -68,18 +64,7 @@ navToggle.addEventListener('mouseenter', function () {
     }
 });
 
-// REMOVED
-// edgecase nav, if you hover back while the button is disabled, it will close after x seconds
-// navToggle.addEventListener('mousemove', function () {
-//     console.log('mousemove');
-//     hoverNavFallback();
-// });
-
-//makes it so that if you hover over the button while reading the main text, you must hover out to hoverNavFallback
-
-navToggle.addEventListener('mouseleave', function () {
-    leftNav = true;
-});
+navToggle.addEventListener('mouseleave', function () { leftNav = true; });
 
 // sidebar navigation listener
 for (let i = 0; i < navAltToggle.length; i++){
@@ -160,58 +145,6 @@ const hideNav = () => {
 // }; 
 // window.addEventListener("scroll", horizontalScroll);
 
-const portfolioImgSquare = document.querySelectorAll('.portfolio-img-square');
-const portfolioImg = document.querySelectorAll('.portfolio-img');
-
-const generatePortfolioImgSquare = (topRand, leftRand) => {    
-    let runCount = 0
-    for (let i = 0; i < portfolioImgSquare.length; i++) {   
-        const result = randomGenerationSquare(topRand, leftRand, runCount);
-        runCount++
-        let plusOrMinus = Math.round(Math.random()) * 2 - 1; //TODO: repeat var
-
-        portfolioImgSquare[i].style.top = `${result.top}px`;
-
-        plusOrMinus === 1 ? portfolioImgSquare[i].style.left = `${result.leftOrRight}px` : portfolioImgSquare[i].style.right = `${result.leftOrRight}px`;
-        portfolioImgSquare[i].style.width = `${result.width}px`;
-        portfolioImgSquare[i].style.height = `${result.height}px`;
-        portfolioImgSquare[i].style.background = ('linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.03) 22%, rgba(255,255,255,0.03) 100%');
-    }
-}
-
-const randomGenerationSquare = (topRand, leftRand, runCount) => {
-    let coords = {
-        top: '',
-        leftOrRight: '',
-        width: '',
-        height: ''
-    }
-
-    const min = 20;
-    let plusOrMinus = Math.round(Math.random()) * 2 - 1;
-
-    const top = Math.floor(Math.min(Math.random() * topRand), min) * plusOrMinus;
-    let leftOrRight = Math.floor(Math.random() * leftRand) * plusOrMinus;
-    
-    //normalize LeftOrRight
-    //TODO: Can probably do this with a clamp
-    if (leftOrRight < 0 && leftOrRight > -20) {
-        leftOrRight === -20;
-    }
-    else if (leftOrRight > 0 && leftOrRight < 20) {
-        leftOrRight === 20;
-    }
-
-    const height = portfolioImg[runCount].getBoundingClientRect().height + 50 - (Math.floor(Math.min(Math.random() * 200), min));
-    const width = portfolioImg[runCount].getBoundingClientRect().width - (Math.floor(Math.min(Math.random() * 200), min));
-    coords.top = top;
-    coords.leftOrRight = leftOrRight;
-    coords.height = height;
-    coords.width = width;
-    // console.log(`${leftOrRight} is the value of leftOrRight`)
-    return coords;
-}
-
 //SCROLL
 var wait = false;
 let totalScroll = 0;
@@ -232,9 +165,6 @@ window.addEventListener('keydown', function(event) {
 
 window.addEventListener('wheel', (evt) => {
     scroll = true;
-    // throttle(() => {
-    //     startScrollWheelEvent(evt)
-    // }, 50);
     startScrollWheelEvent(evt)
 });
 
@@ -254,9 +184,9 @@ function startScrollWheelEvent(evt) {
     if (!wait) startScrollProcess(totalScroll);
 
     startClock();
-    // startScrollProcess();
 }
 
+//CLOCK FUNCTION
 function startClock() {
     wait = true;
     setTimeout(function () {
@@ -264,7 +194,7 @@ function startClock() {
     }, 100);
 }
 
-function clockTick(val) {
+function clockTick(val) {  //TODO: Make generic so this function can be reused!
     const clockTick = setInterval(function () {
         if (wait === false) {
             count = 0;
@@ -294,16 +224,16 @@ function startScrollProcess(num) {
 }
 
 const detectEquality = () => {
-    let rangeMax = window.scrollX + 10; //todo: function this
+    let rangeMax = window.scrollX + 10;
     let rangeMin = window.scrollX - 10;
     let curPageLeft = Math.round(window.visualViewport.pageLeft);
+
     if (curPageLeft < rangeMax && curPageLeft > rangeMin){
         //if they're not equal, they should be equal, but only if the scrolling is finished
         let tempPos = Math.ceil(window.visualViewport.pageLeft);
         const checkPos = setInterval(function () {
             let posTick = Math.ceil(window.visualViewport.pageLeft);
             if (posTick === tempPos) {
-                //window.scrollX != window.visualViewport.pageLeft check. Sometimes they get misaligned if you spam the mousewheel.
                 detectScrollEqualsView();
                 window.scrollX = posTick;
                 clearInterval(checkPos);
@@ -337,6 +267,7 @@ let lastScroll = 0;
 let scrollDirection = ``;
 let parallaxObj = document.querySelectorAll('.parallax-obj');
 let totalMove = [];
+
 parallaxObj.forEach((parallaxObj) => {
     totalMove.push(0);
 })
@@ -396,7 +327,7 @@ const parallaxScroll = () => {
 //TODO: Could be used for all fadeIns?
 const fadeIn = () => {
     let parallaxObj = document.querySelectorAll('.parallax-obj');
-    let portfolioImgContainer = document.querySelectorAll('.portfolio-img-container');
+    let portfolioImgContainer = document.querySelectorAll('.img-container');
     console.log(portfolioImgContainer);
 
     setTimeout(function timer() {
