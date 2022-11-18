@@ -2,9 +2,8 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 #sidebar{
   height: 100vh;
-  width: 100px; /*technically not needed*/
+  width: 160px;
   position: fixed;
-  bottom: 0px;
   z-index: 9999;
   background-color:#000000;
   background-image: url("../images/bg-film-grain-3opacity.png");
@@ -13,42 +12,50 @@
 
 #sidebar .sidebar-nav-border{
   border-right: 1px solid rgba(255,255,255,.6);
-  height: 80vh;
+  height: 86vh;
   position: absolute;
-  margin-left: 100px;
-  margin-top:10vh;
+  margin-left: 160px;
+  margin-top: 7vh;
 }
 
 /*container height definitions*/
-#sidebar #sidebar-nav-icon{ height:20vh; }
-#sidebar #name{ height: 50vh; }
-#sidebar #page-title{ height: 40vh; }
+#sidebar #sidebar-nav-icon{
+  height:22vh;
+  position: relative;
+}
+#sidebar #name{
+  height: 52vh;
+  position: relative;
+}
+#sidebar #page-title{
+  height: 26vh;
+  position: relative;
+}
 
-#sidebar .rotation-wrapper-inner{ padding: 50% 0; height: 0 }
+#sidebar .rotation-wrapper-inner{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 #sidebar svg{
-  width: 40px;
-  margin-left: 35px;
-  margin-top: calc(10vh - 50px);
+  width: 42px;
+  margin-left:86px;
 }
 
-#sidebar h2,
+#sidebar h3,
 #sidebar button{
   display: block;
-  transform-origin: top left; /*transform code*/
   font-style: normal;
-  transform: rotate(-90deg) translate(-100%); /*transform code*/
-  margin-top: -50%;
-  padding-top: 45px;
+  transform-origin: top left;
+  transform: rotate(-90deg) translate(-100%) translateX(50%);
+  margin-left:88px;
 }
 
-#sidebar h2{
+#sidebar h3{
   font-weight: 400;
-  font-size: 2.2rem; /*TODO: Pull the h2 font sizes up to a new stylesheet*/
   text-transform: uppercase;
-  line-height: .7;
   letter-spacing: 2px;
-  margin-top: calc(40vh - 175px); 
   position: absolute;
 }
 
@@ -58,48 +65,36 @@
 
 #sidebar .title-hover{
   font-family: acier-bat-solid, Helvetica, Arial, sans-serif; /*TODO: normalize font family*/
-  transition: all .3s ease-in-out;
-  opacity: 1;
+  transition: all .4s;
+  opacity:0.01;
   overflow:hidden;
-  height:0;
-}
-
-#sidebar .rotation-wrapper-inner a{
-  display: inline-block;
-  background:none;
-  color: #FFF;
+  height: 0px;
 }
 
 /*TODO: Fix this lol*/
 .fade-in-anim{
   opacity:1!important;
-  height:20px!important;
+  height:29px!important;
 }
 
-#sidebar h2 a{
+#sidebar h3 a{
   text-decoration: none;
   color: #FFF;
+  display: inline-block;
+  background:none;
 }
 
 #sidebar button{
-  font-family: acumin-pro, Helvetica, Arial, sans-serif;
-  font-weight: 400;
-  font-size: 1.2rem; /*TODO: Pull the h3 font sizes up to a new stylesheet*/
+  font-weight: 800;
+  font-size: 1rem; /*TODO: Pull the h3 font sizes up to a new stylesheet*/
   border: 0px;
   background-color: transparent;
-  margin-top: calc(24vh - 160px);
+  position: relative;
+  left: 8px;
 }
  
-
-/*TODO: Pull this effect and turn it into a callable style*/
 #sidebar button span{
-  display: inline-block;
-  background-image: linear-gradient(rgb(255, 255, 255, .5), #000);
-  background-position: 0 100%; /*OR bottom left*/
-  background-size: 0% 4px;
-  background-repeat: no-repeat;
-  transition: background-size 0.4s ease-out; background-position: 0s 0.4s;
-  background-position-y: 110%;
+  transition: 0.3s ease-out;
   color:rgb(255, 255, 255, .8)
 }
 
@@ -130,10 +125,12 @@
 .svg1animation { transform: rotate(45deg); }
 /* .svg2animation{ transform: rotate(-9000deg); } */
 
-.svg2animation{ transform: rotate(-360deg);
-animation-name: infiniteSpin; 
-animation-iteration-count:infinite;
-animation-direction: alternate;}
+.svg2animation{
+  transform: rotate(-360deg);
+  animation-name: infiniteSpin; 
+  animation-iteration-count:infinite;
+  animation-direction: alternate;
+}
 
 @keyframes infiniteSpin{
   0% { transform: rotate(0deg)}

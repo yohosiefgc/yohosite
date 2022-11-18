@@ -301,8 +301,8 @@ const parallaxScroll = () => {
         let objDirection = parallaxObject.dataset.direction; //get object direction
 
         let objPos = parallaxObject.getBoundingClientRect().x + window.pageXOffset; //get Object Position
-        let viewRightBound = Math.floor(window.visualViewport.pageLeft + window.visualViewport.width); //get Right-side of Screen
         let viewLeftBound = Math.floor(window.visualViewport.pageLeft); //get Left-side of Screen
+        let viewRightBound = Math.floor(window.visualViewport.pageLeft + window.visualViewport.width); //get Right-side of Screen
 
         if (scrollDirection === `left`){ speed = -speed } //flip if direction the user is scrolling scroll direction is left
         if (objDirection === `right`) { speed = -speed } // flip if obj direction is right

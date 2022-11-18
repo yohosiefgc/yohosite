@@ -1,0 +1,21 @@
+.homepage-img img{
+  height:110vh;
+  width:auto;
+}
+
+.carousel-nav h4{
+  margin-bottom:0;
+}
+.carousel-nav svg{
+  width:12px;
+  height:12px;
+  fill: #FFFFFF;
+  opacity:.7;
+  padding-right: 12px;
+}
+
+.portfolio-main-col{
+  .content-container .content img{
+    max-width:100%;
+  }
+}
