@@ -9,6 +9,7 @@
 
 #portfolio section{ float: left; height:100vh; }
 #portfolio section:nth-child(n + 3){ padding-left: 5vw; }
+#portfolio section:nth-child(1){padding:0 3vh 0 2vh;}
 
 #portfolio .portfolio-column{
   float: left;
@@ -47,7 +48,7 @@
 }
 
 #portfolio .title h1::before{
-  content: "Nintendo";
+  content: attr(data-title);
   font-family: acier-bat-strokes;
   position: absolute;
   top:-6.5vh;
@@ -65,10 +66,7 @@
   width: 19vw;
   min-width:250px;
   max-width: 320px;
-  height: 100vh;
-  padding: 0 3vh 0 2vh;
-  float: left;
-  overflow-x:auto;
+  overflow-y: hidden;
 }
 
 .content-container .content{ margin-top: 28vh; }
@@ -103,7 +101,7 @@
 /*Portfolio Go Back Module
 -------------------------------------------------*/
 #go-back{
-  bottom: 3vh;
+  bottom: 5vh;
   position: fixed;
   width: 400px;
   z-index:4;
@@ -171,6 +169,7 @@
   width:100%;
   height:calc(100% + 50px);
   z-index: 0;
+  pointer-events:none;
 }
 
 /*Subtitle Structure
@@ -200,15 +199,16 @@
 
 .subtitle svg rect{
   height: 100%;
-  width: 100%;
+  width: 100vw;
   fill: url('#pattern-line-diagonal');
   opacity: .8;
 }
 
-.video-subtitle{
+.credit-subtitle{
   float: right;
   font-size:1rem;
   padding-top:10px;
+  z-index:1;
 }
 
 /*Fullscreen Structure

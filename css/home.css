@@ -1,11 +1,19 @@
 .homepage-img img{
   height:110vh;
   width:auto;
+  position: absolute;
+  left:28vw;
+  z-index:-3;
 }
 
-.carousel-nav h4{
-  margin-bottom:0;
-}
+
+.portfolio-main-section{ width:95vw; }
+.portfolio-main-content-column{ width: 30vw; }
+.portfolio-main-content-column .preview-container{ position: absolute; width: 30vw; }
+.portfolio-main-content-column .preview-container img{ opacity:1; width:100%; }
+.carousel-nav{ position:fixed; bottom:5vh; z-index:500; margin-left:200px;}
+.carousel-nav h4{ margin-bottom:0; }
+
 .carousel-nav svg{
   width:12px;
   height:12px;
@@ -14,8 +22,37 @@
   padding-right: 12px;
 }
 
-.portfolio-main-col{
-  .content-container .content img{
-    max-width:100%;
-  }
+.view-proj-container{
+  font-family: acier-bat-solid, Helvetica, Arial, sans-serif;
+}
+
+.view-proj-container h4{
+  margin-bottom:0;
+  float: left;
+}
+
+.view-proj-container svg{
+  float: left;
+  height:2rem;
+  position: relative;
+  left:20px;
+  top:8px;
+  fill:white;
+}
+
+.portfolio-main-next-project{
+  position: fixed;
+  top: 10vh;
+  right: 0px;
+}
+
+.portfolio-main-next-project h3{ float: left;}
+
+.portfolio-main-next-project svg{
+  fill: #FFF;
+  float: left;
+  height:2.25rem;
+  position: relative;
+  left:10px;
+  top:8px;
 }

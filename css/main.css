@@ -2,7 +2,7 @@
 html::after {
   content:"";
   position: fixed;
-  width:200vw;
+  width: 200vw;
   height: 200vh;
   left: -50%;
   top: -50%;
@@ -71,6 +71,7 @@ body::after {
 .adjust-vert-3{ margin-top:-2vh;}
 .adjust-vert-4{ margin-top:-4vh;}
 .adjust-vert-5{ margin-top:-6vh;}
+.scroll-snap{scroll-snap-type: x mandatory;}
 
 .bigtext-bloom{ filter:blur(10px); opacity:0.4!important;} /*TODO: Remove important*/
 .bloom{ filter:blur(3px); opacity: .5;}

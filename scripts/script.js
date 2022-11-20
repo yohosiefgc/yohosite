@@ -362,3 +362,13 @@ const slideIn = () => {
 //scale SVG code
 // const arrowScale = document.querySelectorAll('.arrow-scale')
 // const.log(arrowScale);
+
+// let scrollSnapTo = document.querySelectorAll(`.portfolio-main-section`);
+// forEach(scrollSnap)
+// const scrollSnap = () => {
+//     //if you are not scrolled to scrollSnap and you are 100 pixels from the left and right, scroll to the scrollSnap
+//     let scrollSnapTo = document.querySelectorAll(`.portfolio-main-section`);
+//     if (window.pageXOffset) {
+//         // window.pageXOffset
+//     }
+// }
