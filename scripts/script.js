@@ -27,12 +27,16 @@ window.onload = function () {
     fadeIn();
     setTimeout(() => {
         window.scrollTo(0, 0); //scroll to the beginning of the page on load
+        getScrollSnapValues(); //TODO: Only run this on pages where getScrollSnapValues exist
     }, 1);
 }
 
-//Throttle Code
-let throttlePause;
+//////////////////////////////////////////
+//Reusable Functions
+//////////////////////////////////////////
 
+//Throttle Code. Only perform an action once every x frames (for 'time');
+let throttlePause;
 const throttle = (callback, time) => {
     if (throttlePause) return;
     throttlePause = true;
@@ -42,6 +46,35 @@ const throttle = (callback, time) => {
     }, time);
 };
 
+//If the same action happens within 100ms, then don't trigger the action.
+let wait = false;
+const debounce = (time) => {
+    wait = true;
+    setTimeout(function () {
+        wait = false;
+    }, time);
+}
+
+const getClosestNum = (num, arr) => {
+    var curr = arr[0];
+    var diff = Math.abs (num - curr)
+
+    for (var i = 0; i < arr.length; i++) {
+        var newdiff = Math.abs (num - arr[i]);
+        if (newdiff < diff) {
+            diff = newdiff;
+            curr = arr[i];
+        }
+    }
+    console.log(curr);
+    return curr;
+}
+
+
+//////////////////////////////////////////
+//Navigation Scripts
+//////////////////////////////////////////
+
 //title hover
 titleDefault.addEventListener('mouseenter', function () {
     titleHover.classList.add('fade-in-anim');
@@ -50,7 +83,7 @@ titleDefault.addEventListener('mouseleave', function () {
     titleHover.classList.remove('fade-in-anim');
 });
 
-//main navigation listener
+//Main navigation Listener
 navToggle.addEventListener('mouseenter', function () {
     if (!navToggleTracker && !buttonDisable) {
         buttonDisable = true;
@@ -64,7 +97,9 @@ navToggle.addEventListener('mouseenter', function () {
     }
 });
 
-navToggle.addEventListener('mouseleave', function () { leftNav = true; });
+navToggle.addEventListener('mouseleave', function () {
+    leftNav = true;
+});
 
 const showNav = () => {
     navToggleTracker = true;
@@ -137,150 +172,113 @@ let hideNavCheck = () => {
 // }; 
 // window.addEventListener("scroll", horizontalScroll);
 
-//SCROLL
-var wait = false;
-let totalScroll = 0;
-let count = 0;
-let isScrolling;
-let arrow;
-let scroll;
 
-window.addEventListener('keydown', function(event) {
-    const key = event.key;
-    switch (key) {
-        case "ArrowUp":
-            break;
-        case "ArrowDown":
-            break;
-    }
-});
+//////////////////////////////////////////
+//Scroll Code
+//////////////////////////////////////////
+
+let totalScroll = 0;
+let isScrolling;
 
 window.addEventListener('wheel', (evt) => {
-    scroll = true;
     startScrollWheelEvent(evt)
 });
 
 function startScrollWheelEvent(evt) {
-    //get the total scroll from the mousescroll event
-    totalScroll += evt.deltaY;
+    totalScroll += evt.deltaY; //Get the value of your mousewheel scroll, and add it to the totalScroll totalScroll is how much we will be scrolling(?)
     totalScroll += evt.deltaX; //TODO: Fix snap on x axis mouse
-    count++;
 
     //if wait is set to true, then don't proceed (see clockTick)
     if (wait) {
+        console.log(`start the click Tick!`);
         clockTick(totalScroll);
         return;
     }
 
     //if wait is set to false, then proceed and take the total value accumulated while scrolling
-    if (!wait) startScrollProcess(totalScroll);
+    if (!wait) startScrollWheelProcess(totalScroll);
 
-    startClock();
+    debounce(100); //If you call the same function within 1 second, do something TODO: I have no fucking idea how I made this work
 }
 
-//CLOCK FUNCTION
-function startClock() {
-    wait = true;
-    setTimeout(function () {
-        wait = false;
-    }, 100);
-}
-
-function clockTick(val) {  //TODO: Make generic so this function can be reused!
+function clockTick(totalScroll) {  //TODO: Make generic so this function can be reused!
     const clockTick = setInterval(function () {
         if (wait === false) {
-            count = 0;
-            startScrollProcess(val);
+            startScrollWheelProcess(totalScroll);
             clearInterval(clockTick);
         }
     }, 20)
 }
 
-function startScrollProcess(num) {
-    isScrolling = true
-    detectEquality();
+//Start the scrollWheelProcess, which is to scroll horizontally
+function startScrollWheelProcess(num) {
+    isScrolling = true; //notify that we're scrolling
+    stopScrollCheck();
+    // viewportEqualsScrollX(); //Detect if the window.visualViewport matches the window.scrollX
     
-    //todo: leftValue seems bigger than it should be
-    let leftValue = Math.floor(window.scrollX += num); // calc where we need to go
-
-    if (leftValue < 0) { leftValue = 0 };
-    if (leftValue > document.body.scrollWidth) { leftValue = document.body.scrollWidth }; //TODO: why is this always like 300 pixels bigger
+    let scrollTo = Math.floor(window.scrollX += num); //Scroll to the position of the scrollX (scrollbar), plus the totalScroll.
+    
+    if (scrollTo < 0) { scrollTo = 0 }; //If you're less than 0, you can't scroll to a negative, so set it to 0.
+    if (scrollTo > document.body.scrollWidth) { scrollTo = document.body.scrollWidth }; //If you're scrolling beyond the end of the document, set the scrollTo to the end of the document. //TODO: this doesn't seem like the actual end of the page, for some reason.
 
     window.scrollTo({
-        left: leftValue,
+        left: scrollTo, //Scroll!
         behavior: 'smooth'
     });
-    window.scrollX = leftValue;
-    leftValue = 0;
-    totalScroll = 0;
+
+    window.scrollX = scrollTo; //make sure that the scrollX aligns with the place that you're scrolling to
+    scrollTo = 0; //reset where you are scrolling to, as you are no longer scrolling
+    totalScroll = 0; //reset the totalScroll, as you are no longer scrolling
 }
 
-const detectEquality = () => {
-    let rangeMax = window.scrollX + 10;
-    let rangeMin = window.scrollX - 10;
-    let curPageLeft = Math.round(window.visualViewport.pageLeft);
-
-    if (curPageLeft < rangeMax && curPageLeft > rangeMin){
-        //if they're not equal, they should be equal, but only if the scrolling is finished
-        let tempPos = Math.ceil(window.visualViewport.pageLeft);
-        const checkPos = setInterval(function () {
-            let posTick = Math.ceil(window.visualViewport.pageLeft);
-            if (posTick === tempPos) {
-                detectScrollEqualsView();
-                window.scrollX = posTick;
-                clearInterval(checkPos);
-            }
-            else {
-            }
-            tempPos = Math.ceil(window.visualViewport.pageLeft);
-        },50)
-    }
-}
-
-const detectScrollEqualsView = () => {
-    //TODO: Pull in curPageLeft
-    let checkEqual = setInterval(function () {
-        rangeMax = window.scrollX + 10;
-        rangeMin = window.scrollX - 10;
-        //if it is INSIDE the bounds, stop the process
-        if ((window.visualViewport.pageLeft < rangeMax) && (window.visualViewport.pageLeft > rangeMin)) {
-            isScrolling = false;
-            clearInterval(checkEqual);
+const stopScrollCheck = () => { //isScrolling check
+    let tempPos = Math.ceil(window.visualViewport.pageLeft); //get the current page position, start a loop
+    let debugCount = 0;
+    const checkPos = setInterval(function () { 
+        debugCount++
+        let posTick = Math.ceil(window.visualViewport.pageLeft); //get the current page position, save it to a new var
+        console.log(`check`)
+        if (posTick === tempPos) { //check and see if tempPos and posTick are the same. If they are the same, then the window hasn't moved in 50ms, and the page has stopped scrolling
+            window.scrollX = window.visualViewport.pageLeft; //set window.scrollX to the window.visualViewport.pageLeft, realigning them
+            clearInterval(checkPos);
+            console.log(`done`)
+        } else if (debugCount >= 100) {
+            window.scrollX = window.visualViewport.pageLeft
+            console.error(`debugCount ticked ${debugCount} times, aborting stopScrollCheck`)
+            clearInterval(checkPos);
         }
-        //if it is OUTSIDE the bounds, set the visualViewport to the actual value of window.scrollX and try again
-        else {
-            window.visualViewport.pageLeft = window.scrollX;
-        }
+        tempPos = Math.ceil(window.visualViewport.pageLeft); //update tempPos, start the loop in 50 seconds
     }, 50)
 }
 
 //start parallax scroll
-let lastScroll = 0;
-let scrollDirection = ``;
-let parallaxObj = document.querySelectorAll('.parallax-obj');
-let totalMove = [];
+let lastScroll = 0; //Used to determine which was the user is scrolling
+let scrollDirection = ``; //Used to store which way the user is scrolling
+let parallaxObj = document.querySelectorAll('.parallax-obj'); //Collect all objects to parallax scroll
+let totalMove = []; //used to gather how far the parallax object has moved as you scroll
 
-parallaxObj.forEach((parallaxObj) => {
+parallaxObj.forEach(() => {
     totalMove.push(0);
 })
 
 window.addEventListener("scroll", function () {
     throttle(() => {
-        handleScrolling()
+        handleScrolling();
     }, 200);
 })
 
 const handleScrolling = () => {
-    //This checks to confirm if the scrollbar is the actual visualViewport Position
+    //This checks to confirm if the scrollbar is the actual visualViewport Position, but only when the window is not moving
     if (!isScrolling) {
         window.scrollX = window.visualViewport.pageLeft;
     }
 
+    scrollSnap(); //TODO: Only if able to on the page
+
     //start parallaxScroll sequence
-    if (document.readyState === "complete") {
-        //Detect scroll Direction
-        //TODO: Move to function
-        let currentScroll = window.scrollX; //get current position... i
+    //TODO: Only if able to on the page
+    if (document.readyState === "complete") { 
+        let currentScroll = window.scrollX; //get current position
         if (currentScroll > lastScroll) {
             lastScroll = currentScroll
             scrollDirection = `right`;
@@ -320,7 +318,6 @@ const parallaxScroll = () => {
 const fadeIn = () => {
     let parallaxObj = document.querySelectorAll('.parallax-obj');
     let portfolioImgContainer = document.querySelectorAll('.img-container');
-    console.log(portfolioImgContainer);
 
     setTimeout(function timer() {
         for (let i = 0; i < parallaxObj.length; i++) {
@@ -363,12 +360,30 @@ const slideIn = () => {
 // const arrowScale = document.querySelectorAll('.arrow-scale')
 // const.log(arrowScale);
 
-// let scrollSnapTo = document.querySelectorAll(`.portfolio-main-section`);
-// forEach(scrollSnap)
-// const scrollSnap = () => {
-//     //if you are not scrolled to scrollSnap and you are 100 pixels from the left and right, scroll to the scrollSnap
-//     let scrollSnapTo = document.querySelectorAll(`.portfolio-main-section`);
-//     if (window.pageXOffset) {
-//         // window.pageXOffset
-//     }
-// }
+let scrollSnapTo = document.querySelectorAll(`.portfolio-main-section`);
+let scrollSnapX = [];
+
+//get all Scroll Snap Values on the page.
+//TODO: Does not work on resize... make it work on resize.
+const getScrollSnapValues = () => {
+    for (let i = 0; i < scrollSnapTo.length; i++){
+        let scrollSnapObj = scrollSnapTo[i]
+            scrollSnapX.push(scrollSnapObj.getBoundingClientRect().x)
+    }
+    console.log(scrollSnapX);
+}
+
+const scrollSnap = () => {
+    // let curPos = window.pageXOffset
+    // let closestPos = getClosestNum(curPos, scrollSnapX) - 185; //TODO: make it detect it, what if 185 is too much?
+    
+    // if (!wait) {
+    //     console.log(`scrolling to the position`);
+    //     window.scrollTo({
+    //         left: closestPos,
+    //         behavior: 'smooth'
+    //     })
+    // }
+    
+    // debounce(100);
+}
