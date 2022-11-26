@@ -70227,13 +70227,6 @@ const throttle = (callback, time) => {
 };
 
 //If the same action happens within 100ms, then don't trigger the action.
-let wait = false;
-const debounce = (time) => {
-    wait = true;
-    setTimeout(function () {
-        wait = false;
-    }, time);
-}
 
 const getClosestNum = (num, arr) => {
     var curr = arr[0];
@@ -70246,8 +70239,13 @@ const getClosestNum = (num, arr) => {
             curr = arr[i];
         }
     }
-    console.log(curr);
     return curr;
+}
+
+const getNextHighestIndex = (num, arr) => {
+    let i = arr.length;
+    while (arr[--i] > num);
+    return ++i; 
 }
 
 
@@ -70359,93 +70357,99 @@ let hideNavCheck = () => {
 
 let totalScroll = 0;
 let isScrolling;
+let multScrollTicks = false;
+let linearMoveValue = 70;
 
-window.addEventListener('wheel', (evt) => {
-    startScrollWheelEvent(evt)
+window.addEventListener('keydown', (evt) => {
+    const key = evt.key;
+    switch (key) {
+        case "ArrowUp": evt.preventDefault(); linearScrollUp(); break;
+        case "ArrowDown": evt.preventDefault(); linearScrollDown(); break;
+        case "w": evt.preventDefault(); linearScrollUp(); break;
+        case "a": evt.preventDefault(); linearScrollDown(); break;
+        case "s": evt.preventDefault(); linearScrollDown(); break;
+        case "d": evt.preventDefault(); linearScrollUp(); break;
+    }
 });
 
-function startScrollWheelEvent(evt) {
-    totalScroll += evt.deltaY; //Get the value of your mousewheel scroll, and add it to the totalScroll totalScroll is how much we will be scrolling(?)
-    totalScroll += evt.deltaX; //TODO: Fix snap on x axis mouse
-
-    //if wait is set to true, then don't proceed (see clockTick)
-    if (wait) {
-        console.log(`start the click Tick!`);
-        clockTick(totalScroll);
-        return;
-    }
-
-    //if wait is set to false, then proceed and take the total value accumulated while scrolling
-    if (!wait) startScrollWheelProcess(totalScroll);
-
-    debounce(100); //If you call the same function within 1 second, do something TODO: I have no fucking idea how I made this work
+const linearScrollUp = () => {
+    window.scrollBy({
+        left: linearMoveValue,
+    });
 }
 
-function clockTick(totalScroll) {  //TODO: Make generic so this function can be reused!
-    const clockTick = setInterval(function () {
-        if (wait === false) {
-            startScrollWheelProcess(totalScroll);
-            clearInterval(clockTick);
-        }
-    }, 20)
+const linearScrollDown = () => {
+    window.scrollBy({
+        left: -linearMoveValue
+    });
+}
+
+// const scrollHandler = () => {
+//     //mousewheel scroll handler
+//     //arrow scroll handler
+//     //drag + drop mouse wheel scroll handler
+//     // middle click scroll handler
+// }
+
+window.addEventListener('wheel', (evt) => {
+    totalScroll += evt.deltaY; //Get the value of your mousewheel scroll, and add it to the totalScroll totalScroll is how much we will be scrolling
+    totalScroll += evt.deltaX; //TODO: Fix snap on x axis mouse
+    regulateScroll(totalScroll)
+});
+
+function regulateScroll(totalScroll) {
+    if (multScrollTicks) { //if the user is scrolling multiple times
+        const clockTick = setInterval(function () { //...then start looking for...
+            if (!multScrollTicks) { //... when multScrollTicks is false..
+                scrollAction(totalScroll); //... thenscrollAction with the new total totalScroll, instead of updating totalScroll all thje time.
+                clearInterval(clockTick);
+            }
+        }, 20)
+        return;
+    } else if (!multScrollTicks) { //...Or if the user is only scrolling one tick at a time (weirdo)
+        scrollAction(totalScroll); //... just bring totalScroll to the scrolling function
+    }
+
+    multScrollTicks = true;
+    setTimeout(function () { //start counting down 100ms before setting wait to false.
+        multScrollTicks = false;
+    }, 100);
 }
 
 //Start the scrollWheelProcess, which is to scroll horizontally
-function startScrollWheelProcess(num) {
-    isScrolling = true; //notify that we're scrolling
+function scrollAction(num) {
     stopScrollCheck();
-    // viewportEqualsScrollX(); //Detect if the window.visualViewport matches the window.scrollX
+    
     
     let scrollTo = Math.floor(window.scrollX += num); //Scroll to the position of the scrollX (scrollbar), plus the totalScroll.
-    
-    if (scrollTo < 0) { scrollTo = 0 }; //If you're less than 0, you can't scroll to a negative, so set it to 0.
-    if (scrollTo > document.body.scrollWidth) { scrollTo = document.body.scrollWidth }; //If you're scrolling beyond the end of the document, set the scrollTo to the end of the document. //TODO: this doesn't seem like the actual end of the page, for some reason.
+    scrollTo < 0 ? scrollTo = 0 : scrollTo; //if scrollTo is below 0, set to 0.
+    scrollTo > document.body.scrollWidth ? scrollTo = document.body.scrollWidth : scrollTo; //If you're scrolling beyond the end of the document, set the scrollTo to the end of the document. //TODO: this doesn't seem like the actual end of the page, for some reason.
 
     window.scrollTo({
         left: scrollTo, //Scroll!
         behavior: 'smooth'
     });
 
-    window.scrollX = scrollTo; //make sure that the scrollX aligns with the place that you're scrolling to
     scrollTo = 0; //reset where you are scrolling to, as you are no longer scrolling
     totalScroll = 0; //reset the totalScroll, as you are no longer scrolling
 }
 
-stopScrollCheck = () => { //isScrolling check
+//Determine if the page has stopped scrolling
+const stopScrollCheck = () => { 
+    isScrolling = true; //you're definitely scrolling here, dude, cause you're callin this function
+
     let tempPos = Math.ceil(window.visualViewport.pageLeft); //get the current page position, start a loop
-    let debugCount = 0;
+    let posTick;
+
     const checkPos = setInterval(function () { 
-        debugCount++
-        let posTick = Math.ceil(window.visualViewport.pageLeft); //get the current page position, save it to a new var
-        console.log(`check`)
-        if (posTick === tempPos) { //check and see if tempPos and posTick are the same. If they are the same, then the window hasn't moved in 50ms, and the page has stopped scrolling
+        posTick = Math.ceil(window.visualViewport.pageLeft); //get the current page position, save it to a new var
+        if (posTick === tempPos) { //check and see if tempPos and posTick are the same. If they are the same, then the window hasn't moved in 100ms, and the page has stopped scrolling
+            isScrolling = false;
             window.scrollX = window.visualViewport.pageLeft; //set window.scrollX to the window.visualViewport.pageLeft, realigning them
-            clearInterval(checkPos);
-            console.log(`done`)
-        } else if (debugCount >= 100) {
-            window.scrollX = window.visualViewport.pageLeft
-            console.error(`debugCount ticked ${debugCount} times, aborting stopScrollCheck`)
             clearInterval(checkPos);
         }
         tempPos = Math.ceil(window.visualViewport.pageLeft); //update tempPos, start the loop in 50 seconds
-    }, 50)
-}
-
-const viewportEqualsScrollX = () => {
-    let checkEqual = setInterval(function () { //every 50 frames, check and see if the window.visualViewport is aligned with the window.scrollX
-        rangeMax = window.scrollX + 10;
-        rangeMin = window.scrollX - 10;
-
-        //if it is INSIDE the bounds, stop the process
-        if ((window.visualViewport.pageLeft < rangeMax) && (window.visualViewport.pageLeft > rangeMin)) {
-            isScrolling = false; //you are no longer scrolling! Congratulations!
-            clearInterval(checkEqual); //stop loop
-        }
-        //if it is OUTSIDE the bounds, set the visualViewport to the value of window.scrollX and try again. If it's not true, you're still scrolling.
-        else {
-            window.visualViewport.pageLeft = window.scrollX; //reset and try again
-        }
-    }, 50)
+    }, 100)
 }
 
 //start parallax scroll
@@ -70453,6 +70457,9 @@ let lastScroll = 0; //Used to determine which was the user is scrolling
 let scrollDirection = ``; //Used to store which way the user is scrolling
 let parallaxObj = document.querySelectorAll('.parallax-obj'); //Collect all objects to parallax scroll
 let totalMove = []; //used to gather how far the parallax object has moved as you scroll
+let scrollSnapTo = document.querySelectorAll(`.portfolio-main-section`);
+let scrollSnapX = [];
+let scrollSnapBuffer = false //used to prevent multiple scrollSnaps happening within x frames
 
 parallaxObj.forEach(() => {
     totalMove.push(0);
@@ -70460,18 +70467,22 @@ parallaxObj.forEach(() => {
 
 window.addEventListener("scroll", function () {
     throttle(() => {
-        handleScrolling();
+        stopScrollCheck();
+        whileScrolling();
     }, 200);
 })
 
-const handleScrolling = () => {
+const whileScrolling = () => {
     //This checks to confirm if the scrollbar is the actual visualViewport Position, but only when the window is not moving
-    if (!isScrolling) {
-        window.scrollX = window.visualViewport.pageLeft;
+    if (scrollSnapTo.length !== 0){
+        const stopScrollCheck = setInterval(function () { //...then start looking for...
+            if (!isScrolling && !scrollSnapBuffer) { //... when multScrollTicks is false..
+                console.log(`${scrollSnapBuffer} is scrollSnapBuffer`)
+                clearInterval(stopScrollCheck);
+                scrollSnap();
+            }
+        }, 200)
     }
-
-    scrollSnap(); //TODO: Only if able to on the page
-
     //start parallaxScroll sequence
     //TODO: Only if able to on the page
     if (document.readyState === "complete") { 
@@ -70495,6 +70506,7 @@ const parallaxScroll = () => {
         let speed = parallaxObject.dataset.speed * 100; //get speed, multiply by 100. 100 because of scroll gating.
         let objDirection = parallaxObject.dataset.direction; //get object direction
 
+        //IS IN VIEW CODE -- turn into function?
         let objPos = parallaxObject.getBoundingClientRect().x + window.pageXOffset; //get Object Position
         let viewLeftBound = Math.floor(window.visualViewport.pageLeft); //get Left-side of Screen
         let viewRightBound = Math.floor(window.visualViewport.pageLeft + window.visualViewport.width); //get Right-side of Screen
@@ -70553,35 +70565,38 @@ const slideIn = () => {
     }
 }
 
-//scale SVG code
-// const arrowScale = document.querySelectorAll('.arrow-scale')
-// const.log(arrowScale);
-
-let scrollSnapTo = document.querySelectorAll(`.portfolio-main-section`);
-let scrollSnapX = [];
-
 //get all Scroll Snap Values on the page.
 //TODO: Does not work on resize... make it work on resize.
 const getScrollSnapValues = () => {
     for (let i = 0; i < scrollSnapTo.length; i++){
-        let scrollSnapObj = scrollSnapTo[i]
-            scrollSnapX.push(scrollSnapObj.getBoundingClientRect().x)
+        let scrollSnapObj = scrollSnapTo[i];
+        scrollSnapX.push(scrollSnapObj.getBoundingClientRect().x)
     }
-    console.log(scrollSnapX);
 }
 
 const scrollSnap = () => {
-    // let curPos = window.pageXOffset
-    // let closestPos = getClosestNum(curPos, scrollSnapX) - 185; //TODO: make it detect it, what if 185 is too much?
-    
-    // if (!wait) {
-    //     console.log(`scrolling to the position`);
-    //     window.scrollTo({
-    //         left: closestPos,
-    //         behavior: 'smooth'
-    //     })
-    // }
-    
-    // debounce(100);
+    scrollSnapBuffer = true;
+    let curPos = window.pageXOffset;
+    let closestPos = Math.ceil(getClosestNum(curPos, scrollSnapX) - 190); //TODO: Magic number, remove 185. This is the width of the header
+    console.log(closestPos);
+    let nextPosIndex = Math.ceil(getNextHighestIndex(curPos, scrollSnapX));
+    let nextPos = scrollSnapX[nextPosIndex] - 190;
+
+    if (curPos > closestPos + 200) {
+        console.log(`going to next`);
+        window.scrollTo({
+            left: nextPos,
+            behavior: 'smooth'
+        })
+    } else {
+        console.log(`recentering`);
+        window.scrollTo({
+            left: closestPos,
+            behavior: 'smooth'
+        })
+    }
+    setTimeout(() => {
+        scrollSnapBuffer = false;
+    }, 300)
 }
 },{"video.js":46}]},{},[51]);
