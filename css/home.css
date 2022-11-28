@@ -7,7 +7,7 @@
 }
 
 
-.portfolio-main-section{ width:95vw; }
+.portfolio-main-section{ min-width:95vw; width: 1980px; }
 .portfolio-main-content-column{ width: 30vw; }
 .portfolio-main-content-column .preview-container{ position: absolute; width: 30vw; }
 .portfolio-main-content-column .preview-container img{ opacity:1; width:100%; }

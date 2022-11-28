@@ -24,11 +24,11 @@ let buttonDisable = false; //TODO: I think this isn't right
 let leftNav = false;
 
 window.onload = function () {
-    fadeIn();
     setTimeout(() => {
+        fadeIn();
         window.scrollTo(0, 0); //scroll to the beginning of the page on load
         getScrollSnapValues(); //TODO: Only run this on pages where getScrollSnapValues exist
-    }, 1);
+    }, 1); //delaying by 1 avoids any issues
 }
 
 //////////////////////////////////////////
@@ -175,6 +175,20 @@ let hideNavCheck = () => {
 //Scroll Code
 //////////////////////////////////////////
 
+const windowScrollTo = (position, behavior) => {
+    window.scrollTo({
+        left: position,
+        behavior: behavior
+    })
+}
+
+const windowScrollBy = (position, behavior) => {
+    window.scrollBy({
+        left: position,
+        behavior: behavior
+    })
+}
+
 let totalScroll = 0;
 let isScrolling;
 let multScrollTicks = false;
@@ -193,21 +207,17 @@ window.addEventListener('keydown', (evt) => {
 });
 
 const linearScrollUp = () => {
-    window.scrollBy({
-        left: linearMoveValue,
-    });
+    scrollSnapPage() ? scrollSnap(linearMoveValue) : windowScrollBy(linearMoveValue, 'auto');
 }
-
 const linearScrollDown = () => {
-    window.scrollBy({
-        left: -linearMoveValue
-    });
+    scrollSnapPage() ? scrollSnap(-linearMoveValue) : windowScrollBy(-linearMoveValue, 'auto');
 }
 
 window.addEventListener('wheel', (evt) => {
     totalScroll += evt.deltaY; //Get the value of your mousewheel scroll, and add it to the totalScroll totalScroll is how much we will be scrolling
     totalScroll += evt.deltaX; //TODO: Fix snap on x axis mouse
-    regulateScroll(totalScroll)
+    console.log(`${scrollSnapPage()} is the scrollSnapPage`);
+    scrollSnapPage() ? scrollSnap(totalScroll) : regulateScroll(totalScroll); //if you're on a scrolling page, snap scroll, otherwise regulate the scroll
 });
 
 function regulateScroll(totalScroll) {
@@ -238,10 +248,7 @@ function scrollAction(num) {
     scrollTo < 0 ? scrollTo = 0 : scrollTo; //if scrollTo is below 0, set to 0.
     scrollTo > document.body.scrollWidth ? scrollTo = document.body.scrollWidth : scrollTo; //If you're scrolling beyond the end of the document, set the scrollTo to the end of the document. //TODO: this doesn't seem like the actual end of the page, for some reason.
 
-    window.scrollTo({
-        left: scrollTo, //Scroll!
-        behavior: 'smooth'
-    });
+    windowScrollTo(scrollTo, 'smooth')
 
     scrollTo = 0; //reset where you are scrolling to, as you are no longer scrolling
     totalScroll = 0; //reset the totalScroll, as you are no longer scrolling
@@ -270,9 +277,6 @@ let lastScroll = 0; //Used to determine which was the user is scrolling
 let scrollDirection = ``; //Used to store which way the user is scrolling
 let parallaxObj = document.querySelectorAll('.parallax-obj'); //Collect all objects to parallax scroll
 let totalMove = []; //used to gather how far the parallax object has moved as you scroll
-let scrollSnapTo = document.querySelectorAll(`.portfolio-main-section`);
-let scrollSnapX = [];
-let scrollSnapBuffer = false //used to prevent multiple scrollSnaps happening within x frames
 
 parallaxObj.forEach(() => {
     totalMove.push(0);
@@ -287,15 +291,15 @@ window.addEventListener("scroll", function () {
 
 const whileScrolling = () => {
     //This checks to confirm if the scrollbar is the actual visualViewport Position, but only when the window is not moving
-    if (scrollSnapTo.length !== 0){
-        const stopScrollCheck = setInterval(function () { //...then start looking for...
-            if (!isScrolling && !scrollSnapBuffer) { //... when multScrollTicks is false..
-                console.log(`${scrollSnapBuffer} is scrollSnapBuffer`)
-                clearInterval(stopScrollCheck);
-                scrollSnap();
-            }
-        }, 200)
-    }
+    // if (scrollSnapTo.length !== 0){
+    //     const stopScrollCheck = setInterval(function () { //...then start looking for...
+    //         if (!isScrolling && !scrollSnapBuffer) { //... when multScrollTicks is false..
+    //             console.log(`${scrollSnapBuffer} is scrollSnapBuffer`)
+    //             clearInterval(stopScrollCheck);
+    //             scrollSnap();
+    //         }
+    //     }, 200)
+    // }
     //start parallaxScroll sequence
     //TODO: Only if able to on the page
     if (document.readyState === "complete") { 
@@ -378,37 +382,54 @@ const slideIn = () => {
     }
 }
 
+
+let scrollSnapTo = document.querySelectorAll(`.portfolio-main-section`);
+let scrollSnapLocations = [];
+let curPos;
+let nextPos;
+let prevPos;
+
 //get all Scroll Snap Values on the page.
 //TODO: Does not work on resize... make it work on resize.
 const getScrollSnapValues = () => {
+    let snapAdjust = 185; //adjusts for the margin-left
     for (let i = 0; i < scrollSnapTo.length; i++){
-        let scrollSnapObj = scrollSnapTo[i];
-        scrollSnapX.push(scrollSnapObj.getBoundingClientRect().x)
+        scrollSnapObj = scrollSnapTo[i];
+        scrollSnapLocations.push(scrollSnapObj.getBoundingClientRect().x - snapAdjust)
     }
+    console.log(scrollSnapLocations);
+    curPos = scrollSnapLocations[0];
 }
 
-const scrollSnap = () => {
-    scrollSnapBuffer = true;
-    let curPos = window.pageXOffset;
-    let closestPos = Math.ceil(getClosestNum(curPos, scrollSnapX) - 190); //TODO: Magic number, remove 185. This is the width of the header
-    console.log(closestPos);
-    let nextPosIndex = Math.ceil(getNextHighestIndex(curPos, scrollSnapX));
-    let nextPos = scrollSnapX[nextPosIndex] - 190;
-
-    if (curPos > closestPos + 200) {
-        console.log(`going to next`);
-        window.scrollTo({
-            left: nextPos,
-            behavior: 'smooth'
-        })
-    } else {
-        console.log(`recentering`);
-        window.scrollTo({
-            left: closestPos,
-            behavior: 'smooth'
-        })
+const scrollSnapPage = () => {
+    return (Array.isArray(scrollSnapLocations) && scrollSnapLocations.length > 0);
+}
+  
+const scrollSnap = (num) => {
+    console.log(num);
+    index = scrollSnapLocations.indexOf(curPos)
+    if (index >= 0 && index < scrollSnapLocations.length - 1) {
+        nextPos = scrollSnapLocations[index + 1];
+        prevPos = scrollSnapLocations[index - 1];
     }
-    setTimeout(() => {
-        scrollSnapBuffer = false;
-    }, 300)
+    
+    (num > 0) ? goToNextSnap() : goToPreviousSnap();
+    totalScroll = 0;
+}
+
+const goToNextSnap = () => {
+    windowScrollTo(nextPos, 'smooth')
+    curPos = scrollSnapLocations[index + 1];
+    index = scrollSnapLocations.indexOf(curPos)
+    if (index === -1) {
+        index = 0;
+        curPos = scrollSnapLocations[0];
+    }
+    console.log(`${curPos} is the curPos`);
+    console.log(`${index} is the index`);
+}
+
+const goToPreviousSnap = () => {
+    windowScrollTo(prevPos, 'smooth')
+    curPos = scrollSnapLocations[index - 1];
 }

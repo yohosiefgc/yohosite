@@ -1,28 +1,28 @@
 /*Portfolio Structure
 -------------------------------------------------*/
-#portfolio{
+.portfolio{
   width: max-content;
   overflow-x: visible;
   margin-left: 185px;
   scroll-behavior: smooth;
 }
 
-#portfolio section{ float: left; height:100vh; }
-#portfolio section:nth-child(n + 3){ padding-left: 5vw; }
-#portfolio section:nth-child(1){padding:0 3vh 0 2vh;}
+.portfolio section{ float: left; height:100vh; }
+.portfolio-page section:nth-child(n + 3){ padding-left: 5vw; }
+.portfolio-page section:nth-child(1){padding:0 3vh 0 2vh;}
 
-#portfolio .portfolio-column{
+.portfolio .portfolio-column{
   float: left;
   height: 100vh;
   padding: 0 6vh 0 6vh;
 }
 
-#portfolio .portfolio-column:nth-last-child(1){ padding: 0 0 0 6vh; }
+.portfolio .portfolio-column:nth-last-child(1){ padding: 0 0 0 6vh; }
 
 /*Portfolio Title
 -------------------------------------------------*/
 
-#portfolio .title{
+.portfolio .title{
   margin-top:12vh;
   position: absolute;
   width: 800px;
@@ -34,7 +34,7 @@
   top:-32px;
 }
 
-#portfolio .title svg{
+.portfolio .title svg{
   fill: white;
   height: 66px;
   width: 40px;
@@ -42,12 +42,12 @@
   transform-origin: top left;
 }
 
-#portfolio .title h1{
+.portfolio .title h1{
   position: relative;
   left: 15px;
 }
 
-#portfolio .title h1::before{
+.portfolio .title h1::before{
   content: attr(data-title);
   font-family: acier-bat-strokes;
   position: absolute;
@@ -62,7 +62,7 @@
 
 /*Portfolio Content
 -------------------------------------------------*/
-#portfolio .content-container{
+.portfolio .content-container{
   width: 19vw;
   min-width:250px;
   max-width: 320px;
