@@ -18,9 +18,22 @@
   width:12px;
   height:12px;
   fill: #FFFFFF;
-  opacity:.7;
   padding-right: 12px;
 }
+
+.carousel-nav a{
+  cursor: pointer;
+  opacity: .7;
+  transition: .2s;
+}
+
+.carousel-nav a:hover{ opacity: 1; transition-duration: 1s; }
+
+.carousel-next-btn{
+  opacity: 1!important;
+  color: rgb(255, 255, 255)
+} /*TODO: lol*/
+
 
 .view-proj-container{
   font-family: acier-bat-solid, Helvetica, Arial, sans-serif;

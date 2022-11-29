@@ -70207,7 +70207,7 @@ window.onload = function () {
     setTimeout(() => {
         fadeIn();
         window.scrollTo(0, 0); //scroll to the beginning of the page on load
-        getScrollSnapValues(); //get all Scroll Snap Values on the page.
+        getScrollSnapValues(); //TODO: Only run this on pages where getScrollSnapValues exist
     }, 1); //delaying by 1 avoids any issues
 }
 
@@ -70246,12 +70246,6 @@ const getNextHighestIndex = (num, arr) => {
     let i = arr.length;
     while (arr[--i] > num);
     return ++i; 
-}
-
-const getNextLowestIndex = (num, arr) => {
-    let i = arr.length;
-    while (arr[--i] > num);
-    return ++i - 1; 
 }
 
 
@@ -70366,12 +70360,6 @@ const windowScrollTo = (position, behavior) => {
         left: position,
         behavior: behavior
     })
-    // setTimeout(() => { //TODO: ???? Fixes chrome issue where it stops scrolling after like 510ms for some reason?
-    //     window.scrollTo({
-    //         left: position,
-    //         behavior: behavior
-    //     })
-    // },550) 
 }
 
 const windowScrollBy = (position, behavior) => {
@@ -70408,10 +70396,8 @@ const linearScrollDown = () => {
 window.addEventListener('wheel', (evt) => {
     totalScroll += evt.deltaY; //Get the value of your mousewheel scroll, and add it to the totalScroll totalScroll is how much we will be scrolling
     totalScroll += evt.deltaX; //TODO: Fix snap on x axis mouse
-    console.log(`${totalScroll} is the totalScroll`);
-    if (totalScroll !== 0) {
-        scrollSnapPage() ? scrollSnap(-totalScroll) : regulateScroll(totalScroll); //if you're on a scrolling page, snap scroll, otherwise regulate the scroll
-    }
+    console.log(`${scrollSnapPage()} is the scrollSnapPage`);
+    scrollSnapPage() ? scrollSnap(totalScroll) : regulateScroll(totalScroll); //if you're on a scrolling page, snap scroll, otherwise regulate the scroll
 });
 
 function regulateScroll(totalScroll) {
@@ -70437,6 +70423,7 @@ function regulateScroll(totalScroll) {
 function scrollAction(num) {
     stopScrollCheck();
     
+    
     let scrollTo = Math.floor(window.scrollX += num); //Scroll to the position of the scrollX (scrollbar), plus the totalScroll.
     scrollTo < 0 ? scrollTo = 0 : scrollTo; //if scrollTo is below 0, set to 0.
     scrollTo > document.body.scrollWidth ? scrollTo = document.body.scrollWidth : scrollTo; //If you're scrolling beyond the end of the document, set the scrollTo to the end of the document. //TODO: this doesn't seem like the actual end of the page, for some reason.
@@ -70448,7 +70435,7 @@ function scrollAction(num) {
 }
 
 //Determine if the page has stopped scrolling
-const stopScrollCheck = () => {
+const stopScrollCheck = () => { 
     isScrolling = true; //you're definitely scrolling here, dude, cause you're callin this function
 
     let tempPos = Math.ceil(window.visualViewport.pageLeft); //get the current page position, start a loop
@@ -70456,12 +70443,9 @@ const stopScrollCheck = () => {
 
     const checkPos = setInterval(function () { 
         posTick = Math.ceil(window.visualViewport.pageLeft); //get the current page position, save it to a new var
-        if (posTick === tempPos) {
+        if (posTick === tempPos) { //check and see if tempPos and posTick are the same. If they are the same, then the window hasn't moved in 100ms, and the page has stopped scrolling
             isScrolling = false;
             window.scrollX = window.visualViewport.pageLeft; //set window.scrollX to the window.visualViewport.pageLeft, realigning them
-            if (scrollSnapPage()) {
-                catchSnapDeadZone();
-            }
             clearInterval(checkPos);
         }
         tempPos = Math.ceil(window.visualViewport.pageLeft); //update tempPos, start the loop in 50 seconds
@@ -70483,25 +70467,34 @@ window.addEventListener("scroll", function () {
         stopScrollCheck();
         whileScrolling();
     }, 200);
-});
+})
 
 const whileScrolling = () => {
+    //This checks to confirm if the scrollbar is the actual visualViewport Position, but only when the window is not moving
+    // if (scrollSnapTo.length !== 0){
+    //     const stopScrollCheck = setInterval(function () { //...then start looking for...
+    //         if (!isScrolling && !scrollSnapBuffer) { //... when multScrollTicks is false..
+    //             console.log(`${scrollSnapBuffer} is scrollSnapBuffer`)
+    //             clearInterval(stopScrollCheck);
+    //             scrollSnap();
+    //         }
+    //     }, 200)
+    // }
+    //start parallaxScroll sequence
+    //TODO: Only if able to on the page
     if (document.readyState === "complete") { 
-        parallaxScroll(directionScroll());
+        let currentScroll = window.scrollX; //get current position
+        if (currentScroll > lastScroll) {
+            lastScroll = currentScroll
+            scrollDirection = `right`;
+        }
+        if (currentScroll < lastScroll) {
+            lastScroll = currentScroll
+            scrollDirection = `left`;
+        }
+        parallaxScroll(scrollDirection);
         slideIn();
     };
-}
-
-const directionScroll = () => {
-    let currentScroll = window.scrollX;
-    if (currentScroll > lastScroll) {
-        lastScroll = currentScroll
-        return scrollDirection = `right`;
-    }
-    if (currentScroll < lastScroll) {
-        lastScroll = currentScroll
-        return scrollDirection = `left`;
-    }
 }
 
 const parallaxScroll = () => {
@@ -70569,121 +70562,52 @@ const slideIn = () => {
     }
 }
 
-//Snap Scroll Page
-//TODO: combine scrollSnapTo and scrollSnapLocations
-let scrollSnapTo = document.querySelectorAll(`.portfolio-main-section`); //get snap locations
-let scrollSnapLocations = []; //index of those locations
-let index; //current index of scrollSnapLocations array
-let curPos; //current pixel location on screen
-let nextPos; //next pixel location of next index in scrollSnapLocations array
-let prevPos; //previous pixel location of next index in scrollSnapLocations array
-let carouselNavBtn = document.querySelectorAll(`.carousel-nav-btn`); //Carousel Nav square in bottom-left
-let carouselNextBtn = document.querySelector(`.carousel-next-btn`); //Carousel Nav Next button
-let nextProjectText = document.querySelector('.next-project-change'); //Carousel text in top-right
-let carouselTitle = document.querySelectorAll('.carousel-title'); //Title of the page, to update the nextProjectText as you scroll
 
+let scrollSnapTo = document.querySelectorAll(`.portfolio-main-section`);
+let scrollSnapLocations = [];
+let curPos;
+let nextPos;
+let prevPos;
+
+//get all Scroll Snap Values on the page.
 //TODO: Does not work on resize... make it work on resize.
 const getScrollSnapValues = () => {
     let snapAdjust = 185; //adjusts for the margin-left
-    
     for (let i = 0; i < scrollSnapTo.length; i++){
         scrollSnapObj = scrollSnapTo[i];
-        scrollSnapLocations.push(scrollSnapObj.getBoundingClientRect().x - snapAdjust) //loads section pixels into the array
+        scrollSnapLocations.push(scrollSnapObj.getBoundingClientRect().x - snapAdjust)
     }
-
-    curPos = scrollSnapLocations[0]; //sets the current position
-    index = scrollSnapLocations.indexOf(curPos); //sets the current index to 0
-    snapGetCurrentPos();
-    loadCarouselNav();
+    console.log(scrollSnapLocations);
+    curPos = scrollSnapLocations[0];
 }
 
 const scrollSnapPage = () => {
-    return (Array.isArray(scrollSnapLocations) && scrollSnapLocations.length > 0); //if it's a scrollSnapPage, return true
-}
-
-const snapGetCurrentPos = () => {
-    curPos = scrollSnapLocations[0]; //sets the current position
-    index = scrollSnapLocations.indexOf(curPos); //sets the current index to 0
-}
-
-const snapGetSurroundingPos = () => {
-    if (index === scrollSnapLocations.length - 1) {
-        nextPos = scrollSnapLocations[0] //if it's the last image in the sequence, go to the first section
-    } else {
-        nextPos = scrollSnapLocations[index + 1]
-    }
-    prevPos = scrollSnapLocations[index - 1];
+    return (Array.isArray(scrollSnapLocations) && scrollSnapLocations.length > 0);
 }
   
-const scrollSnap = (num) => { 
-    snapGetSurroundingPos(); //log the next and previous snaps
+const scrollSnap = (num) => {
+    index = scrollSnapLocations.indexOf(curPos); //get current position on page, mark it as current
+    if (index >= 0 && index < scrollSnapLocations.length - 1) {
+        nextPos = scrollSnapLocations[index + 1];
+        prevPos = scrollSnapLocations[index - 1];
+    } else{console.log(`hey!!! come on now`)}
+    
     (num > 0) ? goToNextSnap() : goToPreviousSnap();
-
-    index = scrollSnapLocations.indexOf(curPos); //update index
-    updateNavSquareOpacity(index); //update the bottom-left nav to match
-    updateNextProjectText(index);
-    totalScroll = 0; //update totalScroll, in case you were navigating via scrollwheel
-
+    totalScroll = 0;
 }
 
 const goToNextSnap = () => {
+    console.log(`${nextPos} is the nextPos`);
     windowScrollTo(nextPos, 'smooth');
-    curPos = nextPos; //update the current position to the new position
+    curPos = scrollSnapLocations[index + 1]
+    // index === scrollSnapLocations.length ? curpos = 0 : curpos = scrollSnapLocations[index + 1];
+    // index = scrollSnapLocations.indexOf(curPos);
+    console.log(`${curPos} is the curPos`);
+    console.log(`${index} is the index`);
 }
 
 const goToPreviousSnap = () => {
     windowScrollTo(prevPos, 'smooth')
-    curPos = prevPos; //update the current position to the new position
-}
-
-const loadCarouselNav = () => {
-    //TODO: Refactor, this is not good. Repeated code, getCurrentPos has curPos = [0] which is bad, just fix it, I don't care, whatever man
-    carouselNextBtn.addEventListener('click', function handleClick() {
-        windowScrollTo(scrollSnapLocations[index + 1], 'smooth');
-        curPos = scrollSnapLocations[index + 1]; //sets the current position
-        index = scrollSnapLocations.indexOf(curPos); //sets the current index to 0
-        snapGetSurroundingPos(); //log the next and previous snaps
-        updateNavSquareOpacity(index);
-    });
-
-    for (let i = 0; i < carouselNavBtn.length; i++) {
-        carouselNavBtn[i].addEventListener('click', function handleClick() { //programmatically update "Next" carousel to the next position on the page
-            windowScrollTo(scrollSnapLocations[i], 'smooth');
-            snapGetCurrentPos(); //update current pos
-            snapGetSurroundingPos(); //log the next and previous snaps
-            updateNavSquareOpacity(i);
-        })
-    }
-}
-
-const updateNavSquareOpacity = (index) => {
-    for (let i = 0; i < carouselNavBtn.length; i++) {
-        (i === index) ? carouselNavBtn[i].style.opacity = 1 : carouselNavBtn[i].style.opacity = .7
-    }
-}
-
-const updateNextProjectText = (index) => {
-    if (index === carouselTitle.length - 1) {
-        nextProjectText.innerText = carouselTitle[0].innerText;
-    }
-    else {
-        nextProjectText.innerText = carouselTitle[index + 1].innerText;
-    }
-}
-
-const catchSnapDeadZone = () => {
-    if (!scrollSnapLocations.includes(window.scrollX)) {
-        let snapScrollDirection = directionScroll();
-        
-        if (snapScrollDirection === `left`) {
-            index = getNextLowestIndex(window.scrollX, scrollSnapLocations)
-        } else if (snapScrollDirection === `right`) {
-            index = getNextHighestIndex(window.scrollX, scrollSnapLocations)
-        }
-        curPos = scrollSnapLocations[index]; //sets the current position
-        
-        windowScrollTo(curPos, 'smooth');
-        snapGetSurroundingPos();
-    }
+    curPos = scrollSnapLocations[index - 1];
 }
 },{"video.js":46}]},{},[51]);
