@@ -1,6 +1,6 @@
 document.write(`<svg id="svg-storage">
   <defs>
-    <polygon id="triangle" data-name="triangle" points="0,0 0,500 500,500" fill="#FFF" />
+    <polygon id="triangle" data-name="triangle" points="0,0 0,500 500,500"/>
   </defs>
   <defs>
     <rect id="rectangle" data-name="rectangle" style="width:100%; height:100%;">
@@ -66,6 +66,9 @@ document.write(`<svg id="svg-storage">
   </defs>
   <defs>
     <line id="line-dashed-horizontal" x1="0" y1="0" x2="10000" y2="0" stroke="white" stroke-width="5px" stroke-dasharray="15,7"></line>
+  </defs>
+  <defs>
+    <line id="line-dashed-vertical" x1="0" y1="0" x2="0" y2="10000" stroke="white" stroke-width="5px" stroke-dasharray="15,7"></line>
   </defs>
   <defs>
     <line id="portfolio-end-diagonal" x1="0" y1="0" x2="6600" y2="10000" stroke="white" stroke-width="1px"></line>

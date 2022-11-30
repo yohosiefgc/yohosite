@@ -31,6 +31,14 @@ window.onload = function () {
     }, 1); //delaying by 1 avoids any issues
 }
 
+addEventListener("resize", (e) => {
+    throttle(() => {
+        console.log(`test123`);
+        getScrollSnapValues();
+        catchSnapDeadZone(); //TODO: Make this not always return to 0;
+    }, 1000);
+});
+
 //////////////////////////////////////////
 //Reusable Functions
 //////////////////////////////////////////
@@ -355,7 +363,7 @@ const fadeIn = () => {
     setTimeout(function timer() {
         for (let i = 0; i < parallaxObj.length; i++) {
             let parallaxObject = parallaxObj[i]; //get all objects 
-            parallaxObject.style.opacity = ('.8');
+            parallaxObject.style.opacity = (parallaxObject.dataset.opacity);
         }
     }, 500);
     
@@ -404,11 +412,12 @@ let carouselTitle = document.querySelectorAll('.carousel-title'); //Title of the
 
 //TODO: Does not work on resize... make it work on resize.
 const getScrollSnapValues = () => {
-    let snapAdjust = 185; //adjusts for the margin-left
+    scrollSnapLocations.length = 0; //resets scrollSnapLocations on resize. Does nothing first time through
+    let snapAdjust = 161; //adjusts for the margin-left
     
     for (let i = 0; i < scrollSnapTo.length; i++){
         scrollSnapObj = scrollSnapTo[i];
-        scrollSnapLocations.push(scrollSnapObj.getBoundingClientRect().x - snapAdjust) //loads section pixels into the array
+        scrollSnapLocations.push(Math.round(scrollSnapObj.getBoundingClientRect().x + window.scrollX) - snapAdjust) //add left edge of object + window.scrollX to get the position it is from the left on the page. window.scrollX is necessary if you resize half-way through the document.
     }
 
     curPos = scrollSnapLocations[0]; //sets the current position
@@ -492,7 +501,13 @@ const updateNextProjectText = (index) => {
 }
 
 const catchSnapDeadZone = () => {
-    if (!scrollSnapLocations.includes(window.scrollX)) {
+
+    //detect if window.scrollX is within 10 pixels of the includes
+    console.log(scrollSnapLocations);
+    let position = Math.round(window.scrollX)
+
+    if (!scrollSnapLocations.includes(position) ) {
+        console.log(`catching the deadzone`);
         let snapScrollDirection = directionScroll();
         
         if (snapScrollDirection === `left`) {
