@@ -20,7 +20,7 @@ body::after {
   left: -50%;
   top: -50%;
   z-index:-1;
-  opacity:.2;
+  opacity:.05;
   background-blend-mode:darken;
   background-image: url("../images/scanline.png");
 }

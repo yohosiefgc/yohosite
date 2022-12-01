@@ -13,7 +13,21 @@
 
 .portfolio-main-content-column{ width: 30vw; }
 .portfolio-main-content-column .preview-container{ position: absolute; width: 30vw; }
-.portfolio-main-content-column .preview-container img{ opacity:1; width:100%; }
+.portfolio-main-content-column .preview-container img{
+  width:100%;
+  cursor:pointer;
+  transition: .75s ease-in-out;
+}
+
+.img-on{ 
+  position: absolute;
+  opacity: 0;
+}
+
+.img-off:hover .img-on{
+  opacity: 1;
+}
+
 .portfolio-main-section .fullscreen{ width: 100%; left: -40px; }
 .portfolio-main-spacer{
   width: 20vw;
@@ -58,8 +72,8 @@
   float: left;
   height:2rem;
   position: relative;
-  left:20px;
-  top:8px;
+  left:10px;
+  top:7px;
   fill:white;
 }
 
@@ -78,4 +92,16 @@
   position: relative;
   left:10px;
   top:8px;
+}
+
+.portfolio-main-credit{
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+  background-color:black;
+  padding:2px 20px;
+}
+
+.portfolio-main-credit span{
+  font-size:.8rem;
 }

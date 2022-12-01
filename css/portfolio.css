@@ -218,6 +218,7 @@
   padding: 0px;
   float: left;
   height:100vh;
+  z-index: -1;
 }
 
 .fullscreen-column{ float: left; position: relative; }

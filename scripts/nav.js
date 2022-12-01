@@ -39,7 +39,7 @@ document.write(`<nav>
           &nbsp; <!-- used to stop animation snapping -->
           <ol class="navigation-main">
             <li class="navigation-li navigation-li-first">
-              <a href="#"><span>Portfolio</span></a>
+              <a href="index.html"><span>Portfolio</span></a>
               <svg class="navigation-arrow">
                 <use xlink:href="#arrow"></use>
               </svg>
