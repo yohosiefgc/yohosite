@@ -33723,6 +33723,7 @@ var Html5 = /*#__PURE__*/function (_Tech) {
       if ('webkitPresentationMode' in this.el_ && this.el_.webkitPresentationMode !== 'picture-in-picture') {
         this.one('webkitendfullscreen', endFn);
         this.trigger('fullscreenchange', {
+          
           isFullscreen: true,
           // set a flag in case another tech triggers fullscreenchange
           nativeIOSFullscreen: true
@@ -38164,6 +38165,7 @@ var Player = /*#__PURE__*/function (_Component) {
   ;
 
   _proto.exitFullscreen = function exitFullscreen() {
+
     var PromiseClass = this.options_.Promise || window__default['default'].Promise;
 
     if (PromiseClass) {
@@ -70206,7 +70208,7 @@ let leftNav = false;
 window.onload = function () {
     setTimeout(() => {
         fadeIn();
-        window.scrollTo(0, 0); //scroll to the beginning of the page on load
+        // window.scrollTo(0, 0); //scroll to the beginning of the page on load
         getScrollSnapValues(); //get all Scroll Snap Values on the page.
     }, 1); //delaying by 1 avoids any issues
 }

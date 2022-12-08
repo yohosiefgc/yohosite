@@ -16,8 +16,8 @@ document.write(`<nav>
   </div>
   <div id="name" class="nav-alt-toggle">
     <div class="rotation-wrapper-inner">
-      <h3 class="title-hover fade-in-start"><a href="#">Yohosie</a></h3><!--TODO: Kern font-->
-      <h3 class="title-default"><a href="#">Yohosie</a></h3> <!--TODO: Kern font-->
+      <h3 class="title-hover fade-in-start"><a href="index.html">Yohosie</a></h3><!--TODO: Kern font-->
+      <h3 class="title-default"><a href="index.html">Yohosie</a></h3> <!--TODO: Kern font-->
     </div>
   </div>
   <div id="page-title" class="nav-alt-toggle">
