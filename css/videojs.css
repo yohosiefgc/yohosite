@@ -128,7 +128,10 @@
 
 .video-js.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder:before,
 .vjs-icon-fullscreen-exit:before {
-  content: "\f109"
+  content: "\f109";
+  font-size: 3rem;
+  left: -5px;
+  top: -18px;
 }
 
 .vjs-icon-square {

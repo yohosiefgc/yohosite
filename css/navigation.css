@@ -1,56 +1,15 @@
 /* Navigation Sidebar
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 #sidebar{
-  height: 100vh;
-  width: 160px;
   position: fixed;
   z-index: 9999;
   background-color:#000000;
   background-image: url("../images/bg-film-grain-3opacity.png");
 }
 
-
-#sidebar .sidebar-nav-border{
-  border-right: 1px solid rgba(255,255,255,.6);
-  height: 86vh;
-  position: absolute;
-  margin-left: 160px;
-  margin-top: 7vh;
-}
-
-/*container height definitions*/
-#sidebar #sidebar-nav-icon{
-  height:22vh;
-  position: relative;
-}
-#sidebar #name{
-  height: 52vh;
-  position: relative;
-}
-#sidebar #page-title{
-  height: 26vh;
-  position: relative;
-}
-
-#sidebar .rotation-wrapper-inner{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#sidebar svg{
-  width: 42px;
-  margin-left:86px;
-}
-
-#sidebar h3,
-#sidebar button{
-  display: block;
-  font-style: normal;
-  transform-origin: top left;
-  transform: rotate(-90deg) translate(-100%) translateX(50%);
-  margin-left:88px;
-}
+#sidebar #name{ position: relative; }
+#sidebar #page-title{ position: relative; }
+#sidebar svg{ width: 42px; }
 
 #sidebar h3{
   font-weight: 400;
@@ -71,10 +30,10 @@
   height: 0px;
 }
 
-/*TODO: Fix this lol*/
-.fade-in-anim{
-  opacity:1!important;
-  height:29px!important;
+#sidebar h3,
+#sidebar button{
+  display: block;
+  font-style: normal;
 }
 
 #sidebar h3 a{
@@ -101,6 +60,59 @@
 #sidebar button:hover > span{
   background-size: 100% 4px;
   color:rgb(255, 255, 255, 1)
+}
+
+/*TODO: Fix this lol*/
+.fade-in-anim{
+  opacity:1!important;
+  height:29px!important;
+}
+
+#sidebar .sidebar-nav-border{ position: absolute; }
+
+@media (min-width: 750px) {
+  #sidebar{ height: 100vh; width: 160px; }
+  #sidebar #sidebar-nav-icon{ height:22vh; position: relative; }
+  #sidebar svg { margin-left:86px; }
+  #sidebar #name { height: 52vh; }
+  #sidebar #page-title { height: 26vh; }
+
+  #sidebar .rotation-wrapper-inner{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  #sidebar h3,
+  #sidebar button{
+    transform-origin: top left;
+    transform: rotate(-90deg) translate(-100%) translateX(50%);
+    margin-left:88px;
+  }
+
+  #sidebar .sidebar-nav-border{
+    border-right: 1px solid rgba(255,255,255,.6);
+    height: 86vh;
+    margin-left: 160px;
+    margin-top: 7vh;
+  }
+
+}
+@media (max-width: 749px) {
+
+  #sidebar{ height: 100px; width: 100vw; }
+  #sidebar #sidebar-nav-icon{ width:20vw; float: right; }
+  #sidebar #name { width: 50vw; margin-top:2px; margin-left: 5vw; float: left;}
+  #sidebar #page-title { display:none;}
+
+  #sidebar .rotation-wrapper-inner { margin-top: 15px;}
+
+  #sidebar .sidebar-nav-border{
+    border-bottom: 1px solid rgba(255,255,255,.6);
+    width: 76vw;
+    margin-top: 80px;
+    margin-left:12vw;
+  }
 }
 
 /* Navigation Toggle SVG

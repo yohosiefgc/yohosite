@@ -33,6 +33,7 @@ window.onload = function () {
 
 addEventListener("resize", (e) => {
     throttle(() => {
+        
         console.log(`test123`);
         getScrollSnapValues();
         catchSnapDeadZone(); //TODO: Make this not always return to 0;

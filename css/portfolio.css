@@ -1,23 +1,33 @@
 /*Portfolio Structure
 -------------------------------------------------*/
-.portfolio{
-  width: max-content;
-  overflow-x: visible;
-  margin-left: 185px;
-  scroll-behavior: smooth;
+.portfolio{ scroll-behavior: smooth; }
+.portfolio section{ float: left}
+.portfolio .portfolio-column{float: left;}
+
+@media (min-width: 750px) {
+  .portfolio{
+    margin-left: 185px;
+    overflow-x: visible;
+    width: max-content;
+  }
+  
+  .portfolio section{ height:100vh; }
+  .portfolio-page section:nth-child(n + 3){ padding-left: 5vw; }
+  .portfolio-page section:nth-child(1){padding:0 3vh 0 2vh;}
+
+  .portfolio .portfolio-column{
+    float: left;
+    height: 100vh;
+    padding: 0 6vh 0 6vh;
+  }
+
+  .portfolio .portfolio-column:nth-last-child(1){ padding: 0 0 0 6vh; }
 }
 
-.portfolio section{ float: left; height:100vh; }
-.portfolio-page section:nth-child(n + 3){ padding-left: 5vw; }
-.portfolio-page section:nth-child(1){padding:0 3vh 0 2vh;}
-
-.portfolio .portfolio-column{
-  float: left;
-  height: 100vh;
-  padding: 0 6vh 0 6vh;
+@media (max-width:749px){
+  .portfolio .portfolio-column{ padding: 0 7vw 80px 7vw; width: 84vw; }
+  .portfolio .portfolio-column:nth-last-child(1){ padding: 0 7vw 10px 7vw; }
 }
-
-.portfolio .portfolio-column:nth-last-child(1){ padding: 0 0 0 6vh; }
 
 /*Portfolio Title
 -------------------------------------------------*/
@@ -25,65 +35,70 @@
 .portfolio .title{
   margin-top:12vh;
   position: absolute;
-  width: 800px;
 }
 
 .title .title-num{
   float: left;
   position: relative;
-  top:-32px;
 }
 
 .portfolio .title svg{
   fill: white;
   height: 66px;
   width: 40px;
-  transform:scale(1.27); /*TODO: Change to Viewbox*/
   transform-origin: top left;
-}
-
-.portfolio .title h1{
-  position: relative;
-  left: 25px;
 }
 
 .portfolio .title h1::before{
   content: attr(data-title);
   font-family: acier-bat-strokes;
   position: absolute;
-  top:-6.5vh;
   left: 33px;
   font-weight:100;
-  font-size: 9rem;
   opacity: 0.7;
   z-index:-2;
   letter-spacing:8px;
 }
 
-/*Portfolio Content
--------------------------------------------------*/
-.portfolio .content-container{
-  width: 19vw;
-  min-width:250px;
-  max-width: 320px;
-  overflow-y: hidden;
+@media (min-width: 750px) {
+  .title .title-num{ top:-32px; }
+  .portfolio .title{ width: 800px; }
+  .portfolio .title h1{ position: relative; left: 25px; }
+  .portfolio .title svg{ transform:scale(1.27); /*TODO: Change to Viewbox*/ }
+  .portfolio .title h1::before{ top:-6.5vh; font-size: 9rem; }
 }
 
+@media (max-width:749px){
+  .title .title-num{ top:10px; }
+  .portfolio .title{ width: 84vw; }
+  .portfolio .title svg{ transform:scale(0.9); /*TODO: Change to Viewbox*/ }
+  .portfolio .title h1{
+    top:20px; position: relative;
+  }
+  .portfolio .title h1::before{
+    top:-25px;
+    font-size: 4rem;
+    overflow-x: hidden;
+  }
+}
+
+/*Portfolio Content
+-------------------------------------------------*/
+
 .content-container .content{ margin-top: 28vh; }
-.content-container .content .triangle{ margin-bottom: 5vh; }
+.content-container .content .triangle{ margin-bottom: 3vh; }
 .content-container .content .body-copy{ line-height: 1.4; margin-bottom: 4rem;}
 
 .content-container .content .description{
   font-weight: 800;
   line-height: 1.4;
-  font-size: 1.3rem;
+  font-size: 2rem;
   margin-bottom: 4rem;
 }
 
 .content-container .content .labels{
   display: inline-block;
   font-family: acier-bat-solid, Helvetica, Arial, sans-serif;
-  margin-bottom: 6rem;
 }
 
 .content-container .content .labels li{
@@ -92,10 +107,25 @@
   margin-bottom: 8px;
   color:black;
   background-color: #FFF;
-  font-size: 1.4rem;
+  font-size: 2rem;
   text-rendering: optimizeLegibility;
   letter-spacing:1px;
   filter:drop-shadow(0px 5px 4px rgba(255, 255, 255, .3))
+}
+
+@media (min-width: 750px) {
+  .portfolio .content-container{
+    width: 19vw;
+    min-width:250px;
+    max-width: 320px;
+    overflow-y: hidden;
+  }
+
+  .content-container .content .triangle{ margin-bottom: 5vh; }
+  .content-container .content .labels{ margin-bottom: 6rem; }
+  .content-container .content .labels li{ font-size: 1.4rem; }
+  .content-container .content .description{ font-size: 1.3rem; }
+  
 }
 
 /*Portfolio Go Back Module
@@ -126,19 +156,9 @@
 
 #go-back .original{ position: absolute; }
 
-/* #go-back .secondary{
-  position: absolute;
-  top: 25px;
-  transition: 0.5s;
-} */
-
-/*TODO: Add rectangle underline effect*/
-/* #go-back a:hover ~ .bold-underline rect{
-  width: 100%;
-  margin-left:8px;
-  transition: width .5s ease;
-  transition-delay: 50ms;
-} */
+@media (max-width:749px){
+  #go-back{ display: none;}
+}
 
 /*Portfolio Img Structure
 -------------------------------------------------*/
@@ -148,11 +168,6 @@
   opacity: 0;
   transition:1.5s;
 }
-
-/*TODO: Add max-height, so that the website works properly on wide monitors.*/
-/*TODO: Videos do not respect max-height*/
-.portfolio-column .vertical{ max-width: 21vw; }
-.portfolio-column .horizontal{ max-width: 45vw; max-height: 50vh; }
 
 .portfolio-img{
   z-index:3;
@@ -170,6 +185,16 @@
   height:calc(100% + 50px);
   z-index: 0;
   pointer-events:none;
+}
+
+@media (min-width: 750px) {
+  .portfolio-column .vertical{ max-width: 21vw; }
+  .portfolio-column .horizontal{ max-width: 45vw; }
+}
+
+@media (max-width:749px){
+  .portfolio-column .vertical{ width:100%; }
+  .portfolio-column .horizontal{ width:100%; }
 }
 
 /*Subtitle Structure
@@ -217,7 +242,6 @@
   position: relative;
   padding: 0px;
   float: left;
-  height:100vh;
   z-index: -1;
 }
 
@@ -237,12 +261,17 @@
   position: absolute;
 }
 
+@media (min-width:750px){
+  .fullscreen{
+    height:100vh;
+  }
+}
+
+
 /*Arrow Wall, Next Page
 -------------------------------------------------*/
 .arrow-wall li{
   list-style:none;
-  height:9.62vh;
-  line-height:0;
   display: flex;
 }
 
@@ -276,6 +305,17 @@
   position: absolute;
   z-index:9999;
   right: 0px;
+}
+
+@media (min-width:750px){
+  .arrow-wall li{ line-height:0; height:9.62vh;}
+}
+@media (max-width:749px){
+  .arrow-wall .decoration,
+  .mobile-hide { display: none; }
+
+  .arrow-wall li span{ width: 75vw; }
+  .arrow-wall .content .arrow{ left: 0px; position: relative; top:0px; height:33px; }
 }
 
 /*Video custom overrides
@@ -314,6 +354,7 @@
 .end-diagonal-vertical{
   position:absolute;
 }
+
 .end-diagonal-horizontal{ left: -29vw; }
 .end-diagonal-vertical{ left: -35vw; }
 .end-diagonal-horizontal svg,
@@ -323,8 +364,52 @@
   position:absolute;
 }
 
-/*One-off Text Adjustments
+@media (max-width:749px){
+  .end-diagonal-vertical{
+    display: none;
+    visibility:hidden;
+  }
+  .portfolio-misctext span{
+    display:none;
+    visibility:hidden;
+  }
+}
+
+/*Nintendo Adjustments
 -------------------------------------------------*/
+@media (min-width:750px){
+  .nin-prlx-obj-1 { left: 40vw; top:-2vh; }
+  .nin-prlx-obj-2 { left:15vw; bottom:20vh; }
+}
+@media (max-width:749px){
+  .nin-prlx-obj-1 { left: -2vw; top:20vh; }
+  .nin-prlx-obj-2 { right: -10vw; bottom:20vh; }
+}
+
+.nin-prlx-obj-1 svg { width:60px; height:60px; }
+.nin-prlx-obj-1 svg:first-child{ opacity:0.8; }
+
+
+.nin-prlx-obj-2 svg { width:20px; height:5px; }
+
+.nin-prlx-obj-3 { left:30vw; bottom:12vh; }
+.nin-prlx-obj-3 svg { width:25px; height:25px; }
+
+.nin-prlx-obj-4 { left: 10vw; top:3vh; }
+.nin-prlx-obj-4 svg { width:20px; height:10px; }
+
+.nin-prlx-obj-5 { left: 20vw; top: 5vh; }
+.nin-prlx-obj-5 svg { width:120px; height:5px; }
+
+.nin-prlx-obj-6 { left: 12vw; bottom: 40px; }
+.nin-prlx-obj-6 svg { width:600px; height:60px; }
+
+.nin-prlx-obj-7 { left: 12vw; bottom: 4px; }
+.nin-prlx-obj-7 svg { width:15px; height:15px; fill:#fff }
+
+.nin-prlx-obj-8 { left: 10vw; top:-20px; }
+.nin-prlx-obj-8 svg { width:420px; height:45px; }
+
 .find-your-way-to-play span{
   font-size:11vh;
   line-height:9.5vh;
@@ -350,3 +435,4 @@
   line-height:13vh;
   opacity: 0.9;
 }
+

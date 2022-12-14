@@ -52,13 +52,13 @@ document.write(`<nav>
               </svg>
               <svg class="bold-underline"><rect></svg>
             </li>
-            <li class="navigation-li navigation-li-third">
+            <!--<li class="navigation-li navigation-li-third">
               <a href="#"><span>Gaming</span></a>
               <svg class="navigation-arrow">
                 <use xlink:href="#arrow"></use>
               </svg>
               <svg class="bold-underline"><rect></svg>
-            </li>
+            </li>-->
             <li class="navigation-li navigation-li-fourth">
               <a href="#"><span>Blog</span></a>
               <svg class="navigation-arrow">
