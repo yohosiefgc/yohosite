@@ -9,7 +9,6 @@
   padding-left: 40px;
 }
 
-.portfolio-main-content-column{ width: 30vw; }
 .portfolio-main-content-column .preview-container img{
   width:100%;
   cursor:pointer;
@@ -30,7 +29,11 @@
   height:100vh;
 }
 
-.carousel-nav{ position:fixed; bottom:5vh; z-index:500; margin-left:200px;}
+.carousel-nav{
+  position:fixed;
+  z-index:500;
+}
+
 .carousel-nav h4{ margin-bottom:0; }
 
 .carousel-nav svg{
@@ -102,43 +105,60 @@
 }
 
 @media (min-width:750px){
+  .portfolio-main-content-column{ width: 30vw; }
   .portfolio-main-content-column .preview-container{ position: absolute; width: 30vw; }
+
+
+  .homepage-img{ margin-left: 100px; }
 
   .homepage-img img{
     left:28vw;
     height:110vh;
   }
+
+  .carousel-nav{
+    margin-left:200px;
+    bottom:15vh;
+  }
+  
 }
 
 @media (max-width:749px){
+
+  .portfolio-main-section .title{ width:100%!important } /*TODO: Fix !important*/
+
   .portfolio-main-content-column .preview-container{ 
     position: relative; 
     width: 80vw;
-    top: 100px;
+    top: 40px;
   }
 
-  .portfolio-main-section .title{ position: relative!important; } /*TODO: Fix !important*/
+  .carousel-nav{
+    margin-left:20px;
+    bottom:15vh;
+  }
   
-  .portfolio-main-next-project,
-  .top-anchor,
-  .bottom-anchor{
-    display:none;
-  }
-
-  .carousel-nav{ display: none; }
   .portfolio-main-section{
     height:100vh;
     width:100vw;
     overflow-x: hidden;
   }
-  .portfolio-main-spacer{ display:none;}
+
+  .portfolio-main-content-column{ width: 100%; }
+  .portfolio-main-section .title{ position: relative!important; } /*TODO: Fix !important*/
+  .portfolio-main-section h1{ font-size: 4rem; hyphens: manual; }
 
   .homepage-img img{
     left:0px;
-    top:30vh;
     height:50vh;
   }
 
+  .portfolio-main-next-project,
+  .top-anchor,
+  .bottom-anchor{
+    display:none;
+  }
+  .portfolio-main-spacer{ display:none;}
   .portfolio-main-credit{ display: none;}
 
 }
