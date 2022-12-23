@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Dawn "Yohosie" Hosie</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="https://use.typekit.net/cdz6dnd.css">
+  <!--
+  TODO: Trim fonts on Adobe Fonts
+-->
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/navigation.css">
+  <link rel="stylesheet" href="css/svg.css">
+  <link rel="stylesheet" href="css/portfolio.css">
+  <link rel="stylesheet" href="css/videojs.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+  <!-- Temporary Video
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link href="//vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/7.10.2/video.min.js"></script>
+  <script src="scripts/video.js"></script> -->
+</head>
+<body>
+
+<!-- SVG STORAGE 
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="scripts/svg.js"></script>
+<script src="scripts/nav.js"></script>
+
+<main class="portfolio portfolio-page">
+  <section class="portfolio-column content-container">
+    <div class="title">
+      <h1 data-title="Nintendo">Building This Website – Brand & Typography <i>(part 1)</i></h1>
+    </div>
+    <div class="content">
+      <svg class="triangle rotate-ninety" style="width: 15px; height:15px; fill:#FFF;">
+        <use xlink:href="#triangle"></use>
+      </svg>
+      <div class="body-copy-container">
+        <p class="body-copy">
+          I’ve never been a believer in using common website tools like Squarespace, Behance, Wix, or WordPress for a portfolio. It’s fine in production, but if you know how to code, you should build your own website. Given most of my work involves other people’s content – as I have been employed as a Content Producer for the past 4 years – it also gives me an excuse to show off a bit and make the container surrounding my work the primary portfolio piece. 
+<br>
+<br>
+My old website was fine when I built it. It was built in 2017 after leaving a job I didn’t enjoy, and before my journey from Orlando, Florida to San Francisco <i>I am now located in Seattle</i>. At the time I liked my brand – I still kind of do – but it isn’t who I am now, and it reads slightly amateurish to me today.
+<br>
+<br>
+I knew when I started designing this website, I would need a new brand. Guided by new design principles of logos being just your name, a trend which was not the case when I first started professional, I experimented with typefaces and quickly landed on Acumin Variable Concept. I was struck by the Text Strokes variation, which was designed to be overlaid on top of the type in its normal variation as a textural element. It was interesting, and techy, and the type begged me to remove it from its context, and use it in interesting ways. What if it was cropped off the page? What if it was separated from the text that made it readable? What if it was a textural element?
+<br>
+<br>
+Historically I have been a very structured designer. I would spend 10, 20, 30 hours forging something that I believed was perfect. Carefully constrained, aligned with the grid, carefully crafted, but ultimately lacking a distinct personality. The taking of what Acumin Variable Concept was built to do and flipping it on its head – pulling it out of its designated place and using it in interesting ways – embodied my new design style of escaping from the grid. Escaping from my boring past. It wasn’t readable, but there's that famous quote from David Carson: “Don't mistake legibility for communication”. It was fun, and interesting. And playables are fun and interesting. And my work is fun and interesting.
+<br>
+<br>
+After I settled on a typeface and a font style, the design of the site came together immediately, and the layout was solved almost instantaneously. With my history as a Print Designer and my current work as an interactive designer, I wanted to build a website that fused my past and present. I decided early on a horizontal layout, with unusual margins and page layouts, and a desktop-first instead of a mobile-first design. Conceptually, you’re here because you’re a professional interested in what I do. I imagine you’re on your computer, not your phone.
+<br>
+<br>
+
+I design primarily in Illustrator, using Photoshop and Premiere as support. <i>I have never enjoyed Figma, Sketch, or other similar programs. I have a specific memory of an intern laughing when I said I design websites in Illustrator – my first experience in being “seasoned” in the industry. Sorry, y’all, Figma sucks.</i> The layouts flowed from me, and all pages, supporting files, everything came to fruition quickly. Blog pages, Portfolio Layouts, Homepages, etc. Designing for myself is easy for me. Coding is a bit more challenging.
+<br></br>
+This website was initially created with the skeleton framework, which was used to build my previous portfolios. This, however, was quickly abandoned. Skeleton is not made for horizontal layouts, given it has a 12-column layout structure. Horizontal websites have a more flexible column layout, extending into 20, 30, 40, 100 columns and beyond. When page size is not a factor, it doesn’t make sense to use a 12-column layout. It also makes it difficult to escape the grid, which is something I needed to do. Instead, I stole the normalize.css from Skeleton and migrated to a custom CSS framework.
+<br>
+<br>
+When I decided on a javascript framework, I had decided early to use vanilla Javascript. As a playable designer, we use vanilla JS for file size and device/platform compatibility reasons. It felt conceptually correct to build my website in the same vanilla JS framework, and it was a great excuse to build on my limited javascript skills.
+<br>
+<br>
+When coding, 2 primary challenges presented themselves: (1) horizontal scrolling is difficult and there exists very little documentation or frameworks to handle it, (2) horizontal layout does not work on mobile, meaning I’ll need to develop two different scrolling methods and accommodate both. I decided to pretend (2) doesn’t exist, and focus on (1). Strangely, I didn’t regret this decision.
+<br>
+<br>
+When designing a horizontal scroll, you quickly realize how many different scrolling options the user has. The user can scroll:
+With a mousewheel horizontally
+With a mousewheel vertically
+With a mousewheel by clicking and moving left/right/up/down
+With arrow keys in all directions
+With a trackpad and/or tablet
+With a scrollbar
+<br>
+<br>
+That is a lot of ways to scroll. To compound the issues, there’s two different components that control scroll position. window.scrollX, window.offsetLeft, <i>and – in a way – window.innerHeight</i>. These properties are functionally similar, but often can get out of sync, and are used for different purposes to control where the user is currently scrolled to.
+<br>
+<br>
+I was made aware of a methodology where you rotate the entire container 90 degrees, and then rotate each element inside the container -90 degrees. Theoretically, this allows you to have the horizontal scrolling function like vertical scrolling. I have pretended this does not exist, because it sounds like a much easier and simpler solution than mine. Maybe in another 6 years when I rebuild this site, I’ll use that method.
+<br>
+<br>
+Coding this was not easy, and I won’t be diving into the specific code here. What I will say is that I had one universal handler that handled the scrolling, and then we had about four different input methods which were loosely divided into linear and non-linear movement methods. Linear being the arrow keys, and nonlinear being the mouse wheel, the scroll bar, trackpads, etc. 
+<br>
+<br>
+After solving the scroll problem, the next scroll issue was parallax scrolling. Parallax scrolling codebases are bloated, complicated, and generally only work with vertical scrolling instead of horizontal scrolling. In addition, I found many of them to be inefficient. Rather than moving elements and having some elements static, it was a complicated mess of every container having a different parallax scroll value. Not only was this inefficient and harmful on performance, I don’t like content not scrolling 1:1 with what you are used to. It makes websites harder to read, and I only wanted parallax scrolling to apply to background animations and in subtle ways.
+<br>
+<br>
+My solution was not ideal in some ways, but good in others. The parallax scrolling code I developed only triggers when the object is on the screen. At the start of the page-load, all objects have their positions loaded. Only when the object is about to be in-view does the parallax code activate. This allows me to have a large amount of parallax objects on the page without dramatically impacting performance. -->
+<br>
+<br>
+In addition, many parallax scroll codes are difficult to accurately position objects. Because each page has multiple parallax elements placed in unique positions, I made sure their origin is the center-point of the viewport, rather than some obligatory position determined by the content, that I found with most parallax frameworks. In combination, both of these best practices, alongside some smart CSS, HTML, and SVG object organization, allow me to place parallax objects with relative ease and without much guess work.
+<br>
+<br>
+The downside to the parallax code is one out of necessity to get the site up quickly – the code currently functions when the user scrolls, not where the content is in the viewport. This means that, if the user scrolls very quickly, or scrolls back and forth, the objects can get removed from their native position. This is OK, given parallax scrolling is only used for decorative elements, but unideal. In the future, I plan to have the objects parallax scroll based on the current window.scrollX, which will prevent this from happening and give me even more granular control over the object position.
+<br>
+<br>
+The last piece of scrolling that we should talk about is the Portfolio Homepage. The index was a huge pain in the ass. Because of the way I structured it, traditional CSS Snap Scrolling was not going to function. My scroll code interprets vertical scrolling into horizontal scrolling, and the native CSS Snap Scroll would not function. 
+<br>
+<br>
+Therefore, I opted for a javascript solution. I detected if the page involved snap scrolling, and if so, any time a scroll event would normally happen, a snap-scroll would happen instead. For linear inputs methods, like the arrow keys, this was simple. I could detect where the panels start, and when the linear input method was activated, you would scroll to the next panel. For less linear input methods like mouse scroll, trackpads, and scrolling with the scrollbar, this was much more complicated.
+<br>
+<br>
+I ended up going with a solution where the user is allowed to scroll as they see fit, and after x seconds, if they’re misaligned from an anchor point, the window would smooth scroll to that anchor point. I added some additional logic that detected if it should scroll forwards or backwards depending on the user’s start and end point, and also the velocity in which they scrolled.
+<br>
+<br>
+This works great in most cases, however Chrome has an issue where if the user scrolls with the mousewheel, the animation actually stops after a specific amount of time. This issue does not exist in Safari, Firefox, Microsoft Edge, or other browsers. This meant an additional (janky) check, where after the scroll action is completed, if it was not at a snap point, it would run the scroll one final time. It doesn’t look the prettiest, but it does function. 
+<br>
+<br>
+In the future, adding a chrome-specific scroll velocity rather than the default would solve this, but it is not MVP.
+<br>
+<br>
+The final piece of code I needed to write was this blog page. I needed this content to read more like a magazine layout and be horizontal like the rest of the webpage. Websites are not built horizontally for a reason. There is not currently a CSS declaration <i>that I know of</i> that allows content to overflow from one div to another. In order to have this content layout, I would need some sort of javascript interpretation to move content from one column to another.
+<br>
+<br>
+The way that this functions is that all content is placed into one container on page load. The code first sets the height of the container and logs the height of the container and the content. If the paragraph has a larger height than the container it will remove the last word from that paragraph and put it into a temporary storage. That temporary storage will then place the code inside the next column and it runs the same check again, repeating until all columns are filled.
+<br>
+<br>
+This worked well, is that if the content in the last column is too tall, it would overflow. Because columns are responsive and the content is not going to look the same on every browser, it’s not practical to assume how many columns there should be. I should know, I’m very sensitive to this and have a very large font size on my phone. I know when this is incorrect – trust me. Because of this, it was a necessity to have additional columns generated if the content was too long.
+<br>
+<br>
+Unfortunately, this code is not great, but it does work. It is a reminder that I am not a programmer by trade. It runs too many times and is very inefficient. I had to add an onload animation to the first paragraph line by line to hide the fact that I'm moving an entire 10 to 15 page essay into a blog inefficiently. I’m not super proud of it, I know I can shorten it, but it works. A post-launch improvement for sure.
+<br>
+<br>
+Building this website was a challenge. I’d never done javascript at this scale, I’ve never solved these challenges. But it was a learning experience and that's ultimately what I'm here for. I had the time, and I was taking advantage of it. I had the opportunity to learn and I took it.
+<br>
+<br>
+There's still a lot of things I want to change. This site is launched in an MVP state. It is currently January 1st (happy New Year y'all) and there is a need for me to develop new features and iterate on existing ones. Accessibility is important to me, and me getting this website up without accessibility controls is embarrassing. I want to add sound effects and music. I have always played piano and adding ambiance and volume controls would be really nice. I want to add an actual home page and a blog homepage. My about page was thrown together in an afternoon. I’d love to do a self portrait and make an actual design. The javascript is not good! A proper web developer would laugh at it.
+<br>
+<br>
+But it’s done, and it was a tremendous amount of work and a wonderful experience. Better done than perfect, and the joy of working on my own site is that it’s mine. I can fix it as I grow. I can invest time in it over the coming weeks, months, or years. I can study javascript more, or develop more work, and just have a good time being a creator. Something that, in a professional world, can be lacking sometimes. Some people paint. Some people draw. Some people code. I do whatever the hell this is – a combination of code, tech, design, and having good taste.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <section class="portfolio-column content-container content-six-column">
+    <div class="content-full-height">
+      <div class="body-copy-container">
+        <p class="body-copy">
+          <!--content column filled dynamically-->
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="fullscreen">
+      <img src="images/portfolio/misc/skald4.jpg">
+    </div>
+  </section>
+
+  <section class="portfolio-column content-container content-three-column overflow-column">
+    <div class="content-full-height">
+      <div class="body-copy-container">
+        <p class="body-copy">
+          <!--content column filled dynamically-->
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="portfolio-column blog-end">
+    <div class="blog-container">
+      <h2>Read More</h2>
+      <div class="blog-post-container">
+        <span class="blog-title"><a href="#">Why you should read this Blog Post I Wrote</a></span>
+        <span class="blog-date"><a href="#">November 30, 2022</a></span>
+      </div>
+      <div class="blog-post-container">
+        <span class="blog-title"><a href="#">Why you should read this Blog Post I Wrote</a></span>
+        <span class="blog-date"><a href="#">November 30, 2022</a></span>
+      </div>
+      <div class="blog-post-container-last">
+        <span class="blog-title"><a href="#">Why you should read this Blog Post I Wrote</a></span>
+        <span class="blog-date"><a href="#">November 30, 2022</a></span>
+      </div>
+      <svg class="blog-divider">
+        <use xlink:href="#line-dashed-horizontal"></use>
+      </svg>
+      <div class="byline monotype">
+        <span>Written by <a href="about.html">Dawn "Yohosie" Hosie</a>. Check out my <a href="portfolio.html">portfolio and what I do</a>.</span>
+      </div>
+      
+    <div class="blog-socials">
+      <a href="https://
+      <svg class="twitter" xml:space="preserve" viewBox="0 0 248 204">
+        <path fill="#FFFFFF" d="M221.95 51.29c.15 2.17.15 4.34.15 6.53 0 66.73-50.8 143.69-143.69 143.69v-.04c-27.44.04-54.31-7.82-77.41-22.64 3.99.48 8 .72 12.02.73 22.74.02 44.83-7.61 62.72-21.66-21.61-.41-40.56-14.5-47.18-35.07 7.57 1.46 15.37 1.16 22.8-.87-23.56-4.76-40.51-25.46-40.51-49.5v-.64c7.02 3.91 14.88 6.08 22.92 6.32C11.58 63.31 4.74 33.79 18.14 10.71c25.64 31.55 63.47 50.73 104.08 52.76-4.07-17.54 1.49-35.92 14.61-48.25 20.34-19.12 52.33-18.14 71.45 2.19 11.31-2.23 22.15-6.38 32.07-12.26-3.77 11.69-11.66 21.62-22.2 27.93 10.01-1.18 19.79-3.86 29-7.95-6.78 10.16-15.32 19.01-25.2 26.16z"/>
+      </svg>
+      <svg version="1.1"
+        class="linkedin" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" inkscape:version="0.48.0 r9654"
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 75.8 76.2" xml:space="preserve">
+      <style type="text/css">
+        .st0{fill:#006699;}
+        .st1{fill:#FFFFFF;}
+      </style>
+      <g>
+        <path class="st0" d="M40.7,34.4v-0.1C40.7,34.3,40.7,34.4,40.7,34.4L40.7,34.4z"/>
+        <path class="st1" d="M70.2,0H5.6C2.5,0,0,2.4,0,5.5v65.3c0,3,2.5,5.5,5.6,5.5h64.6c3.1,0,5.6-2.4,5.6-5.5V5.5
+          C75.8,2.4,73.3,0,70.2,0z M23,63.8H11.5V29.4H23V63.8z M17.2,24.7L17.2,24.7L17.2,24.7c-3.9,0-6.4-2.6-6.4-5.9
+          c0-3.4,2.6-5.9,6.5-5.9c3.9,0,6.3,2.6,6.4,5.9C23.7,22.1,21.2,24.7,17.2,24.7z M64.2,63.8H52.8V45.4c0-4.6-1.7-7.8-5.8-7.8
+          c-3.2,0-5,2.1-5.9,4.2c-0.3,0.7-0.4,1.8-0.4,2.8v19.2H29.3c0,0,0.2-31.2,0-34.4h11.4v4.9c1.5-2.3,4.2-5.7,10.3-5.7
+          c7.5,0,13.2,4.9,13.2,15.5V63.8z"/>
+      </g>
+      </svg>
+    </div>
+  </section>
+</section>
+
+
+  <div id="go-back">
+    <a href="#">
+      <div class="float-me">
+        <svg class="rotate-one-eighty">
+          <use xlink:href="#arrow"></use>
+        </svg>
+      </div>
+      <div class="float-me">
+        <h4 class="original">Return to Start</h5>
+      </div>
+    </a>
+  </div>
+</main>
+
+<div class="outer-grunge"></div>
+<div class="scanline"></div>
+<div class="vignette"></div>
+<!-- Scripts
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="bundle.js" defer></script>
+
+</body>
+</html>

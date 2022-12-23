@@ -33723,7 +33723,6 @@ var Html5 = /*#__PURE__*/function (_Tech) {
       if ('webkitPresentationMode' in this.el_ && this.el_.webkitPresentationMode !== 'picture-in-picture') {
         this.one('webkitendfullscreen', endFn);
         this.trigger('fullscreenchange', {
-          
           isFullscreen: true,
           // set a flag in case another tech triggers fullscreenchange
           nativeIOSFullscreen: true
@@ -38165,7 +38164,6 @@ var Player = /*#__PURE__*/function (_Component) {
   ;
 
   _proto.exitFullscreen = function exitFullscreen() {
-
     var PromiseClass = this.options_.Promise || window__default['default'].Promise;
 
     if (PromiseClass) {
@@ -70208,8 +70206,9 @@ let leftNav = false;
 window.onload = function () {
     setTimeout(() => {
         fadeIn();
-        // window.scrollTo(0, 0); //scroll to the beginning of the page on load
+        window.scrollTo(0, 0); //scroll to the beginning of the page on load
         getScrollSnapValues(); //get all Scroll Snap Values on the page.
+        handleContentColumns();
     }, 1); //delaying by 1 avoids any issues
 }
 
@@ -70217,7 +70216,8 @@ addEventListener("resize", (e) => {
     throttle(() => {
         console.log(`test123`);
         getScrollSnapValues();
-        catchSnapDeadZone(); //TODO: Make this not always return to 0;
+        catchSnapDeadZone();
+        handleContentColumns(); //TODO: Make this not always return to 0;
     }, 1000);
 });
 
@@ -70418,7 +70418,6 @@ const linearScrollDown = () => {
 window.addEventListener('wheel', (evt) => {
     totalScroll += evt.deltaY; //Get the value of your mousewheel scroll, and add it to the totalScroll totalScroll is how much we will be scrolling
     totalScroll += evt.deltaX; //TODO: Fix snap on x axis mouse
-    console.log(`${totalScroll} is the totalScroll`);
     if (totalScroll !== 0) {
         scrollSnapPage() ? scrollSnap(-totalScroll) : regulateScroll(totalScroll); //if you're on a scrolling page, snap scroll, otherwise regulate the scroll
     }
@@ -70592,20 +70591,24 @@ let carouselNextBtn = document.querySelector(`.carousel-next-btn`); //Carousel N
 let nextProjectText = document.querySelector('.next-project-change'); //Carousel text in top-right
 let carouselTitle = document.querySelectorAll('.carousel-title'); //Title of the page, to update the nextProjectText as you scroll
 
-//TODO: Does not work on resize... make it work on resize.
 const getScrollSnapValues = () => {
-    scrollSnapLocations.length = 0; //resets scrollSnapLocations on resize. Does nothing first time through
-    let snapAdjust = 161; //adjusts for the margin-left
+    if (scrollSnapTo.length != 0) {
+        scrollSnapLocations.length = 0; //resets scrollSnapLocations on resize. Does nothing first time through
+        let snapAdjust = 161; //adjusts for the margin-left
     
-    for (let i = 0; i < scrollSnapTo.length; i++){
-        scrollSnapObj = scrollSnapTo[i];
-        scrollSnapLocations.push(Math.round(scrollSnapObj.getBoundingClientRect().x + window.scrollX) - snapAdjust) //add left edge of object + window.scrollX to get the position it is from the left on the page. window.scrollX is necessary if you resize half-way through the document.
-    }
+        for (let i = 0; i < scrollSnapTo.length; i++) {
+            scrollSnapObj = scrollSnapTo[i];
+            scrollSnapLocations.push(Math.round(scrollSnapObj.getBoundingClientRect().x + window.scrollX) - snapAdjust) //add left edge of object + window.scrollX to get the position it is from the left on the page. window.scrollX is necessary if you resize half-way through the document.
+        }
 
-    curPos = scrollSnapLocations[0]; //sets the current position
-    index = scrollSnapLocations.indexOf(curPos); //sets the current index to 0
-    snapGetCurrentPos();
-    loadCarouselNav();
+        curPos = scrollSnapLocations[0]; //sets the current position
+        index = scrollSnapLocations.indexOf(curPos); //sets the current index to 0
+        snapGetCurrentPos();
+        loadCarouselNav();
+    }
+    else {
+        console.log(`no scroll here!`);
+    }
 }
 
 const scrollSnapPage = () => {
@@ -70702,5 +70705,104 @@ const catchSnapDeadZone = () => {
         windowScrollTo(curPos, 'smooth');
         snapGetSurroundingPos();
     }
+}
+
+//Start Content Code
+let bodyParagraphContainers;
+let bodyParagraphs;
+let initialContentUnfiltered; //used to store the initial content in the first paragraph
+let initialContentFiltered; //used to store the filtered content
+let paragraphHeight = []; //height of the paragraph
+let containerHeight = []; //height of the container
+
+const getColumns = () => {
+    bodyParagraphContainers = document.querySelectorAll('.body-copy-container');
+    bodyParagraphs = document.querySelectorAll('.body-copy');
+}
+
+function removeBlanks(value) {
+    return value !== '';
+}
+
+const handleContentColumns = () => {
+    getColumns();
+    calcContentColumnHeight();
+    applyNewContentHeight();
+    // purgeUnusedColumns();
+}
+
+const calcContentColumnHeight = () => {
+    for (let i = 0; i < bodyParagraphContainers.length; i++){
+        const bottomMargin = 100;
+        
+        let positionFromTop = bodyParagraphContainers[i].getBoundingClientRect().y;
+        let windowHeight = window.innerHeight;
+        let heightMinusMargin = windowHeight - bottomMargin;
+
+        let finalColumnHeight = heightMinusMargin - positionFromTop;
+        
+        bodyParagraphContainers[i].style.height = finalColumnHeight + 'px';
+        containerHeight[i] = bodyParagraphContainers[i].getBoundingClientRect().height;
+    };
+}
+
+let g = 0;
+const applyNewContentHeight = () => {
+    if (!initialContentUnfiltered) {
+        initialContentUnfiltered = (bodyParagraphs[0].innerHTML).split(' '); //store unfiltered content
+        initialContentFiltered = initialContentUnfiltered.filter(removeBlanks); //store the base content, do not alter this content.
+    }
+    
+    let content = [...initialContentFiltered];
+    let excludedContent = [];
+    bodyParagraphs[0].innerHTML = content.join(' '); //always set the first body paragraph to be the content, for resizing purposes.
+
+    for (let i = 0; i < bodyParagraphs.length; i++){
+        paragraphHeight[i] = bodyParagraphs[i].getBoundingClientRect().height;
+    } //get the paragraph height of each body paragraph
+
+    // for (let i = 0; i < bodyParagraphContainers.length; i++){
+    //     containerHeight[i] = bodyParagraphContainers[i].getBoundingClientRect().height;
+    // } //get the paragraph height of each bodyParagraph container
+    
+    for (let i = 0; i < bodyParagraphs.length; i++){
+        while (paragraphHeight[i] > containerHeight[i]) {
+            lastWord = content.pop(); //remove the last word from the content
+            excludedContent.unshift(lastWord); //temporarily store the excludedContent to be joined into the column
+            bodyParagraphs[i].innerHTML = content.join(' '); //input the content back
+            paragraphHeight[i] = bodyParagraphs[i].getBoundingClientRect().height; //set paragraph height to the current height of the pargraph
+        }
+
+        if (bodyParagraphs[i + 1] === undefined && lastWord !== '') {
+            console.log(`generating new column`);
+            generateNewColumn(); //make a new column
+            getColumns(); //update bodyParagraphs
+        }
+        
+        if (bodyParagraphs[i + 1] !== undefined) {
+            console.log(`inserting excludedContent into next Body Paragraph`);
+            bodyParagraphs[i + 1].innerHTML = excludedContent.join(' '); //add the excludedContent to the next column once finished
+            paragraphHeight[i + 1] = bodyParagraphs[i + 1].getBoundingClientRect().height;
+            calcContentColumnHeight();
+        }
+        
+        lastWord = ''; //set lastWord to blank
+        content = excludedContent; // set the content to the new content placed into the column afterwards
+        excludedContent = []; //there is no more excludedContent
+    }
+}
+
+const generateNewColumn = () => {
+    let overFlowColumn = document.querySelectorAll(`.overflow-column`);
+    overFlowColumn[overFlowColumn.length - 1].insertAdjacentHTML('afterEnd', `
+        <section class="portfolio-column content-container content-six-column overflow-column">
+            <div class="content-full-height">
+                <div class="body-copy-container">
+                <p class="body-copy">
+                </p>
+                </div>
+            </div>
+        </section>
+    `);
 }
 },{"video.js":46}]},{},[51]);

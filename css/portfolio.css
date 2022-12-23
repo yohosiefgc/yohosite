@@ -114,12 +114,19 @@
 }
 
 @media (min-width: 750px) {
-  .portfolio .content-container{
+  .portfolio .content-container:first-child{
     width: 19vw;
-    min-width:250px;
     max-width: 320px;
+  }
+
+  .portfolio .content-container{
+    min-width:250px;
     overflow-y: hidden;
   }
+
+  .portfolio .content-three-column{ width:19vw; }
+  .portfolio .content-six-column{ width: 38vw; }
+  .portfolio .content-eight-column{ width: 52vw; }
 
   .content-container .content .triangle{ margin-bottom: 5vh; }
   .content-container .content .labels{ margin-bottom: 6rem; }
@@ -127,6 +134,55 @@
   .content-container .content .description{ font-size: 1.3rem; }
   
 }
+
+/*Content Page Content
+-------------------------------------------------*/
+.content-container .content-full-height{ margin-top:10vh; }
+
+.blog-end{
+  padding: 3vw 0 0 2vw!important;
+  background-image: url("../images/svg/pattern-line-diagonal-css-bg.svg");
+  background-repeat:repeat;
+  background-size:10px;
+}
+
+.blog-container{
+  background-color:black;
+  padding: 30px 6vw 100px 30px;
+  width: 25vw;
+  min-width:320px;
+  max-width: 400px;
+}
+.blog-container .blog-post-container{ padding: 0 0 30px 0; }
+
+.blog-container .blog-post-container-last{ padding: 0; }
+
+.blog-title{
+  font-size: 3rem;
+  line-height:3rem;
+}
+
+.blog-date{
+  font-size: 1.6rem;
+  font-style:normal!important;
+}
+
+.blog-date a{
+  font-weight:400;
+  font-style:normal;
+}
+
+.byline{ font-size:1.2rem; }
+
+.blog-divider{
+  height:5px;
+  padding:40px 0 30px 0;
+}
+
+.blog-socials svg{ padding: 15px 5px 15px 0; }
+
+.blog-socials .linkedin{ height:20px; }
+.blog-socials .twitter{ height:18px; }
 
 /*Portfolio Go Back Module
 -------------------------------------------------*/
