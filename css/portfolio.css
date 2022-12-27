@@ -146,6 +146,10 @@
   background-size:10px;
 }
 
+.blog-header h1{
+  left:0px;
+}
+
 .blog-container{
   background-color:black;
   padding: 30px 6vw 100px 30px;
@@ -157,19 +161,32 @@
 
 .blog-container .blog-post-container-last{ padding: 0; }
 
-.blog-title{
+.blog-end-title{
   font-size: 3rem;
   line-height:3rem;
 }
 
-.blog-date{
+.blog-h1{
+  left:0px!important;
+  margin-bottom:0px;
+}
+
+.blog-end-date{
   font-size: 1.6rem;
   font-style:normal!important;
 }
 
-.blog-date a{
+.blog-end-date a{
   font-weight:400;
   font-style:normal;
+}
+
+.fullscreen-column-stacked{
+  width:400px;
+}
+
+.fullscreen-column-stacked img{
+  width: 400px;
 }
 
 .byline{ font-size:1.2rem; }
@@ -368,8 +385,6 @@
 }
 @media (max-width:749px){
   .arrow-wall .decoration,
-  .mobile-hide { display: none; }
-
   .arrow-wall li span{ width: 75vw; }
   .arrow-wall .content .arrow{ left: 0px; position: relative; top:0px; height:33px; }
 }

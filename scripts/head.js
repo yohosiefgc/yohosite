@@ -23,4 +23,4 @@ document.write(` <meta name="description" content="Portfolio of Dawn Hosie, AKA 
 
 <!-- Favicon
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<link rel="icon" type="image/png" href="images/favicon.png">  `)
+<link rel="icon" type="image/png" href="images/favicon.svg">  `)

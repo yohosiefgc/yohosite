@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Dawn "Yohosie" Hosie</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="https://use.typekit.net/cdz6dnd.css">
+  <!--
+  TODO: Trim fonts on Adobe Fonts
+-->
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/navigation.css">
+  <link rel="stylesheet" href="css/svg.css">
+  <link rel="stylesheet" href="css/portfolio.css">
+  <link rel="stylesheet" href="css/videojs.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+  <!-- Temporary Video
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link href="//vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/7.10.2/video.min.js"></script>
+  <script src="scripts/video.js"></script> -->
+</head>
+<body>
+
+<!-- SVG STORAGE 
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="scripts/svg.js"></script>
+<script src="scripts/nav.js"></script>
+
+<main class="portfolio portfolio-page">
+  <section class="portfolio-column content-container">
+  <div class="title">
+      <h1 class="blog-h1">Building This Website</i></h1>
+      <h3 class="blog-h3">(pt 3) // Blog Page and Wrap-up</h3>
+    </div>
+    <div class="content">
+      <svg class="triangle rotate-ninety" style="width: 15px; height:15px; fill:#FFF;">
+        <use xlink:href="#triangle"></use>
+      </svg>
+      <div class="body-copy-container">
+        <p class="body-copy">
+          <a href="2022-12-28-blog.html">Previous Blog Post: Coding, Frameworks, and Problems</a>
+          <br>
+          <br>
+          The final piece of code I needed to write was this blog page. I needed this content to read more like a magazine layout and be horizontal like the rest of the webpage. Websites are not built horizontally for a reason. There is not currently a CSS declaration <i>that I know of</i> that allows content to overflow from one div to another. In order to have this content layout, I would need some sort of javascript interpretation to move content from one column to another.
+          <br>
+          <br>
+          The way that this functions is that all content is placed into one container on page load. The code first sets the height of the container and logs the height of the container and the content. If the paragraph has a larger height than the container it will remove the last word from that paragraph and put it into a temporary storage. That temporary storage will then place the code inside the next column and it runs the same check again, repeating until all columns are filled.
+          <br>
+          <br>
+          This worked well, is that if the content in the last column is too tall, it would overflow. Because columns are responsive and the content is not going to look the same on every browser, it’s not practical to assume how many columns there should be. I should know, I’m very sensitive to this and have a very large font size on my phone. I know when this is incorrect – trust me. Because of this, it was a necessity to have additional columns generated if the content was too long.
+          <br>
+          <br>
+          Unfortunately, this code is not great, but it does work. It is a reminder that I am not a programmer by trade. It runs too many times and is very inefficient. I had to add an onload animation to the first paragraph line by line to hide the fact that I'm moving an entire 10 to 15 page essay into a blog inefficiently. I’m not super proud of it, I know I can shorten it, but it works. A post-launch improvement for sure.
+          <br>
+          <br>
+          Building this website was a challenge. I’d never done javascript at this scale, I’ve never solved these challenges. But it was a learning experience and that's ultimately what I'm here for. I had the time, and I was taking advantage of it. I had the opportunity to learn and I took it.
+          <br>
+          <br>
+          There's still a lot of things I want to change. This site is launched in an MVP state. It is currently January 1st (happy New Year y'all) and there is a need for me to develop new features and iterate on existing ones. Accessibility is important to me, and me getting this website up without accessibility controls is embarrassing. I want to add sound effects and music. I have always played piano and adding ambiance and volume controls would be really nice. I want to add an actual home page and a blog homepage. My about page was thrown together in an afternoon. I’d love to do a self portrait and make an actual design. The javascript is not good! A proper web developer would laugh at it.
+          <br>
+          <br>
+          But it’s done, and it was a tremendous amount of work and a wonderful experience. Better done than perfect, and the joy of working on my own site is that it’s mine. I can fix it as I grow. I can invest time in it over the coming weeks, months, or years. I can study javascript more, or develop more work, and just have a good time being a creator. Something that, in a professional world, can be lacking sometimes. Some people paint. Some people draw. Some people code. I do whatever the hell this is – a combination of code, tech, design, and having good taste.
+          </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="portfolio-column content-container content-three-column">
+    <div class="content">
+      <div class="body-copy-container">
+        <p class="body-copy">
+          <!--content column filled dynamically-->
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="portfolio-column">
+      <div class="img-container vert-center">
+        <div class="subtitle monotype">
+          <span>Endcards</span>
+          <svg><rect></rect></svg>
+        </div>
+        <div class="portfolio-img lh-fix">
+          <div class="portfolio-img-dropshadow"></div>
+          <img src="images/blog/first-website.jpg" class="horizontal">
+        </div>
+        <div class="portfolio-img lh-fix">
+          <div class="portfolio-img-dropshadow"></div>
+          <img src="images/blog/second-website.jpg" class="horizontal">
+        </div>
+        <div class="portfolio-img lh-fix">
+          <div class="portfolio-img-dropshadow"></div>
+          <img src="images/blog/third-website.jpg" class="horizontal">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="portfolio-column content-container content-six-column">
+    <div class="content-full-height">
+      <div class="body-copy-container">
+        <p class="body-copy">
+          <!--content column filled dynamically-->
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="portfolio-column">
+      <div class="img-container vert-center">
+        <div class="subtitle monotype">
+          <span>Initial Homepage Design</span>
+          <svg><rect></rect></svg>
+        </div>
+        <div class="portfolio-img lh-fix">
+          <div class="portfolio-img-dropshadow"></div>
+          <video
+            id="pikachu-eevee-video-3"
+            class="video-js vjs-sublime-skin horizontal vjs-16-9"
+            controls
+            muted
+            loop
+            inactivityTimeout = "0"
+            poster="images/portfolio/nintendo/pikachu-eevee-3.jpg"
+            data-setup='{"controls": true, "autoplay": true, "preload": "auto"}'
+            >
+            <source src="images/blog/yohosie-homepage-exploration.mp4" type="video/mp4"></source>
+            <p class="vjs-no-js">
+              To view this video please enable JavaScript, and consider upgrading to a
+              web browser that <a href="https://videojs.com/html5-video-support/" target="_blank"> supports HTML5 video</a>
+            </p>
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="portfolio-column content-container content-three-column overflow-column">
+    <div class="content-full-height">
+      <div class="body-copy-container">
+        <p class="body-copy">
+          <!--content column filled dynamically-->
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="portfolio-column blog-end">
+    <div class="blog-container">
+      <h2>Read More</h2>
+      <div class="blog-post-container">
+        <span class="blog-end-title"><a href="2022-12-30-blog.html">Building This Website // Blog Page and Wrap-up</a></span>
+        <span class="blog-date"><a href="2022-12-30-blog.html">December 30, 2022</a></span>
+      </div>
+      <div class="blog-post-container">
+        <span class="blog-end-title"><a href="2022-12-28-blog.html">Building This Website // Coding, Frameworks, and Problems</a></span>
+        <span class="blog-date"><a href="2022-12-28-blog.html">December 28, 2022</a></span>
+      </div>
+      <div class="blog-post-container-last">
+        <span class="blog-end-title"><a href="2022-12-26-blog.html">Building This Website // Blog Page and Wrap-up</a></span>
+        <span class="blog-date"><a href="2022-12-26-blog.html">December 26, 2022</a></span>
+      </div>
+      <svg class="blog-divider">
+        <use xlink:href="#line-dashed-horizontal"></use>
+      </svg>
+      <div class="byline monotype">
+        <span>Written by <a href="about.html">Dawn "Yohosie" Hosie</a>. Check out my <a href="portfolio.html">portfolio and what I do</a>.</span>
+      </div>
+      
+    <div class="blog-socials">
+      <a href="https://twitter.com/yohosiefgc">
+        <svg class="twitter" xml:space="preserve" viewBox="0 0 248 204">
+          <path fill="#FFFFFF" d="M221.95 51.29c.15 2.17.15 4.34.15 6.53 0 66.73-50.8 143.69-143.69 143.69v-.04c-27.44.04-54.31-7.82-77.41-22.64 3.99.48 8 .72 12.02.73 22.74.02 44.83-7.61 62.72-21.66-21.61-.41-40.56-14.5-47.18-35.07 7.57 1.46 15.37 1.16 22.8-.87-23.56-4.76-40.51-25.46-40.51-49.5v-.64c7.02 3.91 14.88 6.08 22.92 6.32C11.58 63.31 4.74 33.79 18.14 10.71c25.64 31.55 63.47 50.73 104.08 52.76-4.07-17.54 1.49-35.92 14.61-48.25 20.34-19.12 52.33-18.14 71.45 2.19 11.31-2.23 22.15-6.38 32.07-12.26-3.77 11.69-11.66 21.62-22.2 27.93 10.01-1.18 19.79-3.86 29-7.95-6.78 10.16-15.32 19.01-25.2 26.16z"/>
+        </svg>
+      </a>
+      <a href="https://www.linkedin.com/in/dawn-hosie-50b72640/">
+        <svg version="1.1"
+          class="linkedin" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" inkscape:version="0.48.0 r9654"
+          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 75.8 76.2" xml:space="preserve">
+          <style type="text/css">
+            .st0{fill:#006699;}
+            .st1{fill:#FFFFFF;}
+          </style>
+          <g>
+            <path class="st0" d="M40.7,34.4v-0.1C40.7,34.3,40.7,34.4,40.7,34.4L40.7,34.4z"/>
+            <path class="st1" d="M70.2,0H5.6C2.5,0,0,2.4,0,5.5v65.3c0,3,2.5,5.5,5.6,5.5h64.6c3.1,0,5.6-2.4,5.6-5.5V5.5
+              C75.8,2.4,73.3,0,70.2,0z M23,63.8H11.5V29.4H23V63.8z M17.2,24.7L17.2,24.7L17.2,24.7c-3.9,0-6.4-2.6-6.4-5.9
+              c0-3.4,2.6-5.9,6.5-5.9c3.9,0,6.3,2.6,6.4,5.9C23.7,22.1,21.2,24.7,17.2,24.7z M64.2,63.8H52.8V45.4c0-4.6-1.7-7.8-5.8-7.8
+              c-3.2,0-5,2.1-5.9,4.2c-0.3,0.7-0.4,1.8-0.4,2.8v19.2H29.3c0,0,0.2-31.2,0-34.4h11.4v4.9c1.5-2.3,4.2-5.7,10.3-5.7
+              c7.5,0,13.2,4.9,13.2,15.5V63.8z"/>
+          </g>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+
+  <div id="go-back">
+    <a href="#">
+      <div class="float-me">
+        <svg class="rotate-one-eighty">
+          <use xlink:href="#arrow"></use>
+        </svg>
+      </div>
+      <div class="float-me">
+        <h4 class="original">Return to Start</h5>
+      </div>
+    </a>
+  </div>
+</main>
+
+<div class="outer-grunge"></div>
+<div class="scanline"></div>
+<div class="vignette"></div>
+<!-- Scripts
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="bundle.js" defer></script>
+
+</body>
+</html>

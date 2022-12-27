@@ -71,6 +71,7 @@ html::after {
   position: absolute;
 }
 
+
 .monotype{ font-family: pt-mono, monospace; font-style: normal; }
 .scroll-snap{scroll-snap-type: x mandatory;}
 
@@ -87,6 +88,11 @@ html::after {
   .adjust-vert-4{ margin-top:-4vh;}
   .adjust-vert-5{ margin-top:-6vh;}
   .slideIn{ transform:translateX(150px); transition: 2s; }
+  .desktop-hide { display: none; }
+}
+
+@media (max-width: 749px){
+  .mobile-hide { display: none; }
 }
 
 /*Scrollbar

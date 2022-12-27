@@ -588,6 +588,7 @@ const applyNewContentHeight = () => {
     for (let i = 0; i < bodyParagraphs.length; i++){
         while (paragraphHeight[i] > containerHeight[i]) {
             lastWord = content.pop(); //remove the last word from the content
+            console.log(lastWord);
             excludedContent.unshift(lastWord); //temporarily store the excludedContent to be joined into the column
             bodyParagraphs[i].innerHTML = content.join(' '); //input the content back
             paragraphHeight[i] = bodyParagraphs[i].getBoundingClientRect().height; //set paragraph height to the current height of the pargraph

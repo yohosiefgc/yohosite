@@ -46,7 +46,7 @@ document.write(`<nav>
               <svg class="bold-underline"><rect></svg>
             </li>
             <li class="navigation-li navigation-li-second">
-              <a href="#"><span>About</span></a>
+              <a href="about.html"><span>About</span></a>
               <svg class="navigation-arrow">
                 <use xlink:href="#arrow"></use>
               </svg>
@@ -60,23 +60,23 @@ document.write(`<nav>
               <svg class="bold-underline"><rect></svg>
             </li>-->
             <li class="navigation-li navigation-li-fourth">
-              <a href="#"><span>Blog</span></a>
+              <a href="2022-12-26-blog.html"><span>Blog</span></a>
               <svg class="navigation-arrow">
                 <use xlink:href="#arrow"></use>
               </svg>
               <svg class="bold-underline"><rect></svg>
             </li>
-            <li class="navigation-li navigation-li-fifth">
-              <a href="#"><span>Contact</span></a>
+            <!--<li class="navigation-li navigation-li-fifth">
+              <a href="contact.html"><span>Contact</span></a>
               <svg class="navigation-arrow">
                 <use xlink:href="#arrow"></use>
               </svg>
               <svg class="bold-underline"><rect></svg>
-            </li>
+            </li>-->
           </ol>
           <ol class="navigation-contact">
             <li><a href="#"><span>dawn@dawnhosie.com</span></a></li>
-            <li class="last"> <a href="#"><span>twitter</span></a></li>
+            <li class="last"> <a href="https://twitter.com/yohosiefgc" target="_blank"><span>twitter</span></a></li>
           </ol>
           <ol class="navigation-rectangles">
             <li><svg><rect></svg></li>
