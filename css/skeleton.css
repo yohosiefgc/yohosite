@@ -118,12 +118,12 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 3px;
 }
 
-h1 { font-size: 5.6rem; }
-h2 { font-size: 5.0rem; letter-spacing: .2rem; }
-h3 { font-size: 4.2rem; letter-spacing: .2rem; }
-h4 { font-size: 3.0rem; letter-spacing: .18rem}
-h5 { font-size: 2.4rem; letter-spacing: .1rem }
-h6 { font-size: 1.5rem; letter-spacing: 0; }
+h1 { font-size: 5rem; letter-spacing: .2rem;}
+h2 { font-size: 3.6rem; letter-spacing: .2rem;} /*TODO: Change this*/
+h3 { font-size: 3.0rem; letter-spacing: .2rem;}
+h4 { font-size: 2.4rem; letter-spacing: .18rem}
+h5 { font-size: 1.8rem; letter-spacing: .1rem }
+h6 { font-size: 1.5rem; line-height: 0;}
 
 /* Larger than phablet */
 @media (min-width: 750px) {

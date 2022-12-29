@@ -70590,6 +70590,7 @@ let carouselNavBtn = document.querySelectorAll(`.carousel-nav-btn`); //Carousel 
 let carouselNextBtn = document.querySelector(`.carousel-next-btn`); //Carousel Nav Next button
 let nextProjectText = document.querySelector('.next-project-change'); //Carousel text in top-right
 let carouselTitle = document.querySelectorAll('.carousel-title'); //Title of the page, to update the nextProjectText as you scroll
+const portfolioMainNextProject = document.querySelector('.portfolio-main-next-project'); // the entirety of the nextProject Text section, to make clickable
 
 const getScrollSnapValues = () => {
     if (scrollSnapTo.length != 0) {
@@ -70605,6 +70606,7 @@ const getScrollSnapValues = () => {
         index = scrollSnapLocations.indexOf(curPos); //sets the current index to 0
         snapGetCurrentPos();
         loadCarouselNav();
+        nextProjectButton();
     }
     else {
         console.log(`no scroll here!`);
@@ -70621,51 +70623,58 @@ const snapGetCurrentPos = () => {
 }
 
 const snapGetSurroundingPos = () => {
-    if (index === scrollSnapLocations.length - 1) {
-        nextPos = scrollSnapLocations[0] //if it's the last image in the sequence, go to the first section
-    } else {
-        nextPos = scrollSnapLocations[index + 1]
-    }
-    prevPos = scrollSnapLocations[index - 1];
+    //donothing
 }
   
-const scrollSnap = (num) => { 
+const scrollSnap = (num) => {
     snapGetSurroundingPos(); //log the next and previous snaps
-    (num > 0) ? goToNextSnap() : goToPreviousSnap();
+
+    console.log(`${index} is the index`)
+    if (num > 0) {
+        goToSnap(index + 1); //go forwards
+    } else if (num <= 0 && index !== 0) {
+        goToSnap(index - 1); //go backwards
+    }
+}
+
+const goToSnap = (i) => {
+    if (scrollSnapLocations[i] === undefined) {
+        i = 0;
+    }
+    windowScrollTo(scrollSnapLocations[i], 'smooth'); //scroll to designated area
+    curPos = scrollSnapLocations[i]; //update the current position to the new position
 
     index = scrollSnapLocations.indexOf(curPos); //update index
-    updateNavSquareOpacity(index); //update the bottom-left nav to match
-    updateNextProjectText(index);
-    totalScroll = 0; //update totalScroll, in case you were navigating via scrollwheel
+    
+    if (index === -1) {
+        index = 0;
+    } //if you scroll backwards from 0, don't update the index
 
+    updateNavSquareOpacity(index); //update the bottom-left nav to match
+    updateNextProjectText(index); //update next project text to match
+    totalScroll = 0; //update totalScroll, in case you were navigating via scrollwheel
 }
 
 const goToNextSnap = () => {
-    windowScrollTo(nextPos, 'smooth');
-    curPos = nextPos; //update the current position to the new position
+    //
 }
 
-const goToPreviousSnap = () => {
-    windowScrollTo(prevPos, 'smooth')
-    curPos = prevPos; //update the current position to the new position
+const nextProjectButton = () => {
+    portfolioMainNextProject.addEventListener('click', function handleClick() {
+        goToSnap(index + 1);
+    });
 }
 
 const loadCarouselNav = () => {
     //TODO: Refactor, this is not good. Repeated code, getCurrentPos has curPos = [0] which is bad, just fix it, I don't care, whatever man
     carouselNextBtn.addEventListener('click', function handleClick() {
-        windowScrollTo(scrollSnapLocations[index + 1], 'smooth');
-        curPos = scrollSnapLocations[index + 1]; //sets the current position
-        index = scrollSnapLocations.indexOf(curPos); //sets the current index to 0
-        snapGetSurroundingPos(); //log the next and previous snaps
-        updateNavSquareOpacity(index);
+        goToSnap(index + 1);
     });
 
     for (let i = 0; i < carouselNavBtn.length; i++) {
         carouselNavBtn[i].addEventListener('click', function handleClick() { //programmatically update "Next" carousel to the next position on the page
-            windowScrollTo(scrollSnapLocations[i], 'smooth');
-            snapGetCurrentPos(); //update current pos
-            snapGetSurroundingPos(); //log the next and previous snaps
-            updateNavSquareOpacity(i);
+            console.log(`goin`);
+            goToSnap(i);
         })
     }
 }
@@ -70677,22 +70686,15 @@ const updateNavSquareOpacity = (index) => {
 }
 
 const updateNextProjectText = (index) => {
-    if (index === carouselTitle.length - 1) {
-        nextProjectText.innerText = carouselTitle[0].innerText;
-    }
-    else {
-        nextProjectText.innerText = carouselTitle[index + 1].innerText;
-    }
+    (carouselTitle[index + 1] === undefined) ? nextProjectText.innerText = carouselTitle[0].innerText : nextProjectText.innerText = carouselTitle[index + 1].innerText; //if there is no carousel title next, you're at the end, so loop. Otherwise, go to the next project title;
 }
 
 const catchSnapDeadZone = () => {
-
     //detect if window.scrollX is within 10 pixels of the includes
     console.log(scrollSnapLocations);
     let position = Math.round(window.scrollX)
 
     if (!scrollSnapLocations.includes(position) ) {
-        console.log(`catching the deadzone`);
         let snapScrollDirection = directionScroll();
         
         if (snapScrollDirection === `left`) {
@@ -70707,7 +70709,7 @@ const catchSnapDeadZone = () => {
     }
 }
 
-//Start Content Code
+//Start Blog Code
 let bodyParagraphContainers;
 let bodyParagraphs;
 let initialContentUnfiltered; //used to store the initial content in the first paragraph
@@ -70767,7 +70769,7 @@ const applyNewContentHeight = () => {
     
     for (let i = 0; i < bodyParagraphs.length; i++){
         while (paragraphHeight[i] > containerHeight[i]) {
-            lastWord = content.pop(); //remove the last 10 words from the content
+            lastWord = content.pop(); //remove the last word from the content
             console.log(lastWord);
             excludedContent.unshift(lastWord); //temporarily store the excludedContent to be joined into the column
             bodyParagraphs[i].innerHTML = content.join(' '); //input the content back
