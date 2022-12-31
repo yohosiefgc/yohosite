@@ -79,8 +79,15 @@ html::after {
 .bloom{ filter:blur(3px); opacity: .5;}
 .diagonal-bloom{ filter:blur(5px); opacity:.5; }
 
+.horizontal-page{ overflow-y: hidden; }
+.vertical-page{ overflow-y: initial;}
+
 @media (min-width: 750px) {
-  .vert-center{ top: 50%; transform: translateY(-50%); }
+  .vert-center{
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
+  }
   .adjust-vert-0{ margin-top:6vh;}
   .adjust-vert-1{ margin-top:4vh;}
   .adjust-vert-2{ margin-top:2vh;}
