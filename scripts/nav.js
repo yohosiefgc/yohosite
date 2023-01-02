@@ -77,6 +77,7 @@ document.write(`<nav>
           <ol class="navigation-contact">
             <li><a href="#"><span>dawn@dawnhosie.com</span></a></li>
             <li class="last"> <a href="https://twitter.com/yohosiefgc" target="_blank"><span>twitter</span></a></li>
+            <li class="last"><a href="privacy-policy.html">privacy policy</a></li>
           </ol>
           <ol class="navigation-rectangles">
             <li><svg><rect></svg></li>

@@ -12,7 +12,7 @@
   }
   
   .portfolio section{ height:100vh; }
-  .portfolio-page section:nth-child(n + 3){ padding-left: 5vw; }
+  .portfolio-individual-page section:nth-child(n + 3){ padding-left: 5vw; }
   .portfolio-page section:nth-child(1){padding:0 3vh 0 2vh;}
 
   .portfolio .portfolio-column{
@@ -587,11 +587,56 @@
   opacity: 0.9;
 }
 
-
-
 /*vertical template*/
-
-.vertical-template{
-  width:80vw!important; /*TODO: Fix*/
-  max-width:80vw!important;
+@media (min-width:750px){
+  .vertical-template{
+    width:70vw!important; /*TODO: Fix*/
+    max-width:70vw!important;
+    overflow-y: initial!important;
+  }
 }
+
+/*About Me Page*/
+.about-me-img{ position: absolute; right:0px; }
+
+.about-obj-1{ right:30vw; bottom:250px; }
+.about-obj-1 svg,
+.about-obj-1 rect{ height:45vh; width:100px; }
+
+.about-obj-2{ right:40vw; top:-10px; }
+.about-obj-2 svg,
+.about-obj-2 rect{ height:45px; width:300px; }
+
+.about-obj-3{ right:8vw; bottom:300px; }
+.about-obj-3 svg,
+.about-obj-3 rect{ width:25px; height:25px; }
+
+.about-me-img img{ height:100vh; }
+
+@media (min-width:750px){
+  .about-title h1::before{ left:0px!important; /*TODO: Fix*/ }
+  .about-adjust{ padding-top:60px; }
+}
+
+@media (max-width:749px){
+  .about-me-img{display: none;}
+  .about-obj-1,
+  .about-obj-2,
+  .about-obj-3{ display: none; }
+}
+
+/* .yohosie{
+  font-size: 22rem;
+  width:100vw;
+  height:100vh;
+  overflow-x:hidden;
+}
+
+.yohosie span{
+  transform:rotate(90deg);
+  transform-origin:top;
+  top: 400px;
+  position: absolute;
+  left:calc(100vw - 42rem);
+  overflow-x:hidden;
+} */
