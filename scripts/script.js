@@ -33,6 +33,7 @@ window.onload = function () {
 }
 
 addEventListener("resize", (e) => {
+    scrollCheck = true;
     throttle(() => {
         console.log(`test123`);
         getScrollSnapValues();
@@ -57,21 +58,6 @@ const throttle = (callback, time) => {
 };
 
 //If the same action happens within 100ms, then don't trigger the action.
-
-const getClosestNum = (num, arr) => {
-    var curr = arr[0];
-    var diff = Math.abs (num - curr)
-
-    for (var i = 0; i < arr.length; i++) {
-        var newdiff = Math.abs (num - arr[i]);
-        if (newdiff < diff) {
-            diff = newdiff;
-            curr = arr[i];
-        }
-    }
-    return curr;
-}
-
 const getNextHighestIndex = (num, arr) => {
     let i = arr.length;
     while (arr[--i] > num);
@@ -83,6 +69,23 @@ const getNextLowestIndex = (num, arr) => {
     while (arr[--i] > num);
     return ++i - 1; 
 }
+
+//Debounce Code
+let timeout;
+
+function debounce(func, wait) {
+  return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), wait);
+  }
+}
+
+function removeBlanks(value) {
+    return value !== '';
+}
+
 
 
 //////////////////////////////////////////
@@ -236,9 +239,23 @@ const linearScrollDown = () => {
 }
 
 window.addEventListener('wheel', (evt) => {
+    // console.log(evt.wheelDeltaY);
+    // if (evt.deltaY > 10 || evt.deltaY < -10) {
+    //     totalScroll += evt.deltaY; //Get the value of your mousewheel scroll, and add it to the totalScroll totalScroll is how much we will be scrolling
+    // } else if (evt.deltaY > 0 && evt.deltaY <= 10){
+    //     totalScroll += 100;
+    // } else if (evt.deltaY < -10 && evt.deltaY > 0) {
+    //     totalScroll -= 100;
+    // } else {
+    //     totalScroll = 0;
+    // }
+    
+    // TODO: This is a bullshit fix. Fix throttling on Trackpad
+    
     totalScroll += evt.deltaY; //Get the value of your mousewheel scroll, and add it to the totalScroll totalScroll is how much we will be scrolling
     totalScroll += evt.deltaX; //TODO: Fix snap on x axis mouse
-    if (totalScroll !== 0) {
+
+    if (totalScroll !== 0 && totalScroll) {
         scrollSnapPage() ? scrollSnap(-totalScroll) : regulateScroll(totalScroll); //if you're on a scrolling page, snap scroll, otherwise regulate the scroll
     }
 });
@@ -295,6 +312,8 @@ const stopScrollCheck = () => {
         }
         tempPos = Math.ceil(window.visualViewport.pageLeft); //update tempPos, start the loop in 50 seconds
     }, 100)
+
+    scrollCheck = true;
 }
 
 //start parallax scroll
@@ -409,6 +428,7 @@ let carouselNextBtn = document.querySelector(`.carousel-next-btn`); //Carousel N
 let nextProjectText = document.querySelector('.next-project-change'); //Carousel text in top-right
 let carouselTitle = document.querySelectorAll('.carousel-title'); //Title of the page, to update the nextProjectText as you scroll
 const portfolioMainNextProject = document.querySelector('.portfolio-main-next-project'); // the entirety of the nextProject Text section, to make clickable
+let scrollCheck = true;
 
 const getScrollSnapValues = () => {
     if (scrollSnapTo.length != 0) {
@@ -446,21 +466,24 @@ const scrollSnap = (num) => {
 }
 
 const goToSnap = (i) => {
-    if (scrollSnapLocations[i] === undefined) {
-        i = 0; //if you're trying to scroll to an undefined location, you're at the end. Go to start.
-    }
-    windowScrollTo(scrollSnapLocations[i], 'smooth'); //scroll to designated area
-    curPos = scrollSnapLocations[i]; //update the current position to the new position
+    if (scrollCheck) { //scrollCheck prevents trackpads from spamming goToSnap
+        scrollCheck = false
+        if (scrollSnapLocations[i] === undefined) {
+            i = 0; //if you're trying to scroll to an undefined location, you're at the end. Go to start.
+        }
+        windowScrollTo(scrollSnapLocations[i], 'smooth'); //scroll to designated area
+        curPos = scrollSnapLocations[i]; //update the current position to the new position
 
-    index = scrollSnapLocations.indexOf(curPos); //update index
-    
-    if (index === -1) {
-        index = 0; //if you scroll backwards from 0, don't update the index
-    }
+        index = scrollSnapLocations.indexOf(curPos); //update index
+        
+        if (index === -1) {
+            index = 0; //if you scroll backwards from 0, don't update the index
+        }
 
-    updateNavSquareOpacity(index); //update the bottom-left nav to match
-    updateNextProjectText(index); //update next project text to match
-    totalScroll = 0; //update totalScroll, in case you were navigating via scrollwheel
+        updateNavSquareOpacity(index); //update the bottom-left nav to match
+        updateNextProjectText(index); //update next project text to match
+        totalScroll = 0; //update totalScroll, in case you were navigating via scrollwheel
+    }
 }
 
 const nextProjectButton = () => {
@@ -502,12 +525,11 @@ const catchSnapDeadZone = () => {
         
         if (snapScrollDirection === `left`) {
             index = getNextLowestIndex(window.scrollX, scrollSnapLocations)
+            goToSnap(index);
         } else if (snapScrollDirection === `right`) {
             index = getNextHighestIndex(window.scrollX, scrollSnapLocations)
+            goToSnap(index);
         }
-        curPos = scrollSnapLocations[index]; //sets the current position
-        
-        windowScrollTo(curPos, 'smooth');
     }
 }
 
@@ -522,10 +544,6 @@ let containerHeight = []; //height of the container
 const getColumns = () => {
     bodyParagraphContainers = document.querySelectorAll('.body-copy-container');
     bodyParagraphs = document.querySelectorAll('.body-copy');
-}
-
-function removeBlanks(value) {
-    return value !== '';
 }
 
 const handleContentColumns = () => {
