@@ -175,21 +175,6 @@ let hideNavCheck = () => {
     }
 }
 
-//TODO: Restore this functionality for To Portfolio Home to transition
-// const scrollContainer = document.querySelector('.portfolio');
-// const horizontalScroll = () => {
-//     let h5 = document.getElementsByTagName("h5")[0];
-//     if (window.pageXOffset >= 500) {
-//         console.log("scroll successful");
-//         h5Secondary.classList.add('fade-in-anim');
-//     }
-//     if (window.pageXOffset < 500) {
-//         h5.textContent = "To Portfolio Home";
-//     }
-// }; 
-// window.addEventListener("scroll", horizontalScroll);
-
-
 //////////////////////////////////////////
 //Scroll Code
 //////////////////////////////////////////
@@ -239,25 +224,12 @@ const linearScrollDown = () => {
 }
 
 window.addEventListener('wheel', (evt) => {
-    // console.log(evt.wheelDeltaY);
-    // if (evt.deltaY > 10 || evt.deltaY < -10) {
-    //     totalScroll += evt.deltaY; //Get the value of your mousewheel scroll, and add it to the totalScroll totalScroll is how much we will be scrolling
-    // } else if (evt.deltaY > 0 && evt.deltaY <= 10){
-    //     totalScroll += 100;
-    // } else if (evt.deltaY < -10 && evt.deltaY > 0) {
-    //     totalScroll -= 100;
-    // } else {
-    //     totalScroll = 0;
-    // }
-    
-    // TODO: This is a bullshit fix. Fix throttling on Trackpad
-    
     totalScroll += evt.deltaY; //Get the value of your mousewheel scroll, and add it to the totalScroll totalScroll is how much we will be scrolling
     totalScroll += evt.deltaX; //TODO: Fix snap on x axis mouse
 
-    if (totalScroll !== 0 && totalScroll) {
-        scrollSnapPage() ? scrollSnap(-totalScroll) : regulateScroll(totalScroll); //if you're on a scrolling page, snap scroll, otherwise regulate the scroll
-    }
+    // if (totalScroll !== 0 && totalScroll) {
+    //     scrollSnapPage() ? scrollSnap(-totalScroll) : regulateScroll(totalScroll); //if you're on a scrolling page, snap scroll, otherwise regulate the scroll
+    // }
 });
 
 function regulateScroll(totalScroll) {
