@@ -70196,9 +70196,6 @@ const navDiagonals = document.querySelector('.navigation-svg-container');
 const titleDefault = document.querySelector('.title-default');
 const titleHover = document.querySelector('.title-hover');
 
-const h5Original = document.querySelector('.original');
-const h5Secondary = document.querySelector('.secondary');
-
 let navToggleTracker = false; //TODO: I think this isn't right
 let buttonDisable = false; //TODO: I think this isn't right
 let leftNav = false;
@@ -70218,7 +70215,7 @@ addEventListener("resize", (e) => {
         console.log(`test123`);
         getScrollSnapValues();
         catchSnapDeadZone();
-        handleContentColumns(); //TODO: Make this not always return to 0;
+        handleContentColumns();
     }, 1000);
 });
 
@@ -70658,9 +70655,10 @@ const getColumns = () => {
 
 const handleContentColumns = () => {
     getColumns();
-    calcContentColumnHeight();
-    applyNewContentHeight();
-    // purgeUnusedColumns();
+    if (bodyParagraphContainers) { 
+        calcContentColumnHeight();
+        applyNewContentHeight();
+    }
 }
 
 const calcContentColumnHeight = () => {
@@ -70678,7 +70676,6 @@ const calcContentColumnHeight = () => {
     };
 }
 
-let g = 0;
 const applyNewContentHeight = () => {
     if (!initialContentUnfiltered) {
         initialContentUnfiltered = (bodyParagraphs[0].innerHTML).split(' '); //store unfiltered content

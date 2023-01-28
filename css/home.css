@@ -103,6 +103,12 @@
   font-size:.8rem;
 }
 
+@media (max-width:1200px){
+  .portfolio-main-next-project{
+    display:none; /*TODO: display none*/
+  }
+}
+
 @media (min-width:750px){
   .portfolio-main-content-column{ width: 30vw; }
   .portfolio-main-content-column .preview-container{ position: absolute; width: 30vw; }
