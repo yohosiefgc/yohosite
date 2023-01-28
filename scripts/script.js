@@ -198,10 +198,7 @@ const windowScrollBy = (position, behavior) => {
         behavior: behavior
     })
 }
-
-let totalScroll = 0;
 let isScrolling;
-let multScrollTicks = false;
 let linearMoveValue = 70;
 
 window.addEventListener('keydown', (evt) => {
@@ -224,46 +221,8 @@ const linearScrollDown = () => {
 }
 
 window.addEventListener('wheel', (evt) => {
-    totalScroll += evt.deltaY; //Get the value of your mousewheel scroll, and add it to the totalScroll totalScroll is how much we will be scrolling
-    totalScroll += evt.deltaX; //TODO: Fix snap on x axis mouse
-
-    // if (totalScroll !== 0 && totalScroll) {
-    //     scrollSnapPage() ? scrollSnap(-totalScroll) : regulateScroll(totalScroll); //if you're on a scrolling page, snap scroll, otherwise regulate the scroll
-    // }
+    scrollSnapPage() ? scrollSnap(evt.deltaY) : windowScrollBy(evt.deltaY);
 });
-
-function regulateScroll(totalScroll) {
-    if (multScrollTicks) { //if the user is scrolling multiple times
-        const clockTick = setInterval(function () { //...then start looking for...
-            if (!multScrollTicks) { //... when multScrollTicks is false..
-                scrollAction(totalScroll); //... thenscrollAction with the new total totalScroll, instead of updating totalScroll all thje time.
-                clearInterval(clockTick);
-            }
-        }, 20)
-        return;
-    } else if (!multScrollTicks) { //...Or if the user is only scrolling one tick at a time (weirdo)
-        scrollAction(totalScroll); //... just bring totalScroll to the scrolling function
-    }
-
-    multScrollTicks = true;
-    setTimeout(function () { //start counting down 100ms before setting wait to false.
-        multScrollTicks = false;
-    }, 100);
-}
-
-//Start the scrollWheelProcess, which is to scroll horizontally
-function scrollAction(num) {
-    stopScrollCheck();
-    
-    let scrollTo = Math.floor(window.scrollX += num); //Scroll to the position of the scrollX (scrollbar), plus the totalScroll.
-    scrollTo < 0 ? scrollTo = 0 : scrollTo; //if scrollTo is below 0, set to 0.
-    scrollTo > document.body.scrollWidth ? scrollTo = document.body.scrollWidth : scrollTo; //If you're scrolling beyond the end of the document, set the scrollTo to the end of the document. //TODO: this doesn't seem like the actual end of the page, for some reason.
-
-    windowScrollTo(scrollTo, 'smooth')
-
-    scrollTo = 0; //reset where you are scrolling to, as you are no longer scrolling
-    totalScroll = 0; //reset the totalScroll, as you are no longer scrolling
-}
 
 //Determine if the page has stopped scrolling
 const stopScrollCheck = () => {
@@ -454,7 +413,6 @@ const goToSnap = (i) => {
 
         updateNavSquareOpacity(index); //update the bottom-left nav to match
         updateNextProjectText(index); //update next project text to match
-        totalScroll = 0; //update totalScroll, in case you were navigating via scrollwheel
     }
 }
 
