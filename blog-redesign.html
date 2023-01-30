@@ -33,12 +33,7 @@
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
-
-  <!-- Temporary Video
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <!-- <link href="//vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
-  <script src="//vjs.zencdn.net/7.10.2/video.min.js"></script>
-  <script src="scripts/video.js"></script> -->
+  
 </head>
 <body class="horizontal-page">
 
@@ -47,9 +42,9 @@
 <script src="scripts/svg.js"></script>
 <script src="scripts/nav.js"></script>
 
-<main class="portfolio portfolio-page">
-  <section class="portfolio-column content-container">
-  <div class="title">
+<main class="portfolio portfolio-page" >
+  <section class="content-container blog-container-test" style="max-width:9999px!important; width:auto;">
+    <div class="title">
       <h1 class="blog-h1">Building This Website</i></h1>
       <h3 class="blog-h3">(pt 2) // Coding, Frameworks, and Problems</h3>
     </div>
@@ -57,9 +52,14 @@
       <svg class="triangle rotate-ninety" style="width: 15px; height:15px; fill:#FFF;">
         <use xlink:href="#triangle"></use>
       </svg>
-      <div class="body-copy-container">
+      <div class="body-copy-container blog-text-container-test">
+        <div class="spacer spacerone">
+          &nbsp;
+        </div>
+        <div class="spacer spacertwo">
+          &nbsp;
+        </div>
         <p class="body-copy">
-          <a href="2022-12-26-blog.html">Previous Blog Post: Brand & Typography</a>
           <br>
           <br>
           This website was initially created with the skeleton framework, which was used to build my previous portfolios. This, however, was quickly abandoned. Skeleton is not made for horizontal layouts, given it has a 12-column layout structure. Horizontal websites have a more flexible column layout, extending into 20, 30, 40, 100 columns and beyond. When page size is not a factor, it doesn’t make sense to use a 12-column layout. It also makes it difficult to escape the grid, which is something I needed to do. Instead, I stole the normalize.css from Skeleton and migrated to a custom CSS framework.
@@ -108,80 +108,6 @@
           <br>
           <br>
           <a href="2022-12-30-blog.html">Next Blog Post: Blog Page & Wrap-up</a>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="portfolio-column content-container content-three-column">
-    <div class="content">
-      <div class="body-copy-container">
-        <p class="body-copy">
-          <!--content column filled dynamically-->
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="portfolio-column">
-      <div class="img-container vert-center">
-        <div class="subtitle monotype">
-          <span>Parallax Scroll Code</span>
-          <svg><rect></rect></svg>
-        </div>
-        <div class="portfolio-img lh-fix">
-          <div class="portfolio-img-dropshadow"></div>
-          <img src="images/blog/scrollcode.jpg" class="horizontal">
-        </div>
-    </div>
-  </section>
-  
-  <section class="portfolio-column content-container content-six-column">
-    <div class="content-full-height">
-      <div class="body-copy-container">
-        <p class="body-copy">
-          <!--content column filled dynamically-->
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="portfolio-column">
-      <div class="img-container vert-center">
-        <div class="subtitle monotype">
-          <span>SnapScroll Design</span>
-          <svg><rect></rect></svg>
-        </div>
-        <div class="portfolio-img lh-fix">
-          <div class="portfolio-img-dropshadow"></div>
-          <video
-            id="pikachu-eevee-video-3"
-            class="video-js vjs-sublime-skin horizontal vjs-16-9"
-            controls
-            muted
-            loop
-            inactivityTimeout = "0"
-            poster="images/portfolio/nintendo/pikachu-eevee-3.jpg"
-            data-setup='{"controls": true, "autoplay": true, "preload": "auto"}'
-            >
-            <source src="images/blog/blog-post-scroll.mp4" type="video/mp4"></source>
-            <p class="vjs-no-js">
-              To view this video please enable JavaScript, and consider upgrading to a
-              web browser that <a href="https://videojs.com/html5-video-support/" target="_blank"> supports HTML5 video</a>
-            </p>
-          </video>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="portfolio-column content-container content-three-column overflow-column">
-    <div class="content-full-height">
-      <div class="body-copy-container">
-        <p class="body-copy">
-          <!--content column filled dynamically-->
         </p>
       </div>
     </div>
@@ -256,7 +182,7 @@
 <div class="vignette"></div>
 <!-- Scripts
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<script src="bundle.js" defer></script>
+<!-- <script src="bundle.js" defer></script> -->
 
 </body>
 </html>

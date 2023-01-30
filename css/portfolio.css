@@ -158,7 +158,6 @@
 .content-container .content-full-height{ margin-top:10vh; }
 
 .blog-end{
-  padding: 3vw 0 0 2vw!important;
   background-image: url("../images/svg/pattern-line-diagonal-css-bg.svg");
   background-repeat:repeat;
   background-size:10px;
@@ -218,6 +217,18 @@
 
 .blog-socials .linkedin{ height:20px; }
 .blog-socials .twitter{ height:18px; }
+
+@media (min-width: 750px){
+  .blog-end{
+    padding: 3vw 0 0 2vw!important;
+  }
+}
+
+@media (max-width: 749px){
+  .blog-end{
+    padding-top:30px!important;
+  }
+}
 
 /*Portfolio Go Back Module
 -------------------------------------------------*/
@@ -631,18 +642,3 @@
   .about-obj-3{ display: none; }
 }
 
-/* .yohosie{
-  font-size: 22rem;
-  width:100vw;
-  height:100vh;
-  overflow-x:hidden;
-}
-
-.yohosie span{
-  transform:rotate(90deg);
-  transform-origin:top;
-  top: 400px;
-  position: absolute;
-  left:calc(100vw - 42rem);
-  overflow-x:hidden;
-} */

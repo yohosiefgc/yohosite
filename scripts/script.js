@@ -478,6 +478,7 @@ const handleContentColumns = () => {
     if (bodyParagraphContainers) { 
         calcContentColumnHeight();
         applyNewContentHeight();
+        // removeUnusedColumns();
     }
 }
 
@@ -520,13 +521,13 @@ const applyNewContentHeight = () => {
         }
 
         if (bodyParagraphs[i + 1] === undefined && lastWord !== '') {
-            console.log(`generating new column`);
+            // console.log(`generating new column`);
             generateNewColumn(); //make a new column
             getColumns(); //update bodyParagraphs
         }
         
         if (bodyParagraphs[i + 1] !== undefined) {
-            console.log(`inserting excludedContent into next Body Paragraph`);
+            // console.log(`inserting excludedContent into next Body Paragraph`);
             bodyParagraphs[i + 1].innerHTML = excludedContent.join(' '); //add the excludedContent to the next column once finished
             paragraphHeight[i + 1] = bodyParagraphs[i + 1].getBoundingClientRect().height;
             calcContentColumnHeight();
@@ -551,3 +552,11 @@ const generateNewColumn = () => {
         </section>
     `);
 }
+
+// const removeUnusedColumns = () => {
+//     for (let i = 0; i < bodyParagraphs.length; i++) {
+//         if (bodyParagraphs[i].innerHTML === undefined){
+//             console.log(`nope`);
+//         }
+//     }
+// }
