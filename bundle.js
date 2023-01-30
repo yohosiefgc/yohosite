@@ -70204,18 +70204,32 @@ window.onload = function () {
     setTimeout(() => {
         fadeIn();
         window.scrollTo(0, 0); //scroll to the beginning of the page on load
-        getScrollSnapValues(); //get all Scroll Snap Values on the page.
-        handleContentColumns();
+        scrollSnapHandler();
+        contentColumnsHandler();
     }, 1); //delaying by 1 avoids any issues
+}
+
+const scrollSnapHandler = () => {
+    //Only run this code if you're on a page labeled snapScroll. Requires snapScroll class in body.
+    if (document.body.classList.contains('snapScroll')){
+        getScrollSnapValues();
+    }
+}
+
+const contentColumnsHandler = () => {
+    //Only run this code if you're on a page labeled contentPage. Requires contentPage class in body.
+    if (document.body.classList.contains('contentPage')) {
+        handleContentColumns();
+    }
 }
 
 addEventListener("resize", (e) => {
     scrollCheck = true;
     throttle(() => {
         console.log(`test123`);
-        getScrollSnapValues();
+        scrollSnapHandler();
         catchSnapDeadZone();
-        handleContentColumns();
+        ontentColumnsHandler();
     }, 1000);
 });
 
@@ -70247,23 +70261,9 @@ const getNextLowestIndex = (num, arr) => {
     return ++i - 1; 
 }
 
-//Debounce Code
-let timeout;
-
-function debounce(func, wait) {
-  return function() {
-    const context = this;
-    const args = arguments;
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(context, args), wait);
-  }
-}
-
 function removeBlanks(value) {
     return value !== '';
 }
-
-
 
 //////////////////////////////////////////
 //Navigation Scripts
@@ -70356,25 +70356,6 @@ let hideNavCheck = () => {
 //Scroll Code
 //////////////////////////////////////////
 
-const windowScrollTo = (position, behavior) => {
-    window.scrollTo({
-        left: position,
-        behavior: behavior
-    })
-    // setTimeout(() => { //TODO: ???? Fixes chrome issue where it stops scrolling after like 510ms for some reason?
-    //     window.scrollTo({
-    //         left: position,
-    //         behavior: behavior
-    //     })
-    // },550) 
-}
-
-const windowScrollBy = (position, behavior) => {
-    window.scrollBy({
-        left: position,
-        behavior: behavior
-    })
-}
 let isScrolling;
 let linearMoveValue = 70;
 
@@ -70390,15 +70371,19 @@ window.addEventListener('keydown', (evt) => {
     }
 });
 
+const scrollHandler = (i) => {
+    scrollSnapPage() ? scrollSnap(i) : window.scrollBy(i, 'auto'); //if on a scrollSnap page, go to next module. If not, the scrollby a certain amount.
+}
+
 const linearScrollUp = () => {
-    scrollSnapPage() ? scrollSnap(linearMoveValue) : windowScrollBy(linearMoveValue, 'auto');
+    scrollHandler(linearMoveValue);
 }
 const linearScrollDown = () => {
-    scrollSnapPage() ? scrollSnap(-linearMoveValue) : windowScrollBy(-linearMoveValue, 'auto');
+    scrollHandler(-linearMoveValue);
 }
 
 window.addEventListener('wheel', (evt) => {
-    scrollSnapPage() ? scrollSnap(evt.deltaY) : windowScrollBy(evt.deltaY);
+    scrollHandler(evt.deltaY);
 });
 
 //Determine if the page has stopped scrolling
@@ -70424,7 +70409,10 @@ const stopScrollCheck = () => {
     scrollCheck = true;
 }
 
-//start parallax scroll
+//////////////////////////////////////////
+//Parallax Scroll Code
+//////////////////////////////////////////
+
 let lastScroll = 0; //Used to determine which was the user is scrolling
 let scrollDirection = ``; //Used to store which way the user is scrolling
 let parallaxObj = document.querySelectorAll('.parallax-obj'); //Collect all objects to parallax scroll
@@ -70579,7 +70567,10 @@ const goToSnap = (i) => {
         if (scrollSnapLocations[i] === undefined) {
             i = 0; //if you're trying to scroll to an undefined location, you're at the end. Go to start.
         }
-        windowScrollTo(scrollSnapLocations[i], 'smooth'); //scroll to designated area
+        window.scrollTo({
+            left: scrollSnapLocations[i],
+            behavior: 'smooth'
+        }); //scroll to designated area
         curPos = scrollSnapLocations[i]; //update the current position to the new position
 
         index = scrollSnapLocations.indexOf(curPos); //update index
@@ -70658,7 +70649,7 @@ const handleContentColumns = () => {
     if (bodyParagraphContainers) { 
         calcContentColumnHeight();
         applyNewContentHeight();
-        removeUnusedColumns();
+        // removeUnusedColumns();
     }
 }
 
@@ -70733,11 +70724,11 @@ const generateNewColumn = () => {
     `);
 }
 
-const removeUnusedColumns = () => {
-    for (let i = 0; i < bodyParagraphs.length; i++) {
-        if (bodyParagraphs[i].innerHTML === undefined){
-            console.log(`nope`);
-        }
-    }
-}
+// const removeUnusedColumns = () => {
+//     for (let i = 0; i < bodyParagraphs.length; i++) {
+//         if (bodyParagraphs[i].innerHTML === undefined){
+//             console.log(`nope`);
+//         }
+//     }
+// }
 },{"video.js":46}]},{},[51]);
