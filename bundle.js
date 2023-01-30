@@ -70209,10 +70209,20 @@ window.onload = function () {
     }, 1); //delaying by 1 avoids any issues
 }
 
+addEventListener("resize", (e) => {
+    scrollCheck = true;
+    throttle(() => {
+        console.log(`test123`);
+        scrollSnapHandler();
+        contentColumnsHandler();
+    }, 1000);
+});
+
 const scrollSnapHandler = () => {
     //Only run this code if you're on a page labeled snapScroll. Requires snapScroll class in body.
     if (document.body.classList.contains('snapScroll')){
         getScrollSnapValues();
+        catchSnapDeadZone();
     }
 }
 
@@ -70223,15 +70233,6 @@ const contentColumnsHandler = () => {
     }
 }
 
-addEventListener("resize", (e) => {
-    scrollCheck = true;
-    throttle(() => {
-        console.log(`test123`);
-        scrollSnapHandler();
-        catchSnapDeadZone();
-        ontentColumnsHandler();
-    }, 1000);
-});
 
 //////////////////////////////////////////
 //Reusable Functions
@@ -70248,7 +70249,6 @@ const throttle = (callback, time) => {
     }, time);
 };
 
-//If the same action happens within 100ms, then don't trigger the action.
 const getNextHighestIndex = (num, arr) => {
     let i = arr.length;
     while (arr[--i] > num);
@@ -70263,6 +70263,22 @@ const getNextLowestIndex = (num, arr) => {
 
 function removeBlanks(value) {
     return value !== '';
+}
+
+const slideIn = () => {
+    let slideIn = document.querySelectorAll('.slideIn');
+    for (let i = 0; i < slideIn.length; i++) {
+        let slideInObj = slideIn[i]; //label each slideIn to be the current slideIn
+        let objPos = slideInObj.getBoundingClientRect().x + window.pageXOffset; //get Object Position
+        let viewRightBound = Math.floor(window.visualViewport.pageLeft + window.visualViewport.width); //get Right-side of Screen
+        let viewLeftBound = Math.floor(window.visualViewport.pageLeft); //get Left-side of Screen
+
+        let adjustedPos = objPos - 100
+
+        if ((!(adjustedPos > viewRightBound) && !(adjustedPos < viewLeftBound)) || adjustedPos < viewRightBound ) {
+                slideInObj.style.transform = `translateX(${0})`;
+        }
+    }
 }
 
 //////////////////////////////////////////
@@ -70475,6 +70491,7 @@ const parallaxScroll = () => {
 const fadeIn = () => {
     let parallaxObj = document.querySelectorAll('.parallax-obj');
     let portfolioImgContainer = document.querySelectorAll('.img-container');
+    let incrementalCount = 800 //fade-in speed
 
     setTimeout(function timer() {
         for (let i = 0; i < parallaxObj.length; i++) {
@@ -70483,7 +70500,6 @@ const fadeIn = () => {
         }
     }, 500);
     
-    let incrementalCount = 800
     for (let i = 0; i < portfolioImgContainer.length; i++) {
         portfolioImgContainer[0].style.opacity = (`1`);
         setTimeout(function timer() {
@@ -70493,23 +70509,6 @@ const fadeIn = () => {
             }
             portfolioImgContainer[i].style.opacity = (`1`);
           }, incrementalCount);
-    }
-}
-
-//slideIn
-const slideIn = () => {
-    let slideIn = document.querySelectorAll('.slideIn');
-    for (let i = 0; i < slideIn.length; i++) {
-        let slideInObj = slideIn[i]; //label each slideIn to be the current slideIn
-        let objPos = slideInObj.getBoundingClientRect().x + window.pageXOffset; //get Object Position
-        let viewRightBound = Math.floor(window.visualViewport.pageLeft + window.visualViewport.width); //get Right-side of Screen
-        let viewLeftBound = Math.floor(window.visualViewport.pageLeft); //get Left-side of Screen
-
-        let adjustedPos = objPos - 100
-
-        if ((!(adjustedPos > viewRightBound) && !(adjustedPos < viewLeftBound)) || adjustedPos < viewRightBound ) {
-                slideInObj.style.transform = `translateX(${0})`;
-        }
     }
 }
 
@@ -70615,7 +70614,6 @@ const updateNextProjectText = (index) => {
 
 const catchSnapDeadZone = () => {
     //detect if window.scrollX is within 10 pixels of the includes
-    console.log(scrollSnapLocations);
     let position = Math.round(window.scrollX)
 
     if (!scrollSnapLocations.includes(position) ) {
@@ -70631,26 +70629,29 @@ const catchSnapDeadZone = () => {
     }
 }
 
-//Start Blog Code
+//////////////////////////////////////////
+//Blog Code
+//////////////////////////////////////////
+
 let bodyParagraphContainers;
 let bodyParagraphs;
+let portfolioColumns; //used to delete unused portfolio Columns
 let initialContentUnfiltered; //used to store the initial content in the first paragraph
 let initialContentFiltered; //used to store the filtered content
 let paragraphHeight = []; //height of the paragraph
 let containerHeight = []; //height of the container
 
+const handleContentColumns = () => {
+    getColumns();
+    calcContentColumnHeight();
+    applyNewContentHeight();
+    removeUnusedColumns();
+}
+
 const getColumns = () => {
     bodyParagraphContainers = document.querySelectorAll('.body-copy-container');
     bodyParagraphs = document.querySelectorAll('.body-copy');
-}
-
-const handleContentColumns = () => {
-    getColumns();
-    if (bodyParagraphContainers) { 
-        calcContentColumnHeight();
-        applyNewContentHeight();
-        // removeUnusedColumns();
-    }
+    portfolioColumns = document.querySelectorAll(`.portfolio-column`);
 }
 
 const calcContentColumnHeight = () => {
@@ -70685,14 +70686,12 @@ const applyNewContentHeight = () => {
     for (let i = 0; i < bodyParagraphs.length; i++){
         while (paragraphHeight[i] > containerHeight[i]) {
             lastWord = content.pop(); //remove the last word from the content
-            console.log(lastWord);
             excludedContent.unshift(lastWord); //temporarily store the excludedContent to be joined into the column
             bodyParagraphs[i].innerHTML = content.join(' '); //input the content back
             paragraphHeight[i] = bodyParagraphs[i].getBoundingClientRect().height; //set paragraph height to the current height of the pargraph
         }
 
         if (bodyParagraphs[i + 1] === undefined && lastWord !== '') {
-            // console.log(`generating new column`);
             generateNewColumn(); //make a new column
             getColumns(); //update bodyParagraphs
         }
@@ -70724,11 +70723,14 @@ const generateNewColumn = () => {
     `);
 }
 
-// const removeUnusedColumns = () => {
-//     for (let i = 0; i < bodyParagraphs.length; i++) {
-//         if (bodyParagraphs[i].innerHTML === undefined){
-//             console.log(`nope`);
-//         }
-//     }
-// }
+const removeUnusedColumns = () => {
+    for (let i = 0; i < bodyParagraphs.length; i++) {
+        console.log(bodyParagraphs[i].innerText)
+        if (bodyParagraphs[i].innerText === '') {
+            console.log(portfolioColumns[i + 1])
+            portfolioColumns[i + 1].remove();
+            getColumns();
+        }
+    }
+}
 },{"video.js":46}]},{},[51]);
