@@ -70199,6 +70199,7 @@ const titleHover = document.querySelector('.title-hover');
 let navToggleTracker = false; //TODO: I think this isn't right
 let buttonDisable = false; //TODO: I think this isn't right
 let leftNav = false;
+let loadingContainer = document.querySelector('.loading-screen');
 
 window.onload = function () {
     setTimeout(() => {
@@ -70206,16 +70207,32 @@ window.onload = function () {
         window.scrollTo(0, 0); //scroll to the beginning of the page on load
         scrollSnapHandler();
         contentColumnsHandler();
+        hideLoading();
     }, 1); //delaying by 1 avoids any issues
+    
+}
+
+
+const hideLoading = () => {
+    loadingContainer.style.opacity = ('0');
+}
+
+const showLoading = () => {
+    loadingContainer.style.opacity = ('1');
 }
 
 addEventListener("resize", (e) => {
     scrollCheck = true;
-    throttle(() => {
-        console.log(`test123`);
-        scrollSnapHandler();
-        contentColumnsHandler();
-    }, 1000);
+    if (document.body.classList.contains('contentPage')) {
+        showLoading();
+    }
+    setTimeout(() => {
+        throttle(() => {
+            scrollSnapHandler();
+            contentColumnsHandler();
+            hideLoading();
+        }, 1000);
+    }, 500);
 });
 
 const scrollSnapHandler = () => {
@@ -70692,12 +70709,12 @@ const applyNewContentHeight = () => {
         }
 
         if (bodyParagraphs[i + 1] === undefined && lastWord !== '') {
+            console.log(`more content than columns!`);
             generateNewColumn(); //make a new column
             getColumns(); //update bodyParagraphs
         }
         
         if (bodyParagraphs[i + 1] !== undefined) {
-            // console.log(`inserting excludedContent into next Body Paragraph`);
             bodyParagraphs[i + 1].innerHTML = excludedContent.join(' '); //add the excludedContent to the next column once finished
             paragraphHeight[i + 1] = bodyParagraphs[i + 1].getBoundingClientRect().height;
             calcContentColumnHeight();
@@ -70715,22 +70732,29 @@ const generateNewColumn = () => {
         <section class="portfolio-column content-container content-six-column overflow-column">
             <div class="content-full-height">
                 <div class="body-copy-container">
-                <p class="body-copy">
-                </p>
+                <div class="body-copy">
                 </div>
             </div>
         </section>
     `);
+
+    //     bodyParagraphs[bodyParagraphs.length -1].insertAdjacentHTML('afterEnd', `
+    //     <section class="portfolio-column content-container content-six-column overflow-column">
+    //         <div class="content-full-height">
+    //             <div class="body-copy-container">
+    //             <div class="body-copy">
+    //                 <p> oo ahh doin a test</p>
+    //             </div>
+    //         </div>
+    //     </section>
+    // `);
 }
 
 const removeUnusedColumns = () => {
-    for (let i = 0; i < bodyParagraphs.length; i++) {
-        console.log(bodyParagraphs[i].innerText)
-        if (bodyParagraphs[i].innerText === '') {
-            console.log(portfolioColumns[i + 1])
-            portfolioColumns[i + 1].remove();
-            getColumns();
-        }
+    if (bodyParagraphs[bodyParagraphs.length - 1].innerText === '') {
+        portfolioColumns[portfolioColumns.length - 2].remove();
+        getColumns();
+        removeUnusedColumns();
     }
 }
 },{"video.js":46}]},{},[51]);

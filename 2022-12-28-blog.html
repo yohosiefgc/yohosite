@@ -58,57 +58,40 @@
         <use xlink:href="#triangle"></use>
       </svg>
       <div class="body-copy-container">
-        <p class="body-copy">
+        <div class="body-copy">
           <a href="2022-12-26-blog.html">Previous Blog Post: Brand & Typography</a>
-          <br>
-          <br>
-          This website was initially created with the skeleton framework, which was used to build my previous portfolios. This, however, was quickly abandoned. Skeleton is not made for horizontal layouts, given it has a 12-column layout structure. Horizontal websites have a more flexible column layout, extending into 20, 30, 40, 100 columns and beyond. When page size is not a factor, it doesn’t make sense to use a 12-column layout. It also makes it difficult to escape the grid, which is something I needed to do. Instead, I stole the normalize.css from Skeleton and migrated to a custom CSS framework.
-          <br>
-          <br>
-          When I decided on a javascript framework, I had decided early to use vanilla Javascript. As a playable designer, we use vanilla JS for file size and device/platform compatibility reasons. It felt conceptually correct to build my website in the same vanilla JS framework, and it was a great excuse to build on my limited javascript skills.
-          <br>
-          <br>
-          When coding, 2 primary challenges presented themselves: (1) horizontal scrolling is difficult and there exists very little documentation or frameworks to handle it, (2) horizontal layout does not work on mobile, meaning I’ll need to develop two different scrolling methods and accommodate both. I decided to pretend (2) doesn’t exist, and focus on (1). Strangely, I didn’t regret this decision.
-          <br>
-          <br>
-          When designing a horizontal scroll, you quickly realize how many different scrolling options the user has. The user can scroll: (1) with a mousewheel horizontally, with a mousewheel vertically, with a mousewheel by clicking and moving left/right/up/down, with arrow keys in all directions, with a trackpad and/or tablet, and with a scrollbar.
-          <br>
-          <br>
-          That is a lot of ways to scroll. To compound the issues, there’s two different components that control scroll position. window.scrollX, window.offsetLeft, <i>and – in a way – window.innerHeight</i>. These properties are functionally similar, but often can get out of sync, and are used for different purposes to control where the user is currently scrolled to.
-          <br>
-          <br>
-          I was made aware of a methodology where you rotate the entire container 90 degrees, and then rotate each element inside the container -90 degrees. Theoretically, this allows you to have the horizontal scrolling function like vertical scrolling. I have pretended this does not exist, because it sounds like a much easier and simpler solution than mine. Maybe in another 6 years when I rebuild this site, I’ll use that method.
-          <br>
-          <br>
-          Coding this was not easy, and I won’t be diving into the specific code here. What I will say is that I had one universal handler that handled the scrolling, and then we had about four different input methods which were loosely divided into linear and non-linear movement methods. Linear being the arrow keys, and nonlinear being the mouse wheel, the scroll bar, trackpads, etc. 
-          <br>
-          <br>
-          After solving the scroll problem, the next scroll issue was parallax scrolling. Parallax scrolling codebases are bloated, complicated, and generally only work with vertical scrolling instead of horizontal scrolling. In addition, I found many of them to be inefficient. Rather than moving elements and having some elements static, it was a complicated mess of every container having a different parallax scroll value. Not only was this inefficient and harmful on performance, I don’t like content not scrolling 1:1 with what you are used to. It makes websites harder to read, and I only wanted parallax scrolling to apply to background animations and in subtle ways.
-          <br>
-          <br>
-          My solution was not ideal in some ways, but good in others. The parallax scrolling code I developed only triggers when the object is on the screen. At the start of the page-load, all objects have their positions loaded. Only when the object is about to be in-view does the parallax code activate. This allows me to have a large amount of parallax objects on the page without dramatically impacting performance.
-          <br>
-          <br>
-          In addition, many parallax scroll codes are difficult to accurately position objects. Because each page has multiple parallax elements placed in unique positions, I made sure their origin is the center-point of the viewport, rather than some obligatory position determined by the content, that I found with most parallax frameworks. In combination, both of these best practices, alongside some smart CSS, HTML, and SVG object organization, allow me to place parallax objects with relative ease and without much guess work.
-          <br>
-          <br>
-          The downside to the parallax code is one out of necessity to get the site up quickly – the code currently functions when the user scrolls, not where the content is in the viewport. This means that, if the user scrolls very quickly, or scrolls back and forth, the objects can get removed from their native position. This is OK, given parallax scrolling is only used for decorative elements, but unideal. In the future, I plan to have the objects parallax scroll based on the current window.scrollX, which will prevent this from happening and give me even more granular control over the object position.
-          <br>
-          <br>
-          The last piece of scrolling that we should talk about is the Portfolio Homepage. The index was a huge pain in the ass. Because of the way I structured it, traditional CSS Snap Scrolling was not going to function. My scroll code interprets vertical scrolling into horizontal scrolling, and the native CSS Snap Scroll would not function. 
-          <br>
-          <br>
-          Therefore, I opted for a javascript solution. I detected if the page involved snap scrolling, and if so, any time a scroll event would normally happen, a snap-scroll would happen instead. For linear inputs methods, like the arrow keys, this was simple. I could detect where the panels start, and when the linear input method was activated, you would scroll to the next panel. For less linear input methods like mouse scroll, trackpads, and scrolling with the scrollbar, this was much more complicated.
-          <br>
-          <br>
-          I ended up going with a solution where the user is allowed to scroll as they see fit, and after x seconds, if they’re misaligned from an anchor point, the window would smooth scroll to that anchor point. I added some additional logic that detected if it should scroll forwards or backwards depending on the user’s start and end point, and also the velocity in which they scrolled.
-          <br>
-          <br>
-          This works great in most cases, however Chrome has an issue where if the user scrolls with the mousewheel, the animation actually stops after a specific amount of time. This issue does not exist in Safari, Firefox, Microsoft Edge, or other browsers. This meant an additional (janky) check, where after the scroll action is completed, if it was not at a snap point, it would run the scroll one final time. It doesn’t look the prettiest, but it does function. 
-          <br>
-          <br>
+          
+          <p>This website was initially created with the skeleton framework, which was used to build my previous portfolios. This, however, was quickly abandoned. Skeleton is not made for horizontal layouts, given it has a 12-column layout structure. Horizontal websites have a more flexible column layout, extending into 20, 30, 40, 100 columns and beyond. When page size is not a factor, it doesn’t make sense to use a 12-column layout. It also makes it difficult to escape the grid, which is something I needed to do. Instead, I stole the normalize.css from Skeleton and migrated to a custom CSS framework.</p>
+
+          <p>When I decided on a javascript framework, I had decided early to use vanilla Javascript. As a playable designer, we use vanilla JS for file size and device/platform compatibility reasons. It felt conceptually correct to build my website in the same vanilla JS framework, and it was a great excuse to build on my limited javascript skills.</p>
+
+          <p>When coding, 2 primary challenges presented themselves: (1) horizontal scrolling is difficult and there exists very little documentation or frameworks to handle it, (2) horizontal layout does not work on mobile, meaning I'll need to develop two different scrolling methods and accommodate both. I decided to pretend (2) doesn't exist, and focus on (1). Strangely, I didn't regret this decision.</p>
+          
+          <p>When designing a horizontal scroll, you quickly realize how many different scrolling options the user has. The user can scroll: (1) with a mousewheel horizontally, with a mousewheel vertically, with a mousewheel by clicking and moving left/right/up/down, with arrow keys in all directions, with a trackpad and/or tablet, and with a scrollbar.</p>
+
+          <p>That is a lot of ways to scroll. To compound the issues, there's two different components that control scroll position. window.scrollX, window.offsetLeft, <i>and – in a way – window.innerHeight</i>. These properties are functionally similar, but often can get out of sync, and are used for different purposes to control where the user is currently scrolled to.</p>
+
+          <p>I was made aware of a methodology where you rotate the entire container 90 degrees, and then rotate each element inside the container -90 degrees. Theoretically, this allows you to have the horizontal scrolling function like vertical scrolling. I have pretended this does not exist, because it sounds like a much easier and simpler solution than mine. Maybe in another 6 years when I rebuild this site, I'll use that method.</p>
+
+          <p>Coding this was not easy, and I won't be diving into the specific code. What I will say is that I had one universal handler that handled the scrolling, and then we had about four different input methods which were loosely divided into linear and non-linear movement methods. Linear being the arrow keys, and nonlinear being the mouse wheel, the scroll bar, trackpads, etc. </p>
+
+          <p>After solving the scroll problem, the next scroll issue was parallax scrolling. Parallax scrolling codebases are bloated, complicated, and generally only work with vertical scrolling instead of horizontal scrolling. In addition, I found many of them to be inefficient. Rather than moving elements and having some elements static, it was a complicated mess of every container having a different parallax scroll value. Not only was this inefficient and harmful on performance, I don't like content not scrolling 1:1 with what you are used to. It makes websites harder to read, and I only wanted parallax scrolling to apply to background animations and in subtle ways.</p>
+          
+          <p>My solution was not ideal in some ways, but good in others. The parallax scrolling code I developed only triggers when the object is on the screen. At the start of the page-load, all objects have their positions loaded. Only when the object is about to be in-view does the parallax code activate. This allows me to have a large amount of parallax objects on the page without dramatically impacting performance.</p>
+
+          <p>In addition, many parallax scroll codes are difficult to accurately position objects. Because each page has multiple parallax elements placed in unique positions, I made sure their origin is the center-point of the viewport, rather than some obligatory position determined by the content, that I found with most parallax frameworks. In combination, both of these best practices, alongside some smart CSS, HTML, and SVG object organization, allow me to place parallax objects with relative ease and without much guess work.</p>
+          
+          <p>The downside to the parallax code is one out of necessity to get the site up quickly – the code currently functions when the user scrolls, not where the content is in the viewport. This means that, if the user scrolls very quickly, or scrolls back and forth, the objects can get removed from their native position. This is OK, given parallax scrolling is only used for decorative elements, but unideal. In the future, I plan to have the objects parallax scroll based on the current window.scrollX, which will prevent this from happening and give me even more granular control over the object position.</p>
+
+          <p>The last piece of scrolling that we should talk about is the Portfolio Homepage. The index was a huge pain in the ass. Because of the way I structured it, traditional CSS Snap Scrolling was not going to function. My scroll code interprets vertical scrolling into horizontal scrolling, and the native CSS Snap Scroll would not function.</p>
+          
+          <p>Therefore, I opted for a javascript solution. I detected if the page involved snap scrolling, and if so, any time a scroll event would normally happen, a snap-scroll would happen instead. For linear inputs methods, like the arrow keys, this was simple. I could detect where the panels start, and when the linear input method was activated, you would scroll to the next panel. For less linear input methods like mouse scroll, trackpads, and scrolling with the scrollbar, this was much more complicated.</p>
+          
+          <p>I ended up going with a solution where the user is allowed to scroll as they see fit, and after x seconds, if they're misaligned from an anchor point, the window would smooth scroll to that anchor point. I added some additional logic that detected if it should scroll forwards or backwards depending on the user's start and end point, and also the velocity in which they scrolled.</p>
+          
+          <p>This works great in most cases, however Chrome has an issue where if the user scrolls with the mousewheel, the animation actually stops after a specific amount of time. This issue does not exist in Safari, Firefox, Microsoft Edge, or other browsers. This meant an additional (janky) check, where after the scroll action is completed, if it was not at a snap point, it would run the scroll one final time. It doesn't look the prettiest, but it does function.</p>
+
           <a href="2022-12-30-blog.html">Next Blog Post: Blog Page & Wrap-up</a>
-        </p>
       </div>
     </div>
   </section>
@@ -254,6 +237,19 @@
 <div class="outer-grunge"></div>
 <div class="scanline"></div>
 <div class="vignette"></div>
+
+<div class="loading-screen">
+  <div class="vert-center">
+    <div class="video-loading-anim">
+      <svg class="svg">
+        <polygon points="0,0 15,20 500,20 480,0" fill="url(#pattern-line-diagonal-thin)" />
+      </svg>
+    </div>
+    <div class="loading-text">
+      <span class="monotype">Building content...</span>
+    </div>
+  </div>
+</div>
 <!-- Scripts
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <script src="bundle.js" defer></script>
